@@ -56,19 +56,11 @@ namespace SAP_Task_List_Maker
             MeasurementManager.LoadMeasurements("11338714");
         }
 
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         /// <summary>
         /// Update measurement point data on click
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void MeasTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-
             if(e.Node.Text[..1] == "[")
             {
                 MobilityMeasurement MeasureToDisplay = MeasurementManager.GetExistingMeasurement(e.Node.Index);
@@ -85,12 +77,184 @@ namespace SAP_Task_List_Maker
             }
         }
 
+#region BODY DATA GRID EVENTS
+
         /// <summary>
         /// Turn off the annoynig tooltips for every cell
         /// </summary>
-        private void BodyDGV_MouseEnter(object sender, EventArgs e)
+        private void DGVBody_MouseEnter(object sender, EventArgs e)
         {
             DGVBody.ShowCellToolTips = false;
         }
+
+        /// <summary>
+        /// Shows context menu when you right click the row headers
+        /// </summary>
+        private void DGVBody_RowHeaderClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+                BodyDGVContextMenu.Show(MousePosition);
+        }
+
+        /* Context menu events */
+
+        /// <summary>
+        /// Inserts a new row above the current selected row
+        /// </summary>
+        private void InsertAboveMenu_Click(object sender, EventArgs e)
+        {
+            // Check we have a row selected
+            if (DGVBody.SelectedRows.Count == 0)
+            { 
+                MsgBoxs.MsgBox_Warning("Please select a row to insert a new row");
+                return;
+            }
+
+            // Insert row above
+            if (DGVBody.SelectedRows.Count == 1)
+                DGVBody.Rows.Insert(DGVBody.SelectedRows[0].Index, new DataGridViewRow());
+            else
+                MsgBoxs.MsgBox_Warning("Please select a single row to insert a new row");
+        }
+
+        /// <summary>
+        /// Inserts a new row below the current selected row
+        /// </summary>
+        private void InsertBelowMenu_Click(object sender, EventArgs e)
+        {
+            // Check we have a row selected
+            if (DGVBody.SelectedRows.Count == 0)
+            {
+                MsgBoxs.MsgBox_Warning("Please select a row to insert a new row");
+                return;
+            }
+
+            // Insert row above
+            if (DGVBody.SelectedRows.Count == 1)
+            { 
+                // Check if we are at the last row
+                if (DGVBody.SelectedRows[0].Index + 1 > DGVBody.Rows.Count - 1)
+                    DGVBody.Rows.Add();
+                else
+                    DGVBody.Rows.Insert(DGVBody.SelectedRows[0].Index + 1, new DataGridViewRow());
+            }       
+            else
+                MsgBoxs.MsgBox_Warning("Please select a single row to insert a new row");
+        }
+
+        /// <summary>
+        /// Delete selected rows
+        /// </summary>
+        private void DeleteRowMenu_Click(object sender, EventArgs e)
+        {
+            // Check we have a row selected
+            if (DGVBody.SelectedRows.Count == 0)
+            {
+                MsgBoxs.MsgBox_Warning("Please select a row to delete");
+                return;
+            }
+
+            // Remove the rows
+            foreach (DataGridViewRow r in DGVBody.SelectedRows)
+            {
+                r.Dispose();
+            }
+            
+        }
+
+        /// <summary>
+        /// Stop SHIFT+SPACE selecting a whole row
+        /// </summary>
+        private void DGVBody_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            DGVBody.SelectionMode = DataGridViewSelectionMode.CellSelect;
+        }
+
+        /// <summary>
+        /// Stop SHIFT+SPACE selecting a whole row
+        /// </summary>
+        private void DGVBody_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            DGVBody.SelectionMode = DataGridViewSelectionMode.RowHeaderSelect;
+        }
+
+        /// <summary>
+        /// Paint nice borders
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DGVBody_CellPaint(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            //Draw only grid content cells not ColumnHeader cells nor RowHeader cells
+            if (e.ColumnIndex > -1 & e.RowIndex > -1)
+            {
+                //Pen for left and top borders
+                using (var backGroundPen = new Pen(e.CellStyle.BackColor, 1))
+                //Pen for bottom and right borders
+                using (var gridlinePen = new Pen(DGVBody.GridColor, 1))
+                //Pen for selected cell borders
+                using (var selectedPen = new Pen(Color.Red, 1))
+                {
+                    var topLeftPoint = new Point(e.CellBounds.Left, e.CellBounds.Top);
+                    var topRightPoint = new Point(e.CellBounds.Right - 1, e.CellBounds.Top);
+                    var bottomRightPoint = new Point(e.CellBounds.Right - 1, e.CellBounds.Bottom - 1);
+                    var bottomleftPoint = new Point(e.CellBounds.Left, e.CellBounds.Bottom - 1);
+
+                    //Draw selected cells here
+                    if (DGVBody[e.ColumnIndex, e.RowIndex].Selected)
+                    {
+                        //Paint all parts except borders.
+                        e.Paint(e.ClipBounds, DataGridViewPaintParts.All & ~DataGridViewPaintParts.Border);
+
+                        //Draw selected cells border here
+                        e.Graphics.DrawRectangle(selectedPen, new Rectangle(e.CellBounds.Left, e.CellBounds.Top, e.CellBounds.Width - 1, e.CellBounds.Height - 1));
+
+                        //Handled painting for this cell, Stop default rendering.
+                        e.Handled = true;
+                    }
+                    //Draw non-selected cells here
+                    else
+                    {
+                        //Paint all parts except borders.
+                        e.Paint(e.ClipBounds, DataGridViewPaintParts.All & ~DataGridViewPaintParts.Border);
+
+                        //Top border of first row cells should be in background color
+                        if (e.RowIndex == 0)
+                            e.Graphics.DrawLine(backGroundPen, topLeftPoint, topRightPoint);
+
+                        //Left border of first column cells should be in background color
+                        if (e.ColumnIndex == 0)
+                            e.Graphics.DrawLine(backGroundPen, topLeftPoint, bottomleftPoint);
+
+                        //Bottom border of last row cells should be in gridLine color
+                        if (e.RowIndex == DGVBody.RowCount - 1)
+                            e.Graphics.DrawLine(gridlinePen, bottomRightPoint, bottomleftPoint);
+                        else  //Bottom border of non-last row cells should be in background color
+                            e.Graphics.DrawLine(backGroundPen, bottomRightPoint, bottomleftPoint);
+
+                        //Right border of last column cells should be in gridLine color
+                        if (e.ColumnIndex == DGVBody.ColumnCount - 1)
+                            e.Graphics.DrawLine(gridlinePen, bottomRightPoint, topRightPoint);
+                        else //Right border of non-last column cells should be in background color
+                            e.Graphics.DrawLine(backGroundPen, bottomRightPoint, topRightPoint);
+
+                        //Top border of non-first row cells should be in gridLine color, and they should be drawn here after right border
+                        if (e.RowIndex > 0)
+                            e.Graphics.DrawLine(gridlinePen, topLeftPoint, topRightPoint);
+
+                        //Left border of non-first column cells should be in gridLine color, and they should be drawn here after bottom border
+                        if (e.ColumnIndex > 0)
+                            e.Graphics.DrawLine(gridlinePen, topLeftPoint, bottomleftPoint);
+
+                        //We handled painting for this cell, Stop default rendering.
+                        e.Handled = true;
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+
     }
 }

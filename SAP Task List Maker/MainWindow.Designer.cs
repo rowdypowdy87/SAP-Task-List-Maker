@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Existing Measurements");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("New Measurements");
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -88,6 +89,13 @@
             this.NumOfPersonCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ComponentsTab = new System.Windows.Forms.TabPage();
             this.PRTTab = new System.Windows.Forms.TabPage();
+            this.BodyDGVContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.InsertRowMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.InsertAboveMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.InsertBelowMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.CopyRowMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.CutRowMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.DeleteRowMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             this.MainStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitLayout)).BeginInit();
@@ -103,6 +111,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.DGVHeader)).BeginInit();
             this.BodyTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVBody)).BeginInit();
+            this.BodyDGVContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainMenu
@@ -112,8 +121,8 @@
             this.fileToolStripMenuItem});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
-            this.MainMenu.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.MainMenu.Size = new System.Drawing.Size(1978, 33);
+            this.MainMenu.Padding = new System.Windows.Forms.Padding(14, 3, 0, 3);
+            this.MainMenu.Size = new System.Drawing.Size(3363, 51);
             this.MainMenu.TabIndex = 0;
             this.MainMenu.Text = "menuStrip1";
             // 
@@ -123,30 +132,31 @@
             this.importFromSapToolStripMenuItem,
             this.importMEasToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(54, 29);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(87, 45);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // importFromSapToolStripMenuItem
             // 
             this.importFromSapToolStripMenuItem.Name = "importFromSapToolStripMenuItem";
-            this.importFromSapToolStripMenuItem.Size = new System.Drawing.Size(251, 34);
+            this.importFromSapToolStripMenuItem.Size = new System.Drawing.Size(408, 54);
             this.importFromSapToolStripMenuItem.Text = "Import From Sap";
             this.importFromSapToolStripMenuItem.Click += new System.EventHandler(this.importFromSapToolStripMenuItem_Click);
             // 
             // importMEasToolStripMenuItem
             // 
             this.importMEasToolStripMenuItem.Name = "importMEasToolStripMenuItem";
-            this.importMEasToolStripMenuItem.Size = new System.Drawing.Size(251, 34);
+            this.importMEasToolStripMenuItem.Size = new System.Drawing.Size(408, 54);
             this.importMEasToolStripMenuItem.Text = "Import MEas";
             this.importMEasToolStripMenuItem.Click += new System.EventHandler(this.importMEasToolStripMenuItem_Click);
             // 
             // MainToolStrip
             // 
             this.MainToolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.MainToolStrip.Location = new System.Drawing.Point(0, 33);
-            this.MainToolStrip.MinimumSize = new System.Drawing.Size(0, 62);
+            this.MainToolStrip.Location = new System.Drawing.Point(0, 51);
+            this.MainToolStrip.MinimumSize = new System.Drawing.Size(0, 102);
             this.MainToolStrip.Name = "MainToolStrip";
-            this.MainToolStrip.Size = new System.Drawing.Size(1978, 62);
+            this.MainToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.MainToolStrip.Size = new System.Drawing.Size(3363, 102);
             this.MainToolStrip.TabIndex = 2;
             this.MainToolStrip.Text = "Tool Strip";
             // 
@@ -156,30 +166,30 @@
             this.MainStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.StatusProgressBar,
             this.StatusTextLabel});
-            this.MainStatus.Location = new System.Drawing.Point(0, 1222);
+            this.MainStatus.Location = new System.Drawing.Point(0, 2003);
             this.MainStatus.Name = "MainStatus";
-            this.MainStatus.Padding = new System.Windows.Forms.Padding(1, 0, 18, 0);
-            this.MainStatus.Size = new System.Drawing.Size(1978, 32);
+            this.MainStatus.Padding = new System.Windows.Forms.Padding(2, 0, 31, 0);
+            this.MainStatus.Size = new System.Drawing.Size(3363, 54);
             this.MainStatus.TabIndex = 3;
             this.MainStatus.Text = "statusStrip1";
             // 
             // StatusProgressBar
             // 
             this.StatusProgressBar.Name = "StatusProgressBar";
-            this.StatusProgressBar.Size = new System.Drawing.Size(125, 24);
+            this.StatusProgressBar.Size = new System.Drawing.Size(212, 38);
             // 
             // StatusTextLabel
             // 
             this.StatusTextLabel.Name = "StatusTextLabel";
-            this.StatusTextLabel.Size = new System.Drawing.Size(179, 25);
+            this.StatusTextLabel.Size = new System.Drawing.Size(297, 41);
             this.StatusTextLabel.Text = "toolStripStatusLabel1";
             // 
             // MainSplitLayout
             // 
             this.MainSplitLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainSplitLayout.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.MainSplitLayout.Location = new System.Drawing.Point(0, 95);
-            this.MainSplitLayout.Margin = new System.Windows.Forms.Padding(4);
+            this.MainSplitLayout.Location = new System.Drawing.Point(0, 153);
+            this.MainSplitLayout.Margin = new System.Windows.Forms.Padding(7);
             this.MainSplitLayout.Name = "MainSplitLayout";
             // 
             // MainSplitLayout.Panel1
@@ -189,9 +199,9 @@
             // MainSplitLayout.Panel2
             // 
             this.MainSplitLayout.Panel2.Controls.Add(this.DataTabs);
-            this.MainSplitLayout.Size = new System.Drawing.Size(1978, 1127);
+            this.MainSplitLayout.Size = new System.Drawing.Size(3363, 1850);
             this.MainSplitLayout.SplitterDistance = 433;
-            this.MainSplitLayout.SplitterWidth = 5;
+            this.MainSplitLayout.SplitterWidth = 8;
             this.MainSplitLayout.TabIndex = 4;
             // 
             // MeasurementsLayout
@@ -210,14 +220,14 @@
             this.MeasurementsLayout.RowCount = 2;
             this.MeasurementsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.MeasurementsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.MeasurementsLayout.Size = new System.Drawing.Size(433, 1127);
+            this.MeasurementsLayout.Size = new System.Drawing.Size(433, 1850);
             this.MeasurementsLayout.TabIndex = 1;
             // 
             // MeasPointsTree
             // 
             this.MeasPointsTree.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MeasPointsTree.Location = new System.Drawing.Point(1, 1);
-            this.MeasPointsTree.Margin = new System.Windows.Forms.Padding(1);
+            this.MeasPointsTree.Location = new System.Drawing.Point(2, 2);
+            this.MeasPointsTree.Margin = new System.Windows.Forms.Padding(2);
             this.MeasPointsTree.Name = "MeasPointsTree";
             treeNode1.Name = "ExistingMeasNode";
             treeNode1.Text = "Existing Measurements";
@@ -226,7 +236,7 @@
             this.MeasPointsTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2});
-            this.MeasPointsTree.Size = new System.Drawing.Size(431, 674);
+            this.MeasPointsTree.Size = new System.Drawing.Size(429, 1106);
             this.MeasPointsTree.TabIndex = 0;
             this.MeasPointsTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.MeasTree_NodeMouseClick);
             // 
@@ -234,11 +244,11 @@
             // 
             this.MeasPointDetailGroupBox.Controls.Add(this.tableLayoutPanel1);
             this.MeasPointDetailGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MeasPointDetailGroupBox.Location = new System.Drawing.Point(1, 677);
-            this.MeasPointDetailGroupBox.Margin = new System.Windows.Forms.Padding(1);
+            this.MeasPointDetailGroupBox.Location = new System.Drawing.Point(2, 1112);
+            this.MeasPointDetailGroupBox.Margin = new System.Windows.Forms.Padding(2);
             this.MeasPointDetailGroupBox.Name = "MeasPointDetailGroupBox";
-            this.MeasPointDetailGroupBox.Padding = new System.Windows.Forms.Padding(4);
-            this.MeasPointDetailGroupBox.Size = new System.Drawing.Size(431, 449);
+            this.MeasPointDetailGroupBox.Padding = new System.Windows.Forms.Padding(7);
+            this.MeasPointDetailGroupBox.Size = new System.Drawing.Size(429, 736);
             this.MeasPointDetailGroupBox.TabIndex = 1;
             this.MeasPointDetailGroupBox.TabStop = false;
             this.MeasPointDetailGroupBox.Text = "Details";
@@ -269,8 +279,8 @@
             this.tableLayoutPanel1.Controls.Add(this.checkBox1, 1, 10);
             this.tableLayoutPanel1.Controls.Add(this.checkBox2, 0, 10);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(4, 28);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(7, 47);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(7);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 11;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -284,27 +294,26 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(423, 417);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(415, 682);
             this.tableLayoutPanel1.TabIndex = 0;
-            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
             // MPPositionTextBox
             // 
             this.MPPositionTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MPPositionTextBox.Location = new System.Drawing.Point(145, 43);
-            this.MPPositionTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.MPPositionTextBox.Location = new System.Drawing.Point(146, 89);
+            this.MPPositionTextBox.Margin = new System.Windows.Forms.Padding(7);
             this.MPPositionTextBox.Name = "MPPositionTextBox";
-            this.MPPositionTextBox.Size = new System.Drawing.Size(274, 31);
+            this.MPPositionTextBox.Size = new System.Drawing.Size(262, 47);
             this.MPPositionTextBox.TabIndex = 2;
             // 
             // MPDescLabel
             // 
             this.MPDescLabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.MPDescLabel.AutoSize = true;
-            this.MPDescLabel.Location = new System.Drawing.Point(35, 7);
-            this.MPDescLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.MPDescLabel.Location = new System.Drawing.Point(15, 0);
+            this.MPDescLabel.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.MPDescLabel.Name = "MPDescLabel";
-            this.MPDescLabel.Size = new System.Drawing.Size(102, 25);
+            this.MPDescLabel.Size = new System.Drawing.Size(117, 82);
             this.MPDescLabel.TabIndex = 0;
             this.MPDescLabel.Text = "Description";
             // 
@@ -312,30 +321,30 @@
             // 
             this.MPPositionLabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.MPPositionLabel.AutoSize = true;
-            this.MPPositionLabel.Location = new System.Drawing.Point(62, 46);
-            this.MPPositionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.MPPositionLabel.Location = new System.Drawing.Point(8, 92);
+            this.MPPositionLabel.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.MPPositionLabel.Name = "MPPositionLabel";
-            this.MPPositionLabel.Size = new System.Drawing.Size(75, 25);
+            this.MPPositionLabel.Size = new System.Drawing.Size(124, 41);
             this.MPPositionLabel.TabIndex = 0;
             this.MPPositionLabel.Text = "Position";
             // 
             // MPDescriptionTextBox
             // 
             this.MPDescriptionTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MPDescriptionTextBox.Location = new System.Drawing.Point(145, 4);
-            this.MPDescriptionTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.MPDescriptionTextBox.Location = new System.Drawing.Point(146, 7);
+            this.MPDescriptionTextBox.Margin = new System.Windows.Forms.Padding(7);
             this.MPDescriptionTextBox.Name = "MPDescriptionTextBox";
-            this.MPDescriptionTextBox.Size = new System.Drawing.Size(274, 31);
+            this.MPDescriptionTextBox.Size = new System.Drawing.Size(262, 47);
             this.MPDescriptionTextBox.TabIndex = 1;
             // 
             // MPCharNameLabel
             // 
             this.MPCharNameLabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.MPCharNameLabel.AutoSize = true;
-            this.MPCharNameLabel.Location = new System.Drawing.Point(21, 86);
-            this.MPCharNameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.MPCharNameLabel.Location = new System.Drawing.Point(14, 143);
+            this.MPCharNameLabel.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.MPCharNameLabel.Name = "MPCharNameLabel";
-            this.MPCharNameLabel.Size = new System.Drawing.Size(116, 25);
+            this.MPCharNameLabel.Size = new System.Drawing.Size(118, 82);
             this.MPCharNameLabel.TabIndex = 0;
             this.MPCharNameLabel.Text = "Characteristic";
             // 
@@ -343,40 +352,40 @@
             // 
             this.MPCharNameComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MPCharNameComboBox.FormattingEnabled = true;
-            this.MPCharNameComboBox.Location = new System.Drawing.Point(145, 82);
-            this.MPCharNameComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.MPCharNameComboBox.Location = new System.Drawing.Point(146, 150);
+            this.MPCharNameComboBox.Margin = new System.Windows.Forms.Padding(7);
             this.MPCharNameComboBox.Name = "MPCharNameComboBox";
-            this.MPCharNameComboBox.Size = new System.Drawing.Size(274, 33);
+            this.MPCharNameComboBox.Size = new System.Drawing.Size(262, 49);
             this.MPCharNameComboBox.TabIndex = 3;
             // 
             // MPDecimalPlaceLabel
             // 
             this.MPDecimalPlaceLabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.MPDecimalPlaceLabel.AutoSize = true;
-            this.MPDecimalPlaceLabel.Location = new System.Drawing.Point(62, 126);
-            this.MPDecimalPlaceLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.MPDecimalPlaceLabel.Location = new System.Drawing.Point(8, 235);
+            this.MPDecimalPlaceLabel.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.MPDecimalPlaceLabel.Name = "MPDecimalPlaceLabel";
-            this.MPDecimalPlaceLabel.Size = new System.Drawing.Size(75, 25);
+            this.MPDecimalPlaceLabel.Size = new System.Drawing.Size(124, 41);
             this.MPDecimalPlaceLabel.TabIndex = 0;
             this.MPDecimalPlaceLabel.Text = "Decimal";
             // 
             // MPDecimalTextBox
             // 
             this.MPDecimalTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MPDecimalTextBox.Location = new System.Drawing.Point(145, 123);
-            this.MPDecimalTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.MPDecimalTextBox.Location = new System.Drawing.Point(146, 232);
+            this.MPDecimalTextBox.Margin = new System.Windows.Forms.Padding(7);
             this.MPDecimalTextBox.Name = "MPDecimalTextBox";
-            this.MPDecimalTextBox.Size = new System.Drawing.Size(274, 31);
+            this.MPDecimalTextBox.Size = new System.Drawing.Size(262, 47);
             this.MPDecimalTextBox.TabIndex = 5;
             // 
             // MPCodeGroupLabel
             // 
             this.MPCodeGroupLabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.MPCodeGroupLabel.AutoSize = true;
-            this.MPCodeGroupLabel.Location = new System.Drawing.Point(28, 166);
-            this.MPCodeGroupLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.MPCodeGroupLabel.Location = new System.Drawing.Point(30, 286);
+            this.MPCodeGroupLabel.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.MPCodeGroupLabel.Name = "MPCodeGroupLabel";
-            this.MPCodeGroupLabel.Size = new System.Drawing.Size(109, 25);
+            this.MPCodeGroupLabel.Size = new System.Drawing.Size(102, 82);
             this.MPCodeGroupLabel.TabIndex = 0;
             this.MPCodeGroupLabel.Text = "Code Group";
             // 
@@ -384,20 +393,20 @@
             // 
             this.MPCodeGroupComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MPCodeGroupComboBox.FormattingEnabled = true;
-            this.MPCodeGroupComboBox.Location = new System.Drawing.Point(145, 162);
-            this.MPCodeGroupComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.MPCodeGroupComboBox.Location = new System.Drawing.Point(146, 293);
+            this.MPCodeGroupComboBox.Margin = new System.Windows.Forms.Padding(7);
             this.MPCodeGroupComboBox.Name = "MPCodeGroupComboBox";
-            this.MPCodeGroupComboBox.Size = new System.Drawing.Size(274, 33);
+            this.MPCodeGroupComboBox.Size = new System.Drawing.Size(262, 49);
             this.MPCodeGroupComboBox.TabIndex = 6;
             // 
             // label1
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(35, 206);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(26, 368);
+            this.label1.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 25);
+            this.label1.Size = new System.Drawing.Size(106, 82);
             this.label1.TabIndex = 0;
             this.label1.Text = "Lower Limit";
             // 
@@ -405,39 +414,39 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(33, 245);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(23, 450);
+            this.label2.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(104, 25);
+            this.label2.Size = new System.Drawing.Size(109, 82);
             this.label2.TabIndex = 7;
             this.label2.Text = "Upper Limit";
             // 
             // MPLowerLimitTextBox
             // 
             this.MPLowerLimitTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MPLowerLimitTextBox.Location = new System.Drawing.Point(145, 203);
-            this.MPLowerLimitTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.MPLowerLimitTextBox.Location = new System.Drawing.Point(146, 375);
+            this.MPLowerLimitTextBox.Margin = new System.Windows.Forms.Padding(7);
             this.MPLowerLimitTextBox.Name = "MPLowerLimitTextBox";
-            this.MPLowerLimitTextBox.Size = new System.Drawing.Size(274, 31);
+            this.MPLowerLimitTextBox.Size = new System.Drawing.Size(262, 47);
             this.MPLowerLimitTextBox.TabIndex = 8;
             // 
             // MPUpperLimitTextBox
             // 
             this.MPUpperLimitTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MPUpperLimitTextBox.Location = new System.Drawing.Point(145, 242);
-            this.MPUpperLimitTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.MPUpperLimitTextBox.Location = new System.Drawing.Point(146, 457);
+            this.MPUpperLimitTextBox.Margin = new System.Windows.Forms.Padding(7);
             this.MPUpperLimitTextBox.Name = "MPUpperLimitTextBox";
-            this.MPUpperLimitTextBox.Size = new System.Drawing.Size(274, 31);
+            this.MPUpperLimitTextBox.Size = new System.Drawing.Size(262, 47);
             this.MPUpperLimitTextBox.TabIndex = 9;
             // 
             // label3
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(30, 284);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(24, 532);
+            this.label3.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(107, 25);
+            this.label3.Size = new System.Drawing.Size(108, 82);
             this.label3.TabIndex = 7;
             this.label3.Text = "Target Value";
             // 
@@ -445,38 +454,38 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(42, 323);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(24, 614);
+            this.label4.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(95, 25);
+            this.label4.Size = new System.Drawing.Size(108, 82);
             this.label4.TabIndex = 7;
             this.label4.Text = "Target Text";
             // 
             // MPTargetValueTextBox
             // 
             this.MPTargetValueTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MPTargetValueTextBox.Location = new System.Drawing.Point(145, 281);
-            this.MPTargetValueTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.MPTargetValueTextBox.Location = new System.Drawing.Point(146, 539);
+            this.MPTargetValueTextBox.Margin = new System.Windows.Forms.Padding(7);
             this.MPTargetValueTextBox.Name = "MPTargetValueTextBox";
-            this.MPTargetValueTextBox.Size = new System.Drawing.Size(274, 31);
+            this.MPTargetValueTextBox.Size = new System.Drawing.Size(262, 47);
             this.MPTargetValueTextBox.TabIndex = 10;
             // 
             // MPTargetTextTextBox
             // 
             this.MPTargetTextTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MPTargetTextTextBox.Location = new System.Drawing.Point(145, 320);
-            this.MPTargetTextTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.MPTargetTextTextBox.Location = new System.Drawing.Point(146, 621);
+            this.MPTargetTextTextBox.Margin = new System.Windows.Forms.Padding(7);
             this.MPTargetTextTextBox.Name = "MPTargetTextTextBox";
-            this.MPTargetTextTextBox.Size = new System.Drawing.Size(274, 31);
+            this.MPTargetTextTextBox.Size = new System.Drawing.Size(262, 47);
             this.MPTargetTextTextBox.TabIndex = 11;
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(145, 359);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox1.Location = new System.Drawing.Point(146, 703);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(7);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(213, 29);
+            this.checkBox1.Size = new System.Drawing.Size(262, 45);
             this.checkBox1.TabIndex = 12;
             this.checkBox1.Text = "Value Code Sufficient?";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -485,10 +494,10 @@
             // 
             this.checkBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(10, 359);
-            this.checkBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox2.Location = new System.Drawing.Point(7, 703);
+            this.checkBox2.Margin = new System.Windows.Forms.Padding(7);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(127, 29);
+            this.checkBox2.Size = new System.Drawing.Size(125, 45);
             this.checkBox2.TabIndex = 12;
             this.checkBox2.Text = "Is Counter?";
             this.checkBox2.UseVisualStyleBackColor = true;
@@ -504,17 +513,17 @@
             this.DataTabs.Margin = new System.Windows.Forms.Padding(0);
             this.DataTabs.Name = "DataTabs";
             this.DataTabs.SelectedIndex = 0;
-            this.DataTabs.Size = new System.Drawing.Size(1540, 1127);
+            this.DataTabs.Size = new System.Drawing.Size(2922, 1850);
             this.DataTabs.TabIndex = 0;
             // 
             // HeaderTab
             // 
             this.HeaderTab.Controls.Add(this.HeaderTabLayout);
-            this.HeaderTab.Location = new System.Drawing.Point(4, 34);
-            this.HeaderTab.Margin = new System.Windows.Forms.Padding(4);
+            this.HeaderTab.Location = new System.Drawing.Point(10, 58);
+            this.HeaderTab.Margin = new System.Windows.Forms.Padding(7);
             this.HeaderTab.Name = "HeaderTab";
-            this.HeaderTab.Padding = new System.Windows.Forms.Padding(4);
-            this.HeaderTab.Size = new System.Drawing.Size(1532, 1089);
+            this.HeaderTab.Padding = new System.Windows.Forms.Padding(7);
+            this.HeaderTab.Size = new System.Drawing.Size(2902, 1782);
             this.HeaderTab.TabIndex = 0;
             this.HeaderTab.Text = "Header";
             this.HeaderTab.UseVisualStyleBackColor = true;
@@ -525,13 +534,13 @@
             this.HeaderTabLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.HeaderTabLayout.Controls.Add(this.DGVHeader, 0, 1);
             this.HeaderTabLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HeaderTabLayout.Location = new System.Drawing.Point(4, 4);
-            this.HeaderTabLayout.Margin = new System.Windows.Forms.Padding(4);
+            this.HeaderTabLayout.Location = new System.Drawing.Point(7, 7);
+            this.HeaderTabLayout.Margin = new System.Windows.Forms.Padding(7);
             this.HeaderTabLayout.Name = "HeaderTabLayout";
             this.HeaderTabLayout.RowCount = 2;
             this.HeaderTabLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.12676F));
             this.HeaderTabLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 88.87324F));
-            this.HeaderTabLayout.Size = new System.Drawing.Size(1524, 1081);
+            this.HeaderTabLayout.Size = new System.Drawing.Size(2888, 1768);
             this.HeaderTabLayout.TabIndex = 0;
             // 
             // DGVHeader
@@ -547,13 +556,13 @@
             this.WorkCenterCol,
             this.MaintStratCol});
             this.DGVHeader.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DGVHeader.Location = new System.Drawing.Point(0, 120);
+            this.DGVHeader.Location = new System.Drawing.Point(0, 196);
             this.DGVHeader.Margin = new System.Windows.Forms.Padding(0);
             this.DGVHeader.Name = "DGVHeader";
             this.DGVHeader.RowHeadersVisible = false;
             this.DGVHeader.RowHeadersWidth = 51;
             this.DGVHeader.RowTemplate.Height = 29;
-            this.DGVHeader.Size = new System.Drawing.Size(1524, 961);
+            this.DGVHeader.Size = new System.Drawing.Size(2888, 1572);
             this.DGVHeader.TabIndex = 1;
             // 
             // GroupCol
@@ -601,17 +610,19 @@
             // BodyTab
             // 
             this.BodyTab.Controls.Add(this.DGVBody);
-            this.BodyTab.Location = new System.Drawing.Point(4, 34);
-            this.BodyTab.Margin = new System.Windows.Forms.Padding(4);
+            this.BodyTab.Location = new System.Drawing.Point(10, 58);
+            this.BodyTab.Margin = new System.Windows.Forms.Padding(7);
             this.BodyTab.Name = "BodyTab";
-            this.BodyTab.Padding = new System.Windows.Forms.Padding(4);
-            this.BodyTab.Size = new System.Drawing.Size(1532, 1089);
+            this.BodyTab.Padding = new System.Windows.Forms.Padding(7);
+            this.BodyTab.Size = new System.Drawing.Size(2902, 1782);
             this.BodyTab.TabIndex = 1;
             this.BodyTab.Text = "Body";
             this.BodyTab.UseVisualStyleBackColor = true;
             // 
             // DGVBody
             // 
+            this.DGVBody.AllowUserToAddRows = false;
+            this.DGVBody.AllowUserToDeleteRows = false;
             this.DGVBody.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVBody.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DGVBody.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
@@ -634,15 +645,19 @@
             this.NumOfPersonCol});
             this.DGVBody.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DGVBody.GridColor = System.Drawing.SystemColors.ActiveCaption;
-            this.DGVBody.Location = new System.Drawing.Point(4, 4);
-            this.DGVBody.Margin = new System.Windows.Forms.Padding(4);
+            this.DGVBody.Location = new System.Drawing.Point(7, 7);
+            this.DGVBody.Margin = new System.Windows.Forms.Padding(7);
             this.DGVBody.Name = "DGVBody";
             this.DGVBody.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.DGVBody.RowHeadersWidth = 25;
             this.DGVBody.RowTemplate.Height = 29;
-            this.DGVBody.Size = new System.Drawing.Size(1524, 1081);
+            this.DGVBody.Size = new System.Drawing.Size(2888, 1768);
             this.DGVBody.TabIndex = 0;
-            this.DGVBody.MouseEnter += new System.EventHandler(this.BodyDGV_MouseEnter);
+            this.DGVBody.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.DGVBody_CellBeginEdit);
+            this.DGVBody.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVBody_CellEndEdit);
+            this.DGVBody.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DGVBody_CellPaint);
+            this.DGVBody.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DGVBody_RowHeaderClick);
+            this.DGVBody.MouseEnter += new System.EventHandler(this.DGVBody_MouseEnter);
             // 
             // OperationCol
             // 
@@ -705,37 +720,90 @@
             // 
             // ComponentsTab
             // 
-            this.ComponentsTab.Location = new System.Drawing.Point(4, 34);
-            this.ComponentsTab.Margin = new System.Windows.Forms.Padding(4);
+            this.ComponentsTab.Location = new System.Drawing.Point(10, 58);
+            this.ComponentsTab.Margin = new System.Windows.Forms.Padding(7);
             this.ComponentsTab.Name = "ComponentsTab";
-            this.ComponentsTab.Padding = new System.Windows.Forms.Padding(4);
-            this.ComponentsTab.Size = new System.Drawing.Size(1532, 1089);
+            this.ComponentsTab.Padding = new System.Windows.Forms.Padding(7);
+            this.ComponentsTab.Size = new System.Drawing.Size(2902, 1782);
             this.ComponentsTab.TabIndex = 2;
             this.ComponentsTab.Text = "Components";
             this.ComponentsTab.UseVisualStyleBackColor = true;
             // 
             // PRTTab
             // 
-            this.PRTTab.Location = new System.Drawing.Point(4, 34);
-            this.PRTTab.Margin = new System.Windows.Forms.Padding(4);
+            this.PRTTab.Location = new System.Drawing.Point(10, 58);
+            this.PRTTab.Margin = new System.Windows.Forms.Padding(7);
             this.PRTTab.Name = "PRTTab";
-            this.PRTTab.Padding = new System.Windows.Forms.Padding(4);
-            this.PRTTab.Size = new System.Drawing.Size(1532, 1089);
+            this.PRTTab.Padding = new System.Windows.Forms.Padding(7);
+            this.PRTTab.Size = new System.Drawing.Size(2902, 1782);
             this.PRTTab.TabIndex = 3;
             this.PRTTab.Text = "PRT";
             this.PRTTab.UseVisualStyleBackColor = true;
             // 
+            // BodyDGVContextMenu
+            // 
+            this.BodyDGVContextMenu.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.BodyDGVContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.InsertRowMenu,
+            this.CopyRowMenu,
+            this.CutRowMenu,
+            this.DeleteRowMenu});
+            this.BodyDGVContextMenu.Name = "BodyDGVContextMenu";
+            this.BodyDGVContextMenu.Size = new System.Drawing.Size(183, 196);
+            // 
+            // InsertRowMenu
+            // 
+            this.InsertRowMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.InsertAboveMenu,
+            this.InsertBelowMenu});
+            this.InsertRowMenu.Name = "InsertRowMenu";
+            this.InsertRowMenu.Size = new System.Drawing.Size(182, 48);
+            this.InsertRowMenu.Text = "Insert";
+            // 
+            // InsertAboveMenu
+            // 
+            this.InsertAboveMenu.Name = "InsertAboveMenu";
+            this.InsertAboveMenu.Size = new System.Drawing.Size(269, 54);
+            this.InsertAboveMenu.Text = "Above";
+            this.InsertAboveMenu.Click += new System.EventHandler(this.InsertAboveMenu_Click);
+            // 
+            // InsertBelowMenu
+            // 
+            this.InsertBelowMenu.Name = "InsertBelowMenu";
+            this.InsertBelowMenu.Size = new System.Drawing.Size(269, 54);
+            this.InsertBelowMenu.Text = "Below";
+            this.InsertBelowMenu.Click += new System.EventHandler(this.InsertBelowMenu_Click);
+            // 
+            // CopyRowMenu
+            // 
+            this.CopyRowMenu.Name = "CopyRowMenu";
+            this.CopyRowMenu.Size = new System.Drawing.Size(182, 48);
+            this.CopyRowMenu.Text = "Copy";
+            // 
+            // CutRowMenu
+            // 
+            this.CutRowMenu.Name = "CutRowMenu";
+            this.CutRowMenu.Size = new System.Drawing.Size(182, 48);
+            this.CutRowMenu.Text = "Cut";
+            // 
+            // DeleteRowMenu
+            // 
+            this.DeleteRowMenu.Name = "DeleteRowMenu";
+            this.DeleteRowMenu.Size = new System.Drawing.Size(182, 48);
+            this.DeleteRowMenu.Text = "Delete";
+            this.DeleteRowMenu.Click += new System.EventHandler(this.DeleteRowMenu_Click);
+            // 
             // MainWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 41F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1978, 1254);
+            this.ClientSize = new System.Drawing.Size(3363, 2057);
             this.Controls.Add(this.MainSplitLayout);
             this.Controls.Add(this.MainStatus);
             this.Controls.Add(this.MainToolStrip);
             this.Controls.Add(this.MainMenu);
             this.MainMenuStrip = this.MainMenu;
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(7);
             this.Name = "MainWindow";
             this.Text = "Form1";
             this.MainMenu.ResumeLayout(false);
@@ -756,6 +824,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.DGVHeader)).EndInit();
             this.BodyTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGVBody)).EndInit();
+            this.BodyDGVContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -817,5 +886,12 @@
         private System.Windows.Forms.TextBox MPTargetTextTextBox;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.ContextMenuStrip BodyDGVContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem InsertRowMenu;
+        private System.Windows.Forms.ToolStripMenuItem CopyRowMenu;
+        private System.Windows.Forms.ToolStripMenuItem CutRowMenu;
+        private System.Windows.Forms.ToolStripMenuItem DeleteRowMenu;
+        private System.Windows.Forms.ToolStripMenuItem InsertAboveMenu;
+        private System.Windows.Forms.ToolStripMenuItem InsertBelowMenu;
     }
 }
