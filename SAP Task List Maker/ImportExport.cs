@@ -341,6 +341,7 @@ namespace SAP_Task_List_Maker
             // Import data into memory and application
             Import = TableManager.ConvertExcelToDataTable($"{FolderPath}\\{TNames.Header}", 0);
             // Set data
+            WinParent.DGVHeader.Rows.Add();
             WinParent.DGVHeader[0, 0].Value = Import.Rows[0][0].ToString();
             WinParent.DGVHeader[1, 0].Value = Import.Rows[0][1].ToString();
             WinParent.DGVHeader[2, 0].Value = Import.Rows[0][2].ToString();
