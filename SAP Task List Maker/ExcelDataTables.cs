@@ -48,7 +48,7 @@ namespace SAP_Task_List_Maker
                     return null; 
                 }
             var ws = pck.Workbook.Worksheets[sheetnumber];
-            DataTable tbl = new ();
+            DataTable tbl = new DataTable();
             bool hasHeader = true;
             foreach (var firstRowCell in ws.Cells[1, 1, 1, ws.Dimension.End.Column])
             {

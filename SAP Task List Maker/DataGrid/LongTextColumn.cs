@@ -6,6 +6,11 @@ namespace SAP_Task_List_Maker
     // Create a editing contorl that overrides enter
     public class LongTextEditingControl : DataGridViewTextBoxEditingControl
     {
+        public LongTextEditingControl()
+        {
+            WordWrap = true;
+        }
+
         public override bool EditingControlWantsInputKey(Keys keyData, bool dataGridViewWantsInputKey)
         {
             switch (keyData & Keys.KeyCode)
@@ -63,6 +68,7 @@ namespace SAP_Task_List_Maker
         public LongTextColumn()
         {
             CellTemplate = new LongTextBoxCell();
+            
         }
     }
 }

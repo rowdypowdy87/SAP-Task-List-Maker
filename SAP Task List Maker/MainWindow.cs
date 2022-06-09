@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SAP_Task_List_Maker
@@ -15,7 +9,7 @@ namespace SAP_Task_List_Maker
         // Global variables
         public ImportExport   ImportExportManager;
         public MeasController MeasurementManager;
-        
+        public int            SelectedMeasure;
 
         /// <summary>
         /// Contructor method
@@ -24,8 +18,10 @@ namespace SAP_Task_List_Maker
         {
             InitializeComponent();
 
-            ImportExportManager = new(this);
-            MeasurementManager  = new(this);
+            ImportExportManager = new ImportExport(this);
+            MeasurementManager  = new MeasController(this);
+
+            SelectedMeasure = -1;
         }
 
         /// <summary>
@@ -53,159 +49,127 @@ namespace SAP_Task_List_Maker
 
         private void importMEasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MeasurementManager.LoadMeasurements("11338714");
+            switch (MeasurementManager.LoadMeasurements("11338714"))
+            {
+                case SAPERROR.SAP_NOT_CONNECTED: MsgBoxs.MsgBox_Error("Please ensure SAP is running to continue"); break;
+            }
         }
 
         /// <summary>
         /// Update measurement point data on click
         /// </summary>
-        private void MeasTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        private void MeasTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if(e.Node.Text[..1] == "[")
+           
+        }
+
+        /// <summary>
+        /// Draw node text
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MeasTree_DrawNode(object sender, DrawTreeNodeEventArgs e)
+        {
+            // Variables
+            Font TextFont       = new Font("Segoe UI", 9.0f, FontStyle.Regular);
+            Image EditIcon      = Properties.Resources.Updated;
+            Color Fore          = e.Node.ForeColor;
+            Color Border        = Color.Black;
+            Color Normal        = Color.White;
+            Color Change        = Color.LimeGreen;
+
+            // Set renderer to high quality
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
+            // Draw focus rectangles
+            if (e.Node == e.Node.TreeView.SelectedNode)
+            {
+                Fore = SystemColors.HighlightText;
+
+                e.Graphics.FillRectangle(new SolidBrush(Color.LightBlue), e.Bounds);
+                ControlPaint.DrawFocusRectangle(e.Graphics, e.Bounds, Fore, Color.LightBlue);
+            }
+            else
+                e.Graphics.FillRectangle(SystemBrushes.Window, e.Bounds);
+
+            if (e.Node.Level > 0)
             {
                 MobilityMeasurement MeasureToDisplay = MeasurementManager.GetExistingMeasurement(e.Node.Index);
 
-                MPDescriptionTextBox.Text   = MeasureToDisplay.Description;
-                MPPositionTextBox.Text      = MeasureToDisplay.Position;
-                MPCharNameComboBox.Text     = MeasureToDisplay.CharCode;
-                MPCodeGroupComboBox.Text    = MeasureToDisplay.CodeGroup;
-                MPDecimalTextBox.Text       = MeasureToDisplay.Decimals;
-                MPUpperLimitTextBox.Text    = MeasureToDisplay.UpperLimit;
-                MPLowerLimitTextBox.Text    = MeasureToDisplay.LowerLimit; 
-                MPTargetTextTextBox.Text    = MeasureToDisplay.TargetText;
-                MPTargetValueTextBox.Text   = MeasureToDisplay.TargetValue;
-            }
-        }
+                if (MeasureToDisplay.UpdateMethod == MEAS_UPDATE.UPDATE)
+                { 
+                    TextRenderer.DrawText(e.Graphics, e.Node.Text, TextFont, new Point(e.Node.Bounds.X, e.Node.Bounds.Y), Color.Black);
 
-#region BODY DATA GRID EVENTS
-
-        /// <summary>
-        /// Turn off the annoynig tooltips for every cell
-        /// </summary>
-        private void DGVBody_MouseEnter(object sender, EventArgs e)
-        {
-            DGVBody.ShowCellToolTips = false;
-        }
-
-        /// <summary>
-        /// Shows context menu when you right click the row headers
-        /// </summary>
-        private void DGVBody_RowHeaderClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-                BodyDGVContextMenu.Show(MousePosition);
-        }
-
-        /* Context menu events */
-
-        /// <summary>
-        /// Inserts a new row above the current selected row
-        /// </summary>
-        private void InsertAboveMenu_Click(object sender, EventArgs e)
-        {
-            // Check we have a row selected
-            if (DGVBody.SelectedRows.Count == 0)
-            { 
-                MsgBoxs.MsgBox_Warning("Please select a row to insert a new row");
-                return;
-            }
-
-            // Insert row above
-            if (DGVBody.SelectedRows.Count == 1)
-                DGVBody.Rows.Insert(DGVBody.SelectedRows[0].Index, new DataGridViewRow());
-            else
-                MsgBoxs.MsgBox_Warning("Please select a single row to insert a new row");
-        }
-
-        /// <summary>
-        /// Inserts a new row below the current selected row
-        /// </summary>
-        private void InsertBelowMenu_Click(object sender, EventArgs e)
-        {
-            // Check we have a row selected
-            if (DGVBody.SelectedRows.Count == 0)
-            {
-                MsgBoxs.MsgBox_Warning("Please select a row to insert a new row");
-                return;
-            }
-
-            // Insert row above
-            if (DGVBody.SelectedRows.Count == 1)
-            { 
-                // Check if we are at the last row
-                if (DGVBody.SelectedRows[0].Index + 1 > DGVBody.Rows.Count - 1)
-                    DGVBody.Rows.Add();
-                else
-                    DGVBody.Rows.Insert(DGVBody.SelectedRows[0].Index + 1, new DataGridViewRow());
-            }       
-            else
-                MsgBoxs.MsgBox_Warning("Please select a single row to insert a new row");
-        }
-
-        /// <summary>
-        /// Delete selected rows
-        /// </summary>
-        private void DeleteRowMenu_Click(object sender, EventArgs e)
-        {
-            // Check we have a row selected
-            if (DGVBody.SelectedRows.Count == 0)
-            {
-                MsgBoxs.MsgBox_Warning("Please select a row to delete");
-                return;
-            }
-
-            // Remove the rows
-            foreach (DataGridViewRow r in DGVBody.SelectedRows)
-            {
-                r.Dispose();
-            }
-            
-        }
-
-        /// <summary>
-        /// Stop SHIFT+SPACE selecting a whole row
-        /// </summary>
-        private void DGVBody_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
-        {
-            DGVBody.SelectionMode = DataGridViewSelectionMode.CellSelect;
-        }
-
-        /// <summary>
-        /// Stop SHIFT+SPACE selecting a whole row
-        /// </summary>
-        private void DGVBody_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            DGVBody.SelectionMode = DataGridViewSelectionMode.RowHeaderSelect;
-        }
-
-        /// <summary>
-        /// Paint nice borders
-        /// </summary>
-        private void DGVBody_CellPaint(object sender, DataGridViewCellPaintingEventArgs e)
-        {
-            //Draw only grid content cells not ColumnHeader cells nor RowHeader cells
-            if (e.ColumnIndex > -1 & e.RowIndex > -1)
-            {
-                //Pen for selected cell borders
-                using var selectedPen = new Pen(Color.FromArgb(136, 0, 21), 5);
-
-                //Draw selected cells here
-                if (DGVBody[e.ColumnIndex, e.RowIndex].Selected)
-                {
-                    //Paint all parts except borders.
-                    e.Paint(e.ClipBounds, DataGridViewPaintParts.All & ~DataGridViewPaintParts.Border);
-
-                    //Draw selected cells border here
-                    e.Graphics.DrawRectangle(selectedPen, new Rectangle(e.CellBounds.Left + 2, e.CellBounds.Top + 2, e.CellBounds.Width - 4, e.CellBounds.Height - 4));
-
-                    //Handled painting for this cell, Stop default rendering.
-                    e.Handled = true;
+                    e.Graphics.DrawImage(EditIcon, new Point(e.Node.Bounds.X - 15, e.Node.Bounds.Y + 2));
                 }
+                else
+                    TextRenderer.DrawText(e.Graphics, e.Node.Text, TextFont, new Point(e.Node.Bounds.X, e.Node.Bounds.Y), Color.Black);
+
+            }
+            else
+                TextRenderer.DrawText(e.Graphics, e.Node.Text, TextFont, new Point(e.Node.Bounds.X, e.Node.Bounds.Y), Color.Black);
+        }
+
+        private static void DrawStringOutlined(Graphics g, string Text, Font TextFont, Color TextColor, Color OutlineColor, int X, int Y, int OutlineDepth)
+        {
+            // Draw outline
+            TextRenderer.DrawText(g, Text, TextFont, new Point(X - OutlineDepth, Y - OutlineDepth), OutlineColor);
+            TextRenderer.DrawText(g, Text, TextFont, new Point(X - OutlineDepth, Y + OutlineDepth), OutlineColor);
+            TextRenderer.DrawText(g, Text, TextFont, new Point(X + OutlineDepth, Y - OutlineDepth), OutlineColor);
+            TextRenderer.DrawText(g, Text, TextFont, new Point(X + OutlineDepth, Y + OutlineDepth), OutlineColor);
+            // Draw text
+            TextRenderer.DrawText(g, Text, TextFont, new Point(X, Y), TextColor);
+        }
+
+        /// <summary>
+        /// Updates currently selected measurement in measurement tree view
+        /// </summary>
+        private void MeasUpdateButton_Click(object sender, EventArgs e)
+        {
+            if (SelectedMeasure > 0)
+            { 
+                MobilityMeasurement MeasureToChange = MeasurementManager.GetExistingMeasurement(SelectedMeasure);
+
+                MeasureToChange.Description     = MPDescriptionTextBox.Text;
+                MeasureToChange.Position        = MPPositionTextBox.Text;
+                MeasureToChange.CharCode        = MPCharNameComboBox.Text;
+                MeasureToChange.CodeGroup       = MPCodeGroupComboBox.Text;
+                MeasureToChange.Decimals        = MPDecimalTextBox.Text;
+                MeasureToChange.UpperLimit      = MPUpperLimitTextBox.Text;
+                MeasureToChange.LowerLimit      = MPLowerLimitTextBox.Text;
+                MeasureToChange.TargetText      = MPTargetTextTextBox.Text;
+                MeasureToChange.TargetValue     = MPTargetValueTextBox.Text;
+                MeasureToChange.UpdateMethod    = MEAS_UPDATE.UPDATE;
+
+                try {
+                    MeasPointsTree.Nodes[1].Nodes[SelectedMeasure].Text = $"[{MeasureToChange.Number}] - {MeasureToChange.Description}";
+                } catch { };
+
+                MeasurementManager.SetExistingMeasurement(MeasureToChange, SelectedMeasure);
+                
+                MeasPointsTree.Refresh();
             }
         }
 
-        #endregion
+        private void MeasTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Node.Level > 0)
+            {
+                MobilityMeasurement MeasureToDisplay = MeasurementManager.GetExistingMeasurement(e.Node.Index);
 
+                MPDescriptionTextBox.Text           = MeasureToDisplay.Description;
+                MPPositionTextBox.Text              = MeasureToDisplay.Position;
+                MPCharNameComboBox.Text             = MeasureToDisplay.CharCode;
+                MPCodeGroupComboBox.Text            = MeasureToDisplay.CodeGroup;
+                MPDecimalTextBox.Text               = MeasureToDisplay.Decimals;
+                MPUpperLimitTextBox.Text            = MeasureToDisplay.UpperLimit;
+                MPLowerLimitTextBox.Text            = MeasureToDisplay.LowerLimit;
+                MPTargetTextTextBox.Text            = MeasureToDisplay.TargetText;
+                MPTargetValueTextBox.Text           = MeasureToDisplay.TargetValue;
 
+                // Tell the app what node we have selected
+                SelectedMeasure                     = e.Node.Index;
+            }
+        }
     }
 }

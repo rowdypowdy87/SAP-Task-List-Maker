@@ -34,8 +34,8 @@ namespace SAP_Task_List_Maker
         public ImportExport(MainWindow rWinParent)
         {
             WinParent    = rWinParent;
-            Session      = new(WinParent);
-            TableManager = new();
+            Session      = new AUTOSAP(WinParent);
+            TableManager = new ExcelDataTables();
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace SAP_Task_List_Maker
             const  int WaitTime  = 3000;
 
             // Build tasklist name structure
-            TASKLISTNAMES TasklistNames = new()
+            TASKLISTNAMES TasklistNames = new TASKLISTNAMES()
             {
                 Header      = $"{TasklistGroup}{TasklistCounter}HEADER",
                 Operations  = $"{TasklistGroup}{TasklistCounter}OPERATIONS",
@@ -357,12 +357,12 @@ namespace SAP_Task_List_Maker
             for (int i = 0; i < Import.Rows.Count; i++)
             {
                 // Add a new row to body DGV
-                WinParent.DGVBody.Rows.Add();
+                /*WinParent.DGVBody.Rows.Add();
 
                 WinParent.DGVBody[0, i].Value = Import.Rows[i][2].ToString().Trim();     // Operation
                 WinParent.DGVBody[1, i].Value = Import.Rows[i][3].ToString().Trim();     // Sub Operation
                 WinParent.DGVBody[2, i].Value = Import.Rows[i][5].ToString().Trim();     // Description
-                WinParent.DGVBody[4, i].Value = Import.Rows[i][12].ToString().Trim();    // Work
+                WinParent.DGVBody[4, i].Value = Import.Rows[i][12].ToString().Trim();    // Work*/
             }
 
             // Clear table for next load
@@ -383,7 +383,7 @@ namespace SAP_Task_List_Maker
             {
                 LongText = Import.Rows[i][4].ToString();
 
-                WinParent.DGVBody[3, i].Value = LongText.ReplaceLineEndings();
+               // WinParent.DGVBody[3, i].Value = LongText;
             }
 
             // Dispose of the table in memory
