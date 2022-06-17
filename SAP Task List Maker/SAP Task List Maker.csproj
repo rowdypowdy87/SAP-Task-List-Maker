@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <RootNamespace></RootNamespace>
     <UseWindowsForms>true</UseWindowsForms>
     <StartupObject>SAP_Task_List_Maker.Program</StartupObject>

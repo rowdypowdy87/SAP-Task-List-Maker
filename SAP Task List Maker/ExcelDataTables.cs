@@ -35,7 +35,7 @@ namespace SAP_Task_List_Maker
         /// <param name="path">Path of the file</param>
         /// <param name="sheetnumber">Which sheet to use (can be the name or index)</param>
         /// <returns>DataTable</returns>
-        public DataTable? ConvertExcelToDataTable(string path, dynamic sheetnumber)
+        public DataTable ConvertExcelToDataTable(string path, dynamic sheetnumber)
         {
             ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
 
@@ -71,7 +71,7 @@ namespace SAP_Task_List_Maker
 
         // Convert excel sheet into readable data table in memory 
         // I did not create this method
-        public DataTable? ConvertExcelToDataTable_Name(string path, string sheetname)
+        public DataTable ConvertExcelToDataTable_Name(string path, string sheetname)
         {
             ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
 
@@ -101,7 +101,7 @@ namespace SAP_Task_List_Maker
         }
 
         // Convert from text
-        public DataTable? ControlTexttoDataTable_IW58(string path)
+        public DataTable ControlTexttoDataTable_IW58(string path)
         {
             string Text;
 
@@ -172,7 +172,7 @@ namespace SAP_Task_List_Maker
         }
 
         // Convert from text
-        public DataTable? ControlTexttoDataTable(string path) 
+        public DataTable ControlTexttoDataTable(string path) 
         {
             string Text;
 

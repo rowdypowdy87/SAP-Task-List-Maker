@@ -21,6 +21,9 @@ namespace SAP_Task_List_Maker
             ImportExportManager = new ImportExport(this);
             MeasurementManager  = new MeasController(this);
 
+            // Pass controller to measurement tree
+            MeasPointsTree.SetControllers(this, MeasurementManager);
+
             SelectedMeasure = -1;
         }
 
@@ -53,61 +56,6 @@ namespace SAP_Task_List_Maker
             {
                 case SAPERROR.SAP_NOT_CONNECTED: MsgBoxs.MsgBox_Error("Please ensure SAP is running to continue"); break;
             }
-        }
-
-        /// <summary>
-        /// Update measurement point data on click
-        /// </summary>
-        private void MeasTree_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-           
-        }
-
-        /// <summary>
-        /// Draw node text
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MeasTree_DrawNode(object sender, DrawTreeNodeEventArgs e)
-        {
-            // Variables
-            Font TextFont       = new Font("Segoe UI", 9.0f, FontStyle.Regular);
-            Image EditIcon      = Properties.Resources.Updated;
-            Color Fore          = e.Node.ForeColor;
-            Color Border        = Color.Black;
-            Color Normal        = Color.White;
-            Color Change        = Color.LimeGreen;
-
-            // Set renderer to high quality
-            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-
-            // Draw focus rectangles
-            if (e.Node == e.Node.TreeView.SelectedNode)
-            {
-                Fore = SystemColors.HighlightText;
-
-                e.Graphics.FillRectangle(new SolidBrush(Color.LightBlue), e.Bounds);
-                ControlPaint.DrawFocusRectangle(e.Graphics, e.Bounds, Fore, Color.LightBlue);
-            }
-            else
-                e.Graphics.FillRectangle(SystemBrushes.Window, e.Bounds);
-
-            if (e.Node.Level > 0)
-            {
-                MobilityMeasurement MeasureToDisplay = MeasurementManager.GetExistingMeasurement(e.Node.Index);
-
-                if (MeasureToDisplay.UpdateMethod == MEAS_UPDATE.UPDATE)
-                { 
-                    TextRenderer.DrawText(e.Graphics, e.Node.Text, TextFont, new Point(e.Node.Bounds.X, e.Node.Bounds.Y), Color.Black);
-
-                    e.Graphics.DrawImage(EditIcon, new Point(e.Node.Bounds.X - 15, e.Node.Bounds.Y + 2));
-                }
-                else
-                    TextRenderer.DrawText(e.Graphics, e.Node.Text, TextFont, new Point(e.Node.Bounds.X, e.Node.Bounds.Y), Color.Black);
-
-            }
-            else
-                TextRenderer.DrawText(e.Graphics, e.Node.Text, TextFont, new Point(e.Node.Bounds.X, e.Node.Bounds.Y), Color.Black);
         }
 
         private static void DrawStringOutlined(Graphics g, string Text, Font TextFont, Color TextColor, Color OutlineColor, int X, int Y, int OutlineDepth)
@@ -148,27 +96,6 @@ namespace SAP_Task_List_Maker
                 MeasurementManager.SetExistingMeasurement(MeasureToChange, SelectedMeasure);
                 
                 MeasPointsTree.Refresh();
-            }
-        }
-
-        private void MeasTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            if (e.Node.Level > 0)
-            {
-                MobilityMeasurement MeasureToDisplay = MeasurementManager.GetExistingMeasurement(e.Node.Index);
-
-                MPDescriptionTextBox.Text           = MeasureToDisplay.Description;
-                MPPositionTextBox.Text              = MeasureToDisplay.Position;
-                MPCharNameComboBox.Text             = MeasureToDisplay.CharCode;
-                MPCodeGroupComboBox.Text            = MeasureToDisplay.CodeGroup;
-                MPDecimalTextBox.Text               = MeasureToDisplay.Decimals;
-                MPUpperLimitTextBox.Text            = MeasureToDisplay.UpperLimit;
-                MPLowerLimitTextBox.Text            = MeasureToDisplay.LowerLimit;
-                MPTargetTextTextBox.Text            = MeasureToDisplay.TargetText;
-                MPTargetValueTextBox.Text           = MeasureToDisplay.TargetValue;
-
-                // Tell the app what node we have selected
-                SelectedMeasure                     = e.Node.Index;
             }
         }
     }

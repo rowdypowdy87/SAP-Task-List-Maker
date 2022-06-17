@@ -22,25 +22,30 @@ namespace SAP_Task_List_Maker
         /// </summary>
         public Tasklist()
         {
-            // Variables
-            DataGridViewCellStyle DefaultStyle = new DataGridViewCellStyle()
+            CellBorderStyle = DataGridViewCellBorderStyle.Single;
+            
+            DataGridViewCellStyle CellStyle = new DataGridViewCellStyle()
             {
-                SelectionBackColor  = Color.White,
-                SelectionForeColor  = Color.Black,
-                Alignment           = DataGridViewContentAlignment.MiddleLeft,
-                BackColor           = SystemColors.Window,
-                Font                = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point),
-                ForeColor           = SystemColors.ControlText,
-                WrapMode            = DataGridViewTriState.False
+                Font = new Font("Calibri", 9.0f, FontStyle.Regular),
+                SelectionForeColor = Color.Black,
+                SelectionBackColor = Color.PowderBlue,
+                ForeColor = Color.Black,
+                BackColor = Color.White,
+                WrapMode = DataGridViewTriState.True
             };
 
-            // Set properties
-            DefaultCellStyle            = DefaultStyle;
-            AllowUserToAddRows          = false;
-            GridColor                   = Color.Gray;
-            CellBorderStyle             = DataGridViewCellBorderStyle.None;
-            CellSelectedColor_Border    = Color.FromArgb(48, 84, 150);
-            GridColor                   = Color.LightGray;
+            DataGridViewCellStyle ColCellStyle = new DataGridViewCellStyle()
+            {
+                Font = new Font("Calibri", 9.0f, FontStyle.Bold),
+                SelectionForeColor = Color.Black,
+                SelectionBackColor = Color.Gray,
+                ForeColor = Color.Black,
+                BackColor = Color.Gray,
+                WrapMode = DataGridViewTriState.True
+            };
+
+            ColumnHeadersDefaultCellStyle = ColCellStyle;
+            DefaultCellStyle              = CellStyle;
 
             // Build context menu
             ToolStripMenuItem Insert    = new ToolStripMenuItem("Insert");
@@ -64,15 +69,8 @@ namespace SAP_Task_List_Maker
             CellEndEdit         += new DataGridViewCellEventHandler(TL_CellEndEdit);
             MouseEnter          += new EventHandler(TL_MouseEnter);
             RowHeaderMouseClick += new DataGridViewCellMouseEventHandler(TL_RowHeaderClick);
-            CellPainting        += new DataGridViewCellPaintingEventHandler(TL_CellPaint);
 
-            // use reflection to set doublebuffered property on datagridview
-            typeof(Tasklist).InvokeMember(
-             "DoubleBuffered",
-             BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty,
-             null,
-             this,
-             new object[] { true });
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);    
         }
 
         /// <summary>
@@ -174,62 +172,7 @@ namespace SAP_Task_List_Maker
             SelectionMode = DataGridViewSelectionMode.RowHeaderSelect;
         }
 
-        /// <summary>
-        /// Paint nice borders
-        /// </summary>
-        private void TL_CellPaint(object sender, DataGridViewCellPaintingEventArgs e)
-        {
-            //Draw only grid content cells not ColumnHeader cells nor RowHeader cells
-            if (e.ColumnIndex > -1 & e.RowIndex > -1)
-            {
-                //Pen for selected cell borders
-                using var selectedPen   = new Pen(CellSelectedColor_Border, 3);
-
-                //Draw selected cells here
-                if (this[e.ColumnIndex, e.RowIndex].Selected)
-                {
-                    //Paint all parts except borders & background.
-                    e.Paint(e.ClipBounds, DataGridViewPaintParts.All & ~DataGridViewPaintParts.Border);
-
-                    //Draw selected cells border here
-                    e.Graphics.DrawRectangle(selectedPen, new Rectangle(e.CellBounds.Left + 1, e.CellBounds.Top + 1, e.CellBounds.Width - 3, e.CellBounds.Height - 3));
-
-                    //Handled painting for this cell, Stop default rendering.
-                    e.Handled = true;
-                }
-            }
-        }
-
-       /* protected override void OnPaint(PaintEventArgs e)
-        {
-            e.Graphics.Clear(Color.White);  
-            base.OnPaint(e);
-
-            Pen pen = new Pen(Color.Red, 2);
-
-            int width = 0, height = 0;
-
-            if (SelectedCells.Count > 1)
-            {
-                Rectangle CurrentCellRect = GetCellDisplayRectangle(SelectedCells[0].ColumnIndex, SelectedCells[0].RowIndex, false);
-                
-                for(int i = 0; i < SelectedCells.Count; i++)
-                {
-                    width  += SelectedCells[i].Size.Width;
-                    height += SelectedCells[i].Size.Height;
-                }
-
-                Rectangle SelectRect = new(CurrentCellRect.X + 1, CurrentCellRect.Y + 1, width - 1, height - 1);
-
-                e.Graphics.DrawRectangle(pen, SelectRect);
-
-               
-                //Rectangle R = GetCellRect();
-                //e.Graphics.DrawRectangle(pen, R);
-
-
-            }
-        }
-       */
+       
+       
     }
 }

@@ -33,7 +33,7 @@
             this.OkButton = new System.Windows.Forms.Button();
             this.GroupLabel = new System.Windows.Forms.Label();
             this.CounterLabel = new System.Windows.Forms.Label();
-            this.CancelButton = new System.Windows.Forms.Button();
+            this.CancelBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // TasklistGroup
@@ -78,15 +78,15 @@
             this.CounterLabel.TabIndex = 3;
             this.CounterLabel.Text = "Task List Counter:";
             // 
-            // CancelButton
+            // CancelBtn
             // 
-            this.CancelButton.Location = new System.Drawing.Point(401, 50);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(274, 27);
-            this.CancelButton.TabIndex = 2;
-            this.CancelButton.Text = "Cancel";
-            this.CancelButton.UseVisualStyleBackColor = true;
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            this.CancelBtn.Location = new System.Drawing.Point(401, 50);
+            this.CancelBtn.Name = "CancelBtn";
+            this.CancelBtn.Size = new System.Drawing.Size(274, 27);
+            this.CancelBtn.TabIndex = 2;
+            this.CancelBtn.Text = "Cancel";
+            this.CancelBtn.UseVisualStyleBackColor = true;
+            this.CancelBtn.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // InputTasklistNumber
             // 
@@ -95,7 +95,7 @@
             this.ClientSize = new System.Drawing.Size(693, 91);
             this.Controls.Add(this.CounterLabel);
             this.Controls.Add(this.GroupLabel);
-            this.Controls.Add(this.CancelButton);
+            this.Controls.Add(this.CancelBtn);
             this.Controls.Add(this.OkButton);
             this.Controls.Add(this.TasklistCounter);
             this.Controls.Add(this.TasklistGroup);
@@ -114,6 +114,6 @@
         private System.Windows.Forms.Button OkButton;
         private System.Windows.Forms.Label GroupLabel;
         private System.Windows.Forms.Label CounterLabel;
-        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Button CancelBtn;
     }
 }

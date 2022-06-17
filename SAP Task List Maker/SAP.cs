@@ -135,10 +135,10 @@ namespace SAP_Task_List_Maker
     public class AUTOSAP : IDisposable
     {
         // Internal class control objects
-        public GuiSession?             SapSession    { get; set; } // Nullable
-        public GuiMainWindow?          SapWindow     { get; set; } // Nullable
-        public GuiApplication?         SapApp        { get; set; } // Nullable
-        public GuiConnection?          SapConnection { get; set; } // Nullable
+        public GuiSession               SapSession    { get; set; } // Nullable
+        public GuiMainWindow            SapWindow     { get; set; } // Nullable
+        public GuiApplication           SapApp        { get; set; } // Nullable
+        public GuiConnection            SapConnection { get; set; } // Nullable
         private bool                    SapConnected  { get; set; } // Nullable
         private readonly MainWindow     RefForm;
         private bool                    disposedValue;
@@ -215,7 +215,7 @@ namespace SAP_Task_List_Maker
         }
 
         // Active window
-        public GuiFrameWindow? GetActiveWindow()
+        public GuiFrameWindow GetActiveWindow()
         {
             return SapSession.ActiveWindow;
         }
@@ -227,7 +227,7 @@ namespace SAP_Task_List_Maker
         }
 
         // Get ID
-        public dynamic? GetFormById(string FormID)
+        public dynamic GetFormById(string FormID)
         {
             if (SapConnected)
             {
@@ -237,7 +237,7 @@ namespace SAP_Task_List_Maker
         }
 
         // Get by name
-        public dynamic? GetFormByName(string FormName, string FormType)
+        public dynamic GetFormByName(string FormName, string FormType)
         {
             if (SapConnected)
             {
@@ -248,7 +248,7 @@ namespace SAP_Task_List_Maker
         }
 
         // Get shell
-        public GuiShell? GetShell(string ShellName)
+        public GuiShell GetShell(string ShellName)
         {
             if (SapConnected)
             {
@@ -363,22 +363,22 @@ namespace SAP_Task_List_Maker
         }
 
         // Window
-        public GuiMainWindow? GetWindow() { return SapWindow; }
+        public GuiMainWindow GetWindow() { return SapWindow; }
 
         // Application
-        public GuiApplication? GetApp() { return SapApp; }
+        public GuiApplication GetApp() { return SapApp; }
 
         // Info
-        public GuiSessionInfo? GetSessionInfo() { return SapSession.Info; }
+        public GuiSessionInfo GetSessionInfo() { return SapSession.Info; }
 
         // Sessionob
-        public GuiSession? GetSessionObj() { return SapSession; }
+        public GuiSession GetSessionObj() { return SapSession; }
 
         // Close trans
         public void EndTransaction() { SapSession.EndTransaction(); }
 
         // Get all fields by name & type
-        public GuiComponentCollection? GetAllByName(string fieldName, string fieldType)
+        public GuiComponentCollection GetAllByName(string fieldName, string fieldType)
         {
             if (SapConnected)
             {
@@ -395,7 +395,7 @@ namespace SAP_Task_List_Maker
         }
 
         // Get GuiComboBox by name
-        public GuiComboBox? GetComboBox(string fieldName)
+        public GuiComboBox GetComboBox(string fieldName)
         {
             if (SapConnected)
             {
@@ -412,7 +412,7 @@ namespace SAP_Task_List_Maker
         }
 
         // Get CTextfield by ID
-        public GuiCTextField? GetCTextFieldByID(string Address)
+        public GuiCTextField GetCTextFieldByID(string Address)
         { 
             if (SapConnected) {
                 // Try to find by name and catch any exceptions
@@ -427,7 +427,7 @@ namespace SAP_Task_List_Maker
         }
 
         // Get Textfield by ID
-        public GuiTextField? GetTextFieldByID(string Address) {
+        public GuiTextField GetTextFieldByID(string Address) {
             if (SapConnected) {
                 // Try to find by name and catch any exceptions
                 try {
@@ -442,7 +442,7 @@ namespace SAP_Task_List_Maker
         }
 
         // Get Button by ID
-        public GuiButton? GetButtonByID(string Address) {
+        public GuiButton GetButtonByID(string Address) {
 
             if (SapConnected) {
                 // Try to find by name and catch any exceptions
@@ -457,7 +457,7 @@ namespace SAP_Task_List_Maker
         }
 
         // Get CTextField by name
-        public GuiCTextField? GetCTextField(string fieldName)
+        public GuiCTextField GetCTextField(string fieldName)
         {
             if (SapConnected)
             {
@@ -474,7 +474,7 @@ namespace SAP_Task_List_Maker
         }
 
         // Get TextField by name
-        public GuiTextField? GetTextField(string fieldName)
+        public GuiTextField GetTextField(string fieldName)
         {
             if (SapConnected)
             {
@@ -492,7 +492,7 @@ namespace SAP_Task_List_Maker
         }
 
         // Get GuiButton
-        public GuiButton? GetButton(string fieldName)
+        public GuiButton GetButton(string fieldName)
         {
             if (SapConnected)
             {
@@ -510,7 +510,7 @@ namespace SAP_Task_List_Maker
         }
 
         // Get GuiTable
-        public GuiTableControl? GetTable(string fieldName)
+        public GuiTableControl GetTable(string fieldName)
         {
             if (SapConnected)
             {
@@ -527,7 +527,7 @@ namespace SAP_Task_List_Maker
         }
 
         // Get GuiGridView
-        public GuiGridView? GetGridView(string fieldName)
+        public GuiGridView GetGridView(string fieldName)
         {
             if (SapConnected)
             {
@@ -544,7 +544,7 @@ namespace SAP_Task_List_Maker
         }
 
         // Get GuiCheckBox
-        public GuiCheckBox? GetCheckBox(string fieldName)
+        public GuiCheckBox GetCheckBox(string fieldName)
         {
             if (SapConnected)
             {
@@ -561,7 +561,7 @@ namespace SAP_Task_List_Maker
         }
 
         // Get GuiRadioButton
-        public GuiRadioButton? GetRadioButton(string fieldName)
+        public GuiRadioButton GetRadioButton(string fieldName)
         {
             if (SapConnected)
             {
@@ -578,7 +578,7 @@ namespace SAP_Task_List_Maker
         }
 
         // Get GuiTab
-        public GuiTab? GetTab(string fieldName)
+        public GuiTab GetTab(string fieldName)
         {
             if (SapConnected)
             {
@@ -821,7 +821,7 @@ namespace SAP_Task_List_Maker
 
        
 
-        public string? CreateNewEquipment(string TemplateEq, string SerialNumber, string MaterialNumber, string FuncLoc)
+        public string CreateNewEquipment(string TemplateEq, string SerialNumber, string MaterialNumber, string FuncLoc)
         {
             if (SapConnected)
             {
@@ -885,7 +885,7 @@ namespace SAP_Task_List_Maker
             return false;
         }
 
-        public DataTable? GetMeasurementPoints(string InputEquipment)
+        public DataTable GetMeasurementPoints(string InputEquipment)
         {
             ExcelDataTables TableManager    = new ExcelDataTables();
 
@@ -934,13 +934,11 @@ namespace SAP_Task_List_Maker
             return null;
         }
 
-        private void ReleaseObject(object? obj)
+        private void ReleaseObject(object obj)
         {
             try
             {
-#pragma warning disable CS8604 // Possible null reference argument.
                 _ = System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
-#pragma warning restore CS8604 // Possible null reference argument.
                 obj = null;
             }
             catch (Exception ex)

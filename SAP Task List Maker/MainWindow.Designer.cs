@@ -30,7 +30,6 @@
         {
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("EXISTING MEASUREMENTS");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("MEASUREMENT TO CREATE");
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importFromSapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,9 +73,6 @@
             this.DataTabs = new System.Windows.Forms.TabControl();
             this.HeaderTab = new System.Windows.Forms.TabPage();
             this.HeaderTabLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.BodyTab = new System.Windows.Forms.TabPage();
-            this.ComponentsTab = new System.Windows.Forms.TabPage();
-            this.PRTTab = new System.Windows.Forms.TabPage();
             this.DGVHeader = new SAP_Task_List_Maker.Tasklist();
             this.HGroupCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HCounterCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -85,6 +81,26 @@
             this.HWorkCenterCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HPlannerGroupCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HMaintStratergyCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HeaderInputsGB = new System.Windows.Forms.GroupBox();
+            this.HeaderInputsLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.TasklistGroupLBL = new System.Windows.Forms.Label();
+            this.TasklistGroupTB = new System.Windows.Forms.TextBox();
+            this.TasklistCounterLBL = new System.Windows.Forms.Label();
+            this.TasklistCounterTB = new System.Windows.Forms.TextBox();
+            this.TemplateEquipmentLBL = new System.Windows.Forms.Label();
+            this.TemplateEquipmentTB = new System.Windows.Forms.TextBox();
+            this.BodyTab = new System.Windows.Forms.TabPage();
+            this.DGVBody = new SAP_Task_List_Maker.Tasklist();
+            this.BOperationNumberCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BSubOperationNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BOperationDescriptionCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BLongTextCol = new SAP_Task_List_Maker.LongTextColumn();
+            this.BTotalWorkCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BUnitCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BTechniciansCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BMeasurementsCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ComponentsTab = new System.Windows.Forms.TabPage();
+            this.PRTTab = new System.Windows.Forms.TabPage();
             this.MainMenu.SuspendLayout();
             this.MainStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitLayout)).BeginInit();
@@ -98,6 +114,10 @@
             this.HeaderTab.SuspendLayout();
             this.HeaderTabLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVHeader)).BeginInit();
+            this.HeaderInputsGB.SuspendLayout();
+            this.HeaderInputsLayout.SuspendLayout();
+            this.BodyTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVBody)).BeginInit();
             this.SuspendLayout();
             // 
             // MainMenu
@@ -507,23 +527,22 @@
             // 
             // MeasPointsTree
             // 
-            this.MeasPointsTree.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.MeasPointsTree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.MeasPointsTree.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MeasPointsTree.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
+            this.MeasPointsTree.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawAll;
             this.MeasPointsTree.Location = new System.Drawing.Point(3, 3);
             this.MeasPointsTree.Name = "MeasPointsTree";
             treeNode1.Name = "ExistingMeasRoot";
+            treeNode1.NodeFont = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             treeNode1.Text = "EXISTING MEASUREMENTS";
             treeNode2.Name = "NewMeasRoot";
+            treeNode2.NodeFont = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             treeNode2.Text = "MEASUREMENT TO CREATE";
             this.MeasPointsTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2});
             this.MeasPointsTree.Size = new System.Drawing.Size(427, 562);
             this.MeasPointsTree.TabIndex = 2;
-            this.MeasPointsTree.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.MeasTree_DrawNode);
-            this.MeasPointsTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.MeasTree_AfterSelect);
-            this.MeasPointsTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.MeasTree_NodeMouseClick);
             // 
             // DataTabs
             // 
@@ -532,6 +551,7 @@
             this.DataTabs.Controls.Add(this.ComponentsTab);
             this.DataTabs.Controls.Add(this.PRTTab);
             this.DataTabs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DataTabs.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.DataTabs.Location = new System.Drawing.Point(0, 0);
             this.DataTabs.Margin = new System.Windows.Forms.Padding(0);
             this.DataTabs.Name = "DataTabs";
@@ -547,7 +567,7 @@
             this.HeaderTab.Padding = new System.Windows.Forms.Padding(3);
             this.HeaderTab.Size = new System.Drawing.Size(1138, 948);
             this.HeaderTab.TabIndex = 0;
-            this.HeaderTab.Text = "Header";
+            this.HeaderTab.Text = "TASKLIST HEADER";
             this.HeaderTab.UseVisualStyleBackColor = true;
             // 
             // HeaderTabLayout
@@ -555,6 +575,7 @@
             this.HeaderTabLayout.ColumnCount = 1;
             this.HeaderTabLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.HeaderTabLayout.Controls.Add(this.DGVHeader, 0, 1);
+            this.HeaderTabLayout.Controls.Add(this.HeaderInputsGB, 0, 0);
             this.HeaderTabLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.HeaderTabLayout.Location = new System.Drawing.Point(3, 3);
             this.HeaderTabLayout.Name = "HeaderTabLayout";
@@ -564,41 +585,10 @@
             this.HeaderTabLayout.Size = new System.Drawing.Size(1132, 942);
             this.HeaderTabLayout.TabIndex = 0;
             // 
-            // BodyTab
-            // 
-            this.BodyTab.Location = new System.Drawing.Point(4, 29);
-            this.BodyTab.Name = "BodyTab";
-            this.BodyTab.Padding = new System.Windows.Forms.Padding(3);
-            this.BodyTab.Size = new System.Drawing.Size(1138, 948);
-            this.BodyTab.TabIndex = 1;
-            this.BodyTab.Text = "Body";
-            this.BodyTab.UseVisualStyleBackColor = true;
-            // 
-            // ComponentsTab
-            // 
-            this.ComponentsTab.Location = new System.Drawing.Point(4, 29);
-            this.ComponentsTab.Name = "ComponentsTab";
-            this.ComponentsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.ComponentsTab.Size = new System.Drawing.Size(1138, 948);
-            this.ComponentsTab.TabIndex = 2;
-            this.ComponentsTab.Text = "Components";
-            this.ComponentsTab.UseVisualStyleBackColor = true;
-            // 
-            // PRTTab
-            // 
-            this.PRTTab.Location = new System.Drawing.Point(4, 29);
-            this.PRTTab.Name = "PRTTab";
-            this.PRTTab.Padding = new System.Windows.Forms.Padding(3);
-            this.PRTTab.Size = new System.Drawing.Size(1138, 948);
-            this.PRTTab.TabIndex = 3;
-            this.PRTTab.Text = "PRT";
-            this.PRTTab.UseVisualStyleBackColor = true;
-            // 
             // DGVHeader
             // 
             this.DGVHeader.AllowUserToAddRows = false;
             this.DGVHeader.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.DGVHeader.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.DGVHeader.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVHeader.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.HGroupCol,
@@ -608,18 +598,11 @@
             this.HWorkCenterCol,
             this.HPlannerGroupCol,
             this.HMaintStratergyCol});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DGVHeader.DefaultCellStyle = dataGridViewCellStyle1;
             this.DGVHeader.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DGVHeader.GridColor = System.Drawing.Color.LightGray;
             this.DGVHeader.Location = new System.Drawing.Point(3, 107);
             this.DGVHeader.Name = "DGVHeader";
+            this.DGVHeader.RowHeadersVisible = false;
             this.DGVHeader.RowHeadersWidth = 51;
             this.DGVHeader.RowTemplate.Height = 29;
             this.DGVHeader.Size = new System.Drawing.Size(1126, 832);
@@ -667,6 +650,217 @@
             this.HMaintStratergyCol.MinimumWidth = 6;
             this.HMaintStratergyCol.Name = "HMaintStratergyCol";
             // 
+            // HeaderInputsGB
+            // 
+            this.HeaderInputsGB.Controls.Add(this.HeaderInputsLayout);
+            this.HeaderInputsGB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.HeaderInputsGB.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.HeaderInputsGB.Location = new System.Drawing.Point(3, 3);
+            this.HeaderInputsGB.Name = "HeaderInputsGB";
+            this.HeaderInputsGB.Padding = new System.Windows.Forms.Padding(1);
+            this.HeaderInputsGB.Size = new System.Drawing.Size(1126, 98);
+            this.HeaderInputsGB.TabIndex = 1;
+            this.HeaderInputsGB.TabStop = false;
+            this.HeaderInputsGB.Text = "TASKLIST INFORMATION";
+            // 
+            // HeaderInputsLayout
+            // 
+            this.HeaderInputsLayout.ColumnCount = 6;
+            this.HeaderInputsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 141F));
+            this.HeaderInputsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 137F));
+            this.HeaderInputsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 171F));
+            this.HeaderInputsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 161F));
+            this.HeaderInputsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 211F));
+            this.HeaderInputsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 303F));
+            this.HeaderInputsLayout.Controls.Add(this.TasklistGroupLBL, 0, 0);
+            this.HeaderInputsLayout.Controls.Add(this.TasklistGroupTB, 1, 0);
+            this.HeaderInputsLayout.Controls.Add(this.TasklistCounterLBL, 2, 0);
+            this.HeaderInputsLayout.Controls.Add(this.TasklistCounterTB, 3, 0);
+            this.HeaderInputsLayout.Controls.Add(this.TemplateEquipmentLBL, 4, 0);
+            this.HeaderInputsLayout.Controls.Add(this.TemplateEquipmentTB, 5, 0);
+            this.HeaderInputsLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.HeaderInputsLayout.Location = new System.Drawing.Point(1, 21);
+            this.HeaderInputsLayout.Margin = new System.Windows.Forms.Padding(1);
+            this.HeaderInputsLayout.Name = "HeaderInputsLayout";
+            this.HeaderInputsLayout.RowCount = 1;
+            this.HeaderInputsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.HeaderInputsLayout.Size = new System.Drawing.Size(1124, 76);
+            this.HeaderInputsLayout.TabIndex = 0;
+            // 
+            // TasklistGroupLBL
+            // 
+            this.TasklistGroupLBL.AutoSize = true;
+            this.TasklistGroupLBL.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TasklistGroupLBL.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.TasklistGroupLBL.Location = new System.Drawing.Point(3, 0);
+            this.TasklistGroupLBL.Name = "TasklistGroupLBL";
+            this.TasklistGroupLBL.Size = new System.Drawing.Size(135, 76);
+            this.TasklistGroupLBL.TabIndex = 0;
+            this.TasklistGroupLBL.Text = "TASKLIST GROUP:";
+            this.TasklistGroupLBL.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // TasklistGroupTB
+            // 
+            this.TasklistGroupTB.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.TasklistGroupTB.Location = new System.Drawing.Point(144, 24);
+            this.TasklistGroupTB.Name = "TasklistGroupTB";
+            this.TasklistGroupTB.Size = new System.Drawing.Size(125, 27);
+            this.TasklistGroupTB.TabIndex = 1;
+            // 
+            // TasklistCounterLBL
+            // 
+            this.TasklistCounterLBL.AutoSize = true;
+            this.TasklistCounterLBL.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TasklistCounterLBL.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.TasklistCounterLBL.Location = new System.Drawing.Point(281, 0);
+            this.TasklistCounterLBL.Name = "TasklistCounterLBL";
+            this.TasklistCounterLBL.Size = new System.Drawing.Size(165, 76);
+            this.TasklistCounterLBL.TabIndex = 2;
+            this.TasklistCounterLBL.Text = "TASKLIST COUNTER:";
+            this.TasklistCounterLBL.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // TasklistCounterTB
+            // 
+            this.TasklistCounterTB.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.TasklistCounterTB.Location = new System.Drawing.Point(452, 24);
+            this.TasklistCounterTB.Name = "TasklistCounterTB";
+            this.TasklistCounterTB.Size = new System.Drawing.Size(125, 27);
+            this.TasklistCounterTB.TabIndex = 3;
+            // 
+            // TemplateEquipmentLBL
+            // 
+            this.TemplateEquipmentLBL.AutoSize = true;
+            this.TemplateEquipmentLBL.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TemplateEquipmentLBL.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.TemplateEquipmentLBL.Location = new System.Drawing.Point(613, 0);
+            this.TemplateEquipmentLBL.Name = "TemplateEquipmentLBL";
+            this.TemplateEquipmentLBL.Size = new System.Drawing.Size(205, 76);
+            this.TemplateEquipmentLBL.TabIndex = 4;
+            this.TemplateEquipmentLBL.Text = "TEMPLATE EQUIPMENT NUMBER:";
+            this.TemplateEquipmentLBL.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // TemplateEquipmentTB
+            // 
+            this.TemplateEquipmentTB.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.TemplateEquipmentTB.Location = new System.Drawing.Point(824, 24);
+            this.TemplateEquipmentTB.Name = "TemplateEquipmentTB";
+            this.TemplateEquipmentTB.Size = new System.Drawing.Size(189, 27);
+            this.TemplateEquipmentTB.TabIndex = 5;
+            // 
+            // BodyTab
+            // 
+            this.BodyTab.Controls.Add(this.DGVBody);
+            this.BodyTab.Location = new System.Drawing.Point(4, 29);
+            this.BodyTab.Name = "BodyTab";
+            this.BodyTab.Padding = new System.Windows.Forms.Padding(3);
+            this.BodyTab.Size = new System.Drawing.Size(1138, 948);
+            this.BodyTab.TabIndex = 1;
+            this.BodyTab.Text = "TASKLIST BODY";
+            this.BodyTab.UseVisualStyleBackColor = true;
+            // 
+            // DGVBody
+            // 
+            this.DGVBody.AllowUserToAddRows = false;
+            this.DGVBody.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.DGVBody.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.DGVBody.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVBody.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.BOperationNumberCol,
+            this.BSubOperationNumber,
+            this.BOperationDescriptionCol,
+            this.BLongTextCol,
+            this.BTotalWorkCol,
+            this.BUnitCol,
+            this.BTechniciansCol,
+            this.BMeasurementsCol});
+            this.DGVBody.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DGVBody.Location = new System.Drawing.Point(3, 3);
+            this.DGVBody.Name = "DGVBody";
+            this.DGVBody.RowHeadersWidth = 51;
+            this.DGVBody.RowTemplate.Height = 29;
+            this.DGVBody.Size = new System.Drawing.Size(1132, 942);
+            this.DGVBody.TabIndex = 0;
+            // 
+            // BOperationNumberCol
+            // 
+            this.BOperationNumberCol.FillWeight = 10F;
+            this.BOperationNumberCol.HeaderText = "OPERATION";
+            this.BOperationNumberCol.MinimumWidth = 6;
+            this.BOperationNumberCol.Name = "BOperationNumberCol";
+            // 
+            // BSubOperationNumber
+            // 
+            this.BSubOperationNumber.FillWeight = 10F;
+            this.BSubOperationNumber.HeaderText = "SUB-OPERATION";
+            this.BSubOperationNumber.MinimumWidth = 6;
+            this.BSubOperationNumber.Name = "BSubOperationNumber";
+            // 
+            // BOperationDescriptionCol
+            // 
+            this.BOperationDescriptionCol.FillWeight = 15F;
+            this.BOperationDescriptionCol.HeaderText = "OPERATION DESCRIPTION";
+            this.BOperationDescriptionCol.MinimumWidth = 6;
+            this.BOperationDescriptionCol.Name = "BOperationDescriptionCol";
+            // 
+            // BLongTextCol
+            // 
+            this.BLongTextCol.FillWeight = 30F;
+            this.BLongTextCol.HeaderText = "LONG TEXT";
+            this.BLongTextCol.MinimumWidth = 6;
+            this.BLongTextCol.Name = "BLongTextCol";
+            // 
+            // BTotalWorkCol
+            // 
+            this.BTotalWorkCol.FillWeight = 5F;
+            this.BTotalWorkCol.HeaderText = "WORK";
+            this.BTotalWorkCol.MinimumWidth = 6;
+            this.BTotalWorkCol.Name = "BTotalWorkCol";
+            this.BTotalWorkCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.BTotalWorkCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // BUnitCol
+            // 
+            this.BUnitCol.FillWeight = 5F;
+            this.BUnitCol.HeaderText = "UNIT";
+            this.BUnitCol.MinimumWidth = 6;
+            this.BUnitCol.Name = "BUnitCol";
+            this.BUnitCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.BUnitCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // BTechniciansCol
+            // 
+            this.BTechniciansCol.FillWeight = 5F;
+            this.BTechniciansCol.HeaderText = "PEOPLE";
+            this.BTechniciansCol.MinimumWidth = 6;
+            this.BTechniciansCol.Name = "BTechniciansCol";
+            // 
+            // BMeasurementsCol
+            // 
+            this.BMeasurementsCol.FillWeight = 15F;
+            this.BMeasurementsCol.HeaderText = "MEASUREMENT POINTS";
+            this.BMeasurementsCol.MinimumWidth = 6;
+            this.BMeasurementsCol.Name = "BMeasurementsCol";
+            // 
+            // ComponentsTab
+            // 
+            this.ComponentsTab.Location = new System.Drawing.Point(4, 29);
+            this.ComponentsTab.Name = "ComponentsTab";
+            this.ComponentsTab.Padding = new System.Windows.Forms.Padding(3);
+            this.ComponentsTab.Size = new System.Drawing.Size(1138, 948);
+            this.ComponentsTab.TabIndex = 2;
+            this.ComponentsTab.Text = "TASKLIST COMPONENTS";
+            this.ComponentsTab.UseVisualStyleBackColor = true;
+            // 
+            // PRTTab
+            // 
+            this.PRTTab.Location = new System.Drawing.Point(4, 29);
+            this.PRTTab.Name = "PRTTab";
+            this.PRTTab.Padding = new System.Windows.Forms.Padding(3);
+            this.PRTTab.Size = new System.Drawing.Size(1138, 948);
+            this.PRTTab.TabIndex = 3;
+            this.PRTTab.Text = "DOCUMENT ATTACHMENTS (PRTs)";
+            this.PRTTab.UseVisualStyleBackColor = true;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -696,6 +890,11 @@
             this.HeaderTab.ResumeLayout(false);
             this.HeaderTabLayout.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGVHeader)).EndInit();
+            this.HeaderInputsGB.ResumeLayout(false);
+            this.HeaderInputsLayout.ResumeLayout(false);
+            this.HeaderInputsLayout.PerformLayout();
+            this.BodyTab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DGVBody)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -719,41 +918,23 @@
         private System.Windows.Forms.TabPage PRTTab;
         private System.Windows.Forms.ToolStripMenuItem importMEasToolStripMenuItem;
         private System.Windows.Forms.TableLayoutPanel MeasurementsLayout;
-        private System.Windows.Forms.DataGridViewTextBoxColumn OperationCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubOperationCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DescriptionCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WorkCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn LabourHourUnitCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NumOfPersonCol;
         private System.Windows.Forms.GroupBox MeasPointDetailGroupBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.TextBox MPPositionTextBox;
         private System.Windows.Forms.Label MPDescLabel;
         private System.Windows.Forms.Label MPPositionLabel;
-        private System.Windows.Forms.TextBox MPDescriptionTextBox;
         private System.Windows.Forms.Label MPCharNameLabel;
-        private System.Windows.Forms.ComboBox MPCharNameComboBox;
         private System.Windows.Forms.Label MPDecimalPlaceLabel;
-        private System.Windows.Forms.TextBox MPDecimalTextBox;
         private System.Windows.Forms.Label MPCodeGroupLabel;
-        private System.Windows.Forms.ComboBox MPCodeGroupComboBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox MPLowerLimitTextBox;
-        private System.Windows.Forms.TextBox MPUpperLimitTextBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox MPTargetValueTextBox;
-        private System.Windows.Forms.TextBox MPTargetTextTextBox;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.ToolStripMenuItem exportToToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem excelEditableToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem excelSAPToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem excelEditableToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem excelSAPDataFileToolStripMenuItem;
-        private System.Windows.Forms.Button MeasUpdateButton;
         public SAP_Task_List_Maker.MyTree MeasPointsTree;
         public Tasklist DGVHeader;
         private System.Windows.Forms.DataGridViewTextBoxColumn HGroupCol;
@@ -763,5 +944,34 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn HWorkCenterCol;
         private System.Windows.Forms.DataGridViewTextBoxColumn HPlannerGroupCol;
         private System.Windows.Forms.DataGridViewTextBoxColumn HMaintStratergyCol;
+        private System.Windows.Forms.GroupBox HeaderInputsGB;
+        private System.Windows.Forms.TableLayoutPanel HeaderInputsLayout;
+        private System.Windows.Forms.Label TasklistGroupLBL;
+        private System.Windows.Forms.TextBox TasklistGroupTB;
+        private System.Windows.Forms.Label TasklistCounterLBL;
+        private System.Windows.Forms.TextBox TasklistCounterTB;
+        private System.Windows.Forms.Label TemplateEquipmentLBL;
+        private System.Windows.Forms.TextBox TemplateEquipmentTB;
+        public System.Windows.Forms.TextBox MPPositionTextBox;
+        public System.Windows.Forms.TextBox MPDescriptionTextBox;
+        public System.Windows.Forms.ComboBox MPCharNameComboBox;
+        public System.Windows.Forms.TextBox MPDecimalTextBox;
+        public System.Windows.Forms.ComboBox MPCodeGroupComboBox;
+        public System.Windows.Forms.TextBox MPLowerLimitTextBox;
+        public System.Windows.Forms.TextBox MPUpperLimitTextBox;
+        public System.Windows.Forms.TextBox MPTargetValueTextBox;
+        public System.Windows.Forms.TextBox MPTargetTextTextBox;
+        public System.Windows.Forms.CheckBox checkBox1;
+        public System.Windows.Forms.CheckBox checkBox2;
+        public System.Windows.Forms.Button MeasUpdateButton;
+        public Tasklist DGVBody;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BOperationNumberCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BSubOperationNumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BOperationDescriptionCol;
+        private LongTextColumn BLongTextCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BTotalWorkCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BUnitCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BTechniciansCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BMeasurementsCol;
     }
 }
