@@ -12,12 +12,13 @@ namespace SAP_Task_List_Maker
         // Global variables
         public MainWindow       WinParent;
         public MeasController   MeasurementManager;
+        public bool TrapData;
 
         public MyTree()
         {
             // Add node mouse click event
-            NodeMouseClick += new TreeNodeMouseClickEventHandler(MeasTree_NodeMouseClick);
-
+            NodeMouseClick  += new TreeNodeMouseClickEventHandler(MeasTree_NodeMouseClick);
+            ItemDrag        += new ItemDragEventHandler(MeasTree_ItemDrag);
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint, true);
 
         }
@@ -48,6 +49,22 @@ namespace SAP_Task_List_Maker
         }
 
         /// <summary>
+        /// Item drag events
+        /// </summary>
+        public void MeasTree_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+
+            if(SelectedNode != null)
+            { 
+                if(SelectedNode.Level > 0)
+                { 
+                    Debug.Print("Drag data set");
+                    DoDragDrop(SelectedNode.Index, DragDropEffects.Copy);
+                }
+            }
+        }
+
+        /// <summary>
         /// Updates the main window info boxes based off selection
         /// </summary>
         private void MeasTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -55,6 +72,7 @@ namespace SAP_Task_List_Maker
             // Nodes below root
             if (e.Node.Level > 0)
             {
+
                 MobilityMeasurement MeasureToDisplay    = MeasurementManager.GetExistingMeasurement(e.Node.Index);
 
                 WinParent.MPDescriptionTextBox.Text     = MeasureToDisplay.Description;

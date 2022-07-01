@@ -23,7 +23,7 @@ namespace SAP_Task_List_Maker
         public string              ChangeNumber { get; set; }
     }
 
-    class ExcelDataTables
+    public class ExcelDataTables
     {
         public const int EXACT = 0;
         public const int PARTIAL = 1;
@@ -48,56 +48,32 @@ namespace SAP_Task_List_Maker
                     return null; 
                 }
             var ws = pck.Workbook.Worksheets[sheetnumber];
-            DataTable tbl = new DataTable();
-            bool hasHeader = true;
-            foreach (var firstRowCell in ws.Cells[1, 1, 1, ws.Dimension.End.Column])
-            {
-                tbl.Columns.Add(string.Format("Column {0}", firstRowCell.Start.Column));
-            }
-            var startRow = hasHeader ? 2 : 1;
-            for (var rowNum = startRow; rowNum <= ws.Dimension.End.Row; rowNum++)
-            {
-                var wsRow = ws.Cells[rowNum, 1, rowNum, ws.Dimension.End.Column];
-                var row = tbl.NewRow();
-                foreach (var cell in wsRow)
+            if (ws != null) {
+                DataTable tbl = new DataTable();
+                bool hasHeader = true;
+                foreach (var firstRowCell in ws.Cells[1, 1, 1, ws.Dimension.End.Column])
                 {
-                    row[cell.Start.Column - 1] = cell.Text;
+                    tbl.Columns.Add(string.Format("Column {0}", firstRowCell.Start.Column));
                 }
-                tbl.Rows.Add(row);
-            }
-            pck.Dispose();
-            return tbl;
-        }
-
-        // Convert excel sheet into readable data table in memory 
-        // I did not create this method
-        public DataTable ConvertExcelToDataTable_Name(string path, string sheetname)
-        {
-            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
-
-            var pck = new ExcelPackage();
-
-            try { pck.Load(File.OpenRead(path)); } catch (Exception e) { MsgBoxs.MsgBox_Error(e.Message); return null; }
-            var ws = pck.Workbook.Worksheets[sheetname];
-            DataTable tbl = new DataTable();
-            bool hasHeader = true;
-            foreach (var firstRowCell in ws.Cells[1, 1, 1, ws.Dimension.End.Column])
-            {
-                tbl.Columns.Add(hasHeader ? firstRowCell.Text : string.Format("Column {0}", firstRowCell.Start.Column));
-            }
-            var startRow = hasHeader ? 2 : 1;
-            for (var rowNum = startRow; rowNum <= ws.Dimension.End.Row; rowNum++)
-            {
-                var wsRow = ws.Cells[rowNum, 1, rowNum, ws.Dimension.End.Column];
-                var row = tbl.NewRow();
-                foreach (var cell in wsRow)
+                var startRow = hasHeader ? 2 : 1;
+                for (var rowNum = startRow; rowNum <= ws.Dimension.End.Row; rowNum++)
                 {
-                    row[cell.Start.Column - 1] = cell.Text;
+                    var wsRow = ws.Cells[rowNum, 1, rowNum, ws.Dimension.End.Column];
+                    var row = tbl.NewRow();
+                    foreach (var cell in wsRow)
+                    {
+                        row[cell.Start.Column - 1] = cell.Text;
+                    }
+                    tbl.Rows.Add(row);
                 }
-                tbl.Rows.Add(row);
+                pck.Dispose();
+                return tbl;
             }
-            pck.Dispose();
-            return tbl;
+            else
+            { 
+                MsgBoxs.MsgBox_Warning($"Cannot import data from {path}");
+                return null;
+            }
         }
 
         // Convert from text

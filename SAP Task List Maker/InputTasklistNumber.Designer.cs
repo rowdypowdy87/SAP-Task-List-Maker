@@ -92,7 +92,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(693, 91);
+            this.ClientSize = new System.Drawing.Size(693, 90);
             this.Controls.Add(this.CounterLabel);
             this.Controls.Add(this.GroupLabel);
             this.Controls.Add(this.CancelBtn);

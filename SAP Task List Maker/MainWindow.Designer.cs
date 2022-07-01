@@ -30,16 +30,36 @@
         {
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("EXISTING MEASUREMENTS");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("MEASUREMENT TO CREATE");
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importFromSapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importMEasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.excelEditableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.excelSAPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.excelEditableToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.excelSAPDataFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.UndoMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.RedoMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.FindMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.ReplaceMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.ImportMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.ImportCELMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.tasklistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fromFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fromSAPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ExportMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.tasklistToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tasklistToFilesxlsxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainToolStrip = new System.Windows.Forms.ToolStrip();
             this.MainStatus = new System.Windows.Forms.StatusStrip();
             this.StatusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
@@ -70,37 +90,43 @@
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.MeasUpdateButton = new System.Windows.Forms.Button();
             this.MeasPointsTree = new SAP_Task_List_Maker.MyTree();
+            this.TemplateEquipmentLBL = new System.Windows.Forms.Label();
             this.DataTabs = new System.Windows.Forms.TabControl();
             this.HeaderTab = new System.Windows.Forms.TabPage();
-            this.HeaderTabLayout = new System.Windows.Forms.TableLayoutPanel();
             this.DGVHeader = new SAP_Task_List_Maker.Tasklist();
-            this.HGroupCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HCounterCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HDescriptionCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HPlanningPlantCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HWorkCenterCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HPlannerGroupCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HMaintStratergyCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HeaderInputsGB = new System.Windows.Forms.GroupBox();
-            this.HeaderInputsLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.TasklistGroupLBL = new System.Windows.Forms.Label();
-            this.TasklistGroupTB = new System.Windows.Forms.TextBox();
-            this.TasklistCounterLBL = new System.Windows.Forms.Label();
-            this.TasklistCounterTB = new System.Windows.Forms.TextBox();
-            this.TemplateEquipmentLBL = new System.Windows.Forms.Label();
-            this.TemplateEquipmentTB = new System.Windows.Forms.TextBox();
+            this.HGroupCol = new SAP_Task_List_Maker.TasklistColumn();
+            this.HCounterCol = new SAP_Task_List_Maker.TasklistColumn();
+            this.HDescriptionCol = new SAP_Task_List_Maker.TasklistColumn();
+            this.HPlanningPlantCol = new SAP_Task_List_Maker.TasklistColumn();
+            this.HWorkCenterCol = new SAP_Task_List_Maker.TasklistColumn();
+            this.HPlannerGroupCol = new SAP_Task_List_Maker.TasklistColumn();
+            this.HMaintStratergyCol = new SAP_Task_List_Maker.TasklistColumn();
             this.BodyTab = new System.Windows.Forms.TabPage();
             this.DGVBody = new SAP_Task_List_Maker.Tasklist();
-            this.BOperationNumberCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BSubOperationNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BOperationDescriptionCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BLongTextCol = new SAP_Task_List_Maker.LongTextColumn();
-            this.BTotalWorkCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BUnitCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BTechniciansCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BMeasurementsCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BOperationNumberCol = new SAP_Task_List_Maker.MeaspointCol();
+            this.BSubOperationNumber = new SAP_Task_List_Maker.TasklistColumn();
+            this.BOperationDescriptionCol = new SAP_Task_List_Maker.TasklistColumn();
+            this.BLongTextCol = new SAP_Task_List_Maker.TasklistLongTextColumn();
+            this.BTotalWorkCol = new SAP_Task_List_Maker.TasklistColumn();
+            this.BUnitCol = new SAP_Task_List_Maker.TasklistColumn();
+            this.BTechniciansCol = new SAP_Task_List_Maker.TasklistColumn();
+            this.BMeasurementsCol = new SAP_Task_List_Maker.MeaspointCol();
             this.ComponentsTab = new System.Windows.Forms.TabPage();
+            this.DGVComponents = new SAP_Task_List_Maker.Tasklist();
+            this.CMatNumberCol = new SAP_Task_List_Maker.TasklistColumn();
+            this.CMatDescCol = new SAP_Task_List_Maker.TasklistColumn();
+            this.CMatQuantityCol = new SAP_Task_List_Maker.TasklistColumn();
+            this.CUnitCol = new SAP_Task_List_Maker.TasklistLongTextColumn();
             this.PRTTab = new System.Windows.Forms.TabPage();
+            this.DGVPRT = new SAP_Task_List_Maker.Tasklist();
+            this.DocOperationCol = new SAP_Task_List_Maker.TasklistColumn();
+            this.DocNumberCol = new SAP_Task_List_Maker.TasklistColumn();
+            this.DocDescriptionCol = new SAP_Task_List_Maker.TasklistColumn();
+            this.CELTab = new System.Windows.Forms.TabPage();
+            this.DGVCEL = new SAP_Task_List_Maker.Tasklist();
+            this.CMeasPositionCol = new SAP_Task_List_Maker.TasklistColumn();
+            this.CMeasDescCol = new SAP_Task_List_Maker.TasklistColumn();
+            this.CSortOrderCol = new SAP_Task_List_Maker.TasklistColumn();
             this.MainMenu.SuspendLayout();
             this.MainStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitLayout)).BeginInit();
@@ -112,19 +138,25 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.DataTabs.SuspendLayout();
             this.HeaderTab.SuspendLayout();
-            this.HeaderTabLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVHeader)).BeginInit();
-            this.HeaderInputsGB.SuspendLayout();
-            this.HeaderInputsLayout.SuspendLayout();
             this.BodyTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVBody)).BeginInit();
+            this.ComponentsTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVComponents)).BeginInit();
+            this.PRTTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVPRT)).BeginInit();
+            this.CELTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVCEL)).BeginInit();
             this.SuspendLayout();
             // 
             // MainMenu
             // 
             this.MainMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.editToolStripMenuItem,
+            this.ImportMenu,
+            this.ExportMenu});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
             this.MainMenu.Padding = new System.Windows.Forms.Padding(7, 1, 0, 1);
@@ -137,8 +169,9 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.importFromSapToolStripMenuItem,
             this.importMEasToolStripMenuItem,
-            this.exportToToolStripMenuItem,
-            this.importToolStripMenuItem});
+            this.openToolStripMenuItem,
+            this.saveToolStripMenuItem,
+            this.newToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.fileToolStripMenuItem.Text = "File";
@@ -157,47 +190,116 @@
             this.importMEasToolStripMenuItem.Text = "Import MEas";
             this.importMEasToolStripMenuItem.Click += new System.EventHandler(this.importMEasToolStripMenuItem_Click);
             // 
-            // exportToToolStripMenuItem
+            // openToolStripMenuItem
             // 
-            this.exportToToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.excelEditableToolStripMenuItem,
-            this.excelSAPToolStripMenuItem});
-            this.exportToToolStripMenuItem.Name = "exportToToolStripMenuItem";
-            this.exportToToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
-            this.exportToToolStripMenuItem.Text = "Export";
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
+            this.openToolStripMenuItem.Text = "Open";
             // 
-            // excelEditableToolStripMenuItem
+            // saveToolStripMenuItem
             // 
-            this.excelEditableToolStripMenuItem.Name = "excelEditableToolStripMenuItem";
-            this.excelEditableToolStripMenuItem.Size = new System.Drawing.Size(229, 26);
-            this.excelEditableToolStripMenuItem.Text = "Excel (Editable)";
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
+            this.saveToolStripMenuItem.Text = "Save";
             // 
-            // excelSAPToolStripMenuItem
+            // newToolStripMenuItem
             // 
-            this.excelSAPToolStripMenuItem.Name = "excelSAPToolStripMenuItem";
-            this.excelSAPToolStripMenuItem.Size = new System.Drawing.Size(229, 26);
-            this.excelSAPToolStripMenuItem.Text = "Excel (SAP Data File)";
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
+            this.newToolStripMenuItem.Text = "New";
             // 
-            // importToolStripMenuItem
+            // editToolStripMenuItem
             // 
-            this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.excelEditableToolStripMenuItem1,
-            this.excelSAPDataFileToolStripMenuItem});
-            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
-            this.importToolStripMenuItem.Text = "Import";
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.UndoMenuBtn,
+            this.RedoMenuBtn,
+            this.FindMenuBtn,
+            this.ReplaceMenuBtn});
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
+            this.editToolStripMenuItem.Text = "Edit";
             // 
-            // excelEditableToolStripMenuItem1
+            // UndoMenuBtn
             // 
-            this.excelEditableToolStripMenuItem1.Name = "excelEditableToolStripMenuItem1";
-            this.excelEditableToolStripMenuItem1.Size = new System.Drawing.Size(229, 26);
-            this.excelEditableToolStripMenuItem1.Text = "Excel (Editable)";
+            this.UndoMenuBtn.Name = "UndoMenuBtn";
+            this.UndoMenuBtn.Size = new System.Drawing.Size(184, 26);
+            this.UndoMenuBtn.Text = "Undo (Ctrl+Z)";
             // 
-            // excelSAPDataFileToolStripMenuItem
+            // RedoMenuBtn
             // 
-            this.excelSAPDataFileToolStripMenuItem.Name = "excelSAPDataFileToolStripMenuItem";
-            this.excelSAPDataFileToolStripMenuItem.Size = new System.Drawing.Size(229, 26);
-            this.excelSAPDataFileToolStripMenuItem.Text = "Excel (SAP Data File)";
+            this.RedoMenuBtn.Name = "RedoMenuBtn";
+            this.RedoMenuBtn.Size = new System.Drawing.Size(184, 26);
+            this.RedoMenuBtn.Text = "Redo (Ctrl+Y)";
+            // 
+            // FindMenuBtn
+            // 
+            this.FindMenuBtn.Name = "FindMenuBtn";
+            this.FindMenuBtn.Size = new System.Drawing.Size(184, 26);
+            this.FindMenuBtn.Text = "Find";
+            // 
+            // ReplaceMenuBtn
+            // 
+            this.ReplaceMenuBtn.Name = "ReplaceMenuBtn";
+            this.ReplaceMenuBtn.Size = new System.Drawing.Size(184, 26);
+            this.ReplaceMenuBtn.Text = "Replace";
+            // 
+            // ImportMenu
+            // 
+            this.ImportMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ImportCELMenuBtn,
+            this.tasklistToolStripMenuItem});
+            this.ImportMenu.Name = "ImportMenu";
+            this.ImportMenu.Size = new System.Drawing.Size(68, 24);
+            this.ImportMenu.Text = "Import";
+            // 
+            // ImportCELMenuBtn
+            // 
+            this.ImportCELMenuBtn.Name = "ImportCELMenuBtn";
+            this.ImportCELMenuBtn.Size = new System.Drawing.Size(138, 26);
+            this.ImportCELMenuBtn.Text = "CEL";
+            this.ImportCELMenuBtn.Click += new System.EventHandler(this.ImportCELMenuBtn_Click);
+            // 
+            // tasklistToolStripMenuItem
+            // 
+            this.tasklistToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fromFilesToolStripMenuItem,
+            this.fromSAPToolStripMenuItem});
+            this.tasklistToolStripMenuItem.Name = "tasklistToolStripMenuItem";
+            this.tasklistToolStripMenuItem.Size = new System.Drawing.Size(138, 26);
+            this.tasklistToolStripMenuItem.Text = "Tasklist";
+            // 
+            // fromFilesToolStripMenuItem
+            // 
+            this.fromFilesToolStripMenuItem.Name = "fromFilesToolStripMenuItem";
+            this.fromFilesToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
+            this.fromFilesToolStripMenuItem.Text = "From files";
+            // 
+            // fromSAPToolStripMenuItem
+            // 
+            this.fromSAPToolStripMenuItem.Name = "fromSAPToolStripMenuItem";
+            this.fromSAPToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
+            this.fromSAPToolStripMenuItem.Text = "From SAP";
+            // 
+            // ExportMenu
+            // 
+            this.ExportMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tasklistToolStripMenuItem1,
+            this.tasklistToFilesxlsxToolStripMenuItem});
+            this.ExportMenu.Name = "ExportMenu";
+            this.ExportMenu.Size = new System.Drawing.Size(66, 24);
+            this.ExportMenu.Text = "Export";
+            // 
+            // tasklistToolStripMenuItem1
+            // 
+            this.tasklistToolStripMenuItem1.Name = "tasklistToolStripMenuItem1";
+            this.tasklistToolStripMenuItem1.Size = new System.Drawing.Size(232, 26);
+            this.tasklistToolStripMenuItem1.Text = "Tasklist To SAP";
+            // 
+            // tasklistToFilesxlsxToolStripMenuItem
+            // 
+            this.tasklistToFilesxlsxToolStripMenuItem.Name = "tasklistToFilesxlsxToolStripMenuItem";
+            this.tasklistToFilesxlsxToolStripMenuItem.Size = new System.Drawing.Size(232, 26);
+            this.tasklistToFilesxlsxToolStripMenuItem.Text = "Tasklist To Files (.xlsx)";
             // 
             // MainToolStrip
             // 
@@ -258,13 +360,15 @@
             this.MeasurementsLayout.AutoScrollMinSize = new System.Drawing.Size(200, 200);
             this.MeasurementsLayout.ColumnCount = 1;
             this.MeasurementsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.MeasurementsLayout.Controls.Add(this.MeasPointDetailGroupBox, 0, 1);
-            this.MeasurementsLayout.Controls.Add(this.MeasPointsTree, 0, 0);
+            this.MeasurementsLayout.Controls.Add(this.MeasPointDetailGroupBox, 0, 2);
+            this.MeasurementsLayout.Controls.Add(this.MeasPointsTree, 0, 1);
+            this.MeasurementsLayout.Controls.Add(this.TemplateEquipmentLBL, 0, 0);
             this.MeasurementsLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MeasurementsLayout.Location = new System.Drawing.Point(0, 0);
             this.MeasurementsLayout.Margin = new System.Windows.Forms.Padding(0);
             this.MeasurementsLayout.Name = "MeasurementsLayout";
-            this.MeasurementsLayout.RowCount = 2;
+            this.MeasurementsLayout.RowCount = 3;
+            this.MeasurementsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
             this.MeasurementsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 58F));
             this.MeasurementsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 42F));
             this.MeasurementsLayout.Size = new System.Drawing.Size(433, 981);
@@ -274,10 +378,10 @@
             // 
             this.MeasPointDetailGroupBox.Controls.Add(this.tableLayoutPanel1);
             this.MeasPointDetailGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MeasPointDetailGroupBox.Location = new System.Drawing.Point(1, 569);
+            this.MeasPointDetailGroupBox.Location = new System.Drawing.Point(1, 587);
             this.MeasPointDetailGroupBox.Margin = new System.Windows.Forms.Padding(1);
             this.MeasPointDetailGroupBox.Name = "MeasPointDetailGroupBox";
-            this.MeasPointDetailGroupBox.Size = new System.Drawing.Size(431, 411);
+            this.MeasPointDetailGroupBox.Size = new System.Drawing.Size(431, 393);
             this.MeasPointDetailGroupBox.TabIndex = 1;
             this.MeasPointDetailGroupBox.TabStop = false;
             this.MeasPointDetailGroupBox.Text = "Details";
@@ -324,7 +428,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(425, 385);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(425, 367);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // MPPositionTextBox
@@ -519,7 +623,7 @@
             this.tableLayoutPanel1.SetColumnSpan(this.MeasUpdateButton, 2);
             this.MeasUpdateButton.Location = new System.Drawing.Point(3, 332);
             this.MeasUpdateButton.Name = "MeasUpdateButton";
-            this.MeasUpdateButton.Size = new System.Drawing.Size(419, 50);
+            this.MeasUpdateButton.Size = new System.Drawing.Size(419, 32);
             this.MeasUpdateButton.TabIndex = 13;
             this.MeasUpdateButton.Text = "Update Selected";
             this.MeasUpdateButton.UseVisualStyleBackColor = true;
@@ -527,10 +631,12 @@
             // 
             // MeasPointsTree
             // 
+            this.MeasPointsTree.AllowDrop = true;
             this.MeasPointsTree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.MeasPointsTree.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MeasPointsTree.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawAll;
-            this.MeasPointsTree.Location = new System.Drawing.Point(3, 3);
+            this.MeasPointsTree.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.MeasPointsTree.Location = new System.Drawing.Point(3, 44);
             this.MeasPointsTree.Name = "MeasPointsTree";
             treeNode1.Name = "ExistingMeasRoot";
             treeNode1.NodeFont = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -541,8 +647,19 @@
             this.MeasPointsTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2});
-            this.MeasPointsTree.Size = new System.Drawing.Size(427, 562);
+            this.MeasPointsTree.Size = new System.Drawing.Size(427, 539);
             this.MeasPointsTree.TabIndex = 2;
+            // 
+            // TemplateEquipmentLBL
+            // 
+            this.TemplateEquipmentLBL.AutoSize = true;
+            this.TemplateEquipmentLBL.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TemplateEquipmentLBL.Location = new System.Drawing.Point(3, 0);
+            this.TemplateEquipmentLBL.Name = "TemplateEquipmentLBL";
+            this.TemplateEquipmentLBL.Size = new System.Drawing.Size(427, 41);
+            this.TemplateEquipmentLBL.TabIndex = 3;
+            this.TemplateEquipmentLBL.Text = "TEMPLATE EQUIPMENT: NOT LOADED";
+            this.TemplateEquipmentLBL.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // DataTabs
             // 
@@ -550,8 +667,9 @@
             this.DataTabs.Controls.Add(this.BodyTab);
             this.DataTabs.Controls.Add(this.ComponentsTab);
             this.DataTabs.Controls.Add(this.PRTTab);
+            this.DataTabs.Controls.Add(this.CELTab);
             this.DataTabs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DataTabs.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.DataTabs.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.DataTabs.Location = new System.Drawing.Point(0, 0);
             this.DataTabs.Margin = new System.Windows.Forms.Padding(0);
             this.DataTabs.Name = "DataTabs";
@@ -561,34 +679,28 @@
             // 
             // HeaderTab
             // 
-            this.HeaderTab.Controls.Add(this.HeaderTabLayout);
-            this.HeaderTab.Location = new System.Drawing.Point(4, 29);
+            this.HeaderTab.Controls.Add(this.DGVHeader);
+            this.HeaderTab.Location = new System.Drawing.Point(4, 27);
             this.HeaderTab.Name = "HeaderTab";
             this.HeaderTab.Padding = new System.Windows.Forms.Padding(3);
-            this.HeaderTab.Size = new System.Drawing.Size(1138, 948);
+            this.HeaderTab.Size = new System.Drawing.Size(1138, 950);
             this.HeaderTab.TabIndex = 0;
-            this.HeaderTab.Text = "TASKLIST HEADER";
+            this.HeaderTab.Text = "HEADER";
             this.HeaderTab.UseVisualStyleBackColor = true;
-            // 
-            // HeaderTabLayout
-            // 
-            this.HeaderTabLayout.ColumnCount = 1;
-            this.HeaderTabLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.HeaderTabLayout.Controls.Add(this.DGVHeader, 0, 1);
-            this.HeaderTabLayout.Controls.Add(this.HeaderInputsGB, 0, 0);
-            this.HeaderTabLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HeaderTabLayout.Location = new System.Drawing.Point(3, 3);
-            this.HeaderTabLayout.Name = "HeaderTabLayout";
-            this.HeaderTabLayout.RowCount = 2;
-            this.HeaderTabLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.12676F));
-            this.HeaderTabLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 88.87324F));
-            this.HeaderTabLayout.Size = new System.Drawing.Size(1132, 942);
-            this.HeaderTabLayout.TabIndex = 0;
             // 
             // DGVHeader
             // 
+            this.DGVHeader.AllowDrop = true;
             this.DGVHeader.AllowUserToAddRows = false;
             this.DGVHeader.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.DGVHeader.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVHeader.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.DGVHeader.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVHeader.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.HGroupCol,
@@ -598,14 +710,23 @@
             this.HWorkCenterCol,
             this.HPlannerGroupCol,
             this.HMaintStratergyCol});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(210)))), ((int)(((byte)(226)))), ((int)(((byte)(216)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVHeader.DefaultCellStyle = dataGridViewCellStyle2;
             this.DGVHeader.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DGVHeader.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.DGVHeader.GridColor = System.Drawing.Color.LightGray;
-            this.DGVHeader.Location = new System.Drawing.Point(3, 107);
+            this.DGVHeader.Location = new System.Drawing.Point(3, 3);
             this.DGVHeader.Name = "DGVHeader";
             this.DGVHeader.RowHeadersVisible = false;
             this.DGVHeader.RowHeadersWidth = 51;
             this.DGVHeader.RowTemplate.Height = 29;
-            this.DGVHeader.Size = new System.Drawing.Size(1126, 832);
+            this.DGVHeader.Size = new System.Drawing.Size(1132, 944);
             this.DGVHeader.TabIndex = 0;
             // 
             // HGroupCol
@@ -613,156 +734,81 @@
             this.HGroupCol.HeaderText = "TASKLIST GROUP";
             this.HGroupCol.MinimumWidth = 6;
             this.HGroupCol.Name = "HGroupCol";
+            this.HGroupCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.HGroupCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // HCounterCol
             // 
             this.HCounterCol.HeaderText = "TASKLIST COUNTER";
             this.HCounterCol.MinimumWidth = 6;
             this.HCounterCol.Name = "HCounterCol";
+            this.HCounterCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.HCounterCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // HDescriptionCol
             // 
             this.HDescriptionCol.HeaderText = "TASKLIST DESCRIPTION";
             this.HDescriptionCol.MinimumWidth = 6;
             this.HDescriptionCol.Name = "HDescriptionCol";
+            this.HDescriptionCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.HDescriptionCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // HPlanningPlantCol
             // 
             this.HPlanningPlantCol.HeaderText = "PLANNING PLANT";
             this.HPlanningPlantCol.MinimumWidth = 6;
             this.HPlanningPlantCol.Name = "HPlanningPlantCol";
+            this.HPlanningPlantCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.HPlanningPlantCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // HWorkCenterCol
             // 
             this.HWorkCenterCol.HeaderText = "WORK CENTER";
             this.HWorkCenterCol.MinimumWidth = 6;
             this.HWorkCenterCol.Name = "HWorkCenterCol";
+            this.HWorkCenterCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.HWorkCenterCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // HPlannerGroupCol
             // 
             this.HPlannerGroupCol.HeaderText = "PLANNER GROUP";
             this.HPlannerGroupCol.MinimumWidth = 6;
             this.HPlannerGroupCol.Name = "HPlannerGroupCol";
+            this.HPlannerGroupCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.HPlannerGroupCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // HMaintStratergyCol
             // 
             this.HMaintStratergyCol.HeaderText = "MAINTENANCE STRATEGY";
             this.HMaintStratergyCol.MinimumWidth = 6;
             this.HMaintStratergyCol.Name = "HMaintStratergyCol";
-            // 
-            // HeaderInputsGB
-            // 
-            this.HeaderInputsGB.Controls.Add(this.HeaderInputsLayout);
-            this.HeaderInputsGB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HeaderInputsGB.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.HeaderInputsGB.Location = new System.Drawing.Point(3, 3);
-            this.HeaderInputsGB.Name = "HeaderInputsGB";
-            this.HeaderInputsGB.Padding = new System.Windows.Forms.Padding(1);
-            this.HeaderInputsGB.Size = new System.Drawing.Size(1126, 98);
-            this.HeaderInputsGB.TabIndex = 1;
-            this.HeaderInputsGB.TabStop = false;
-            this.HeaderInputsGB.Text = "TASKLIST INFORMATION";
-            // 
-            // HeaderInputsLayout
-            // 
-            this.HeaderInputsLayout.ColumnCount = 6;
-            this.HeaderInputsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 141F));
-            this.HeaderInputsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 137F));
-            this.HeaderInputsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 171F));
-            this.HeaderInputsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 161F));
-            this.HeaderInputsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 211F));
-            this.HeaderInputsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 303F));
-            this.HeaderInputsLayout.Controls.Add(this.TasklistGroupLBL, 0, 0);
-            this.HeaderInputsLayout.Controls.Add(this.TasklistGroupTB, 1, 0);
-            this.HeaderInputsLayout.Controls.Add(this.TasklistCounterLBL, 2, 0);
-            this.HeaderInputsLayout.Controls.Add(this.TasklistCounterTB, 3, 0);
-            this.HeaderInputsLayout.Controls.Add(this.TemplateEquipmentLBL, 4, 0);
-            this.HeaderInputsLayout.Controls.Add(this.TemplateEquipmentTB, 5, 0);
-            this.HeaderInputsLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HeaderInputsLayout.Location = new System.Drawing.Point(1, 21);
-            this.HeaderInputsLayout.Margin = new System.Windows.Forms.Padding(1);
-            this.HeaderInputsLayout.Name = "HeaderInputsLayout";
-            this.HeaderInputsLayout.RowCount = 1;
-            this.HeaderInputsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.HeaderInputsLayout.Size = new System.Drawing.Size(1124, 76);
-            this.HeaderInputsLayout.TabIndex = 0;
-            // 
-            // TasklistGroupLBL
-            // 
-            this.TasklistGroupLBL.AutoSize = true;
-            this.TasklistGroupLBL.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TasklistGroupLBL.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.TasklistGroupLBL.Location = new System.Drawing.Point(3, 0);
-            this.TasklistGroupLBL.Name = "TasklistGroupLBL";
-            this.TasklistGroupLBL.Size = new System.Drawing.Size(135, 76);
-            this.TasklistGroupLBL.TabIndex = 0;
-            this.TasklistGroupLBL.Text = "TASKLIST GROUP:";
-            this.TasklistGroupLBL.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // TasklistGroupTB
-            // 
-            this.TasklistGroupTB.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.TasklistGroupTB.Location = new System.Drawing.Point(144, 24);
-            this.TasklistGroupTB.Name = "TasklistGroupTB";
-            this.TasklistGroupTB.Size = new System.Drawing.Size(125, 27);
-            this.TasklistGroupTB.TabIndex = 1;
-            // 
-            // TasklistCounterLBL
-            // 
-            this.TasklistCounterLBL.AutoSize = true;
-            this.TasklistCounterLBL.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TasklistCounterLBL.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.TasklistCounterLBL.Location = new System.Drawing.Point(281, 0);
-            this.TasklistCounterLBL.Name = "TasklistCounterLBL";
-            this.TasklistCounterLBL.Size = new System.Drawing.Size(165, 76);
-            this.TasklistCounterLBL.TabIndex = 2;
-            this.TasklistCounterLBL.Text = "TASKLIST COUNTER:";
-            this.TasklistCounterLBL.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // TasklistCounterTB
-            // 
-            this.TasklistCounterTB.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.TasklistCounterTB.Location = new System.Drawing.Point(452, 24);
-            this.TasklistCounterTB.Name = "TasklistCounterTB";
-            this.TasklistCounterTB.Size = new System.Drawing.Size(125, 27);
-            this.TasklistCounterTB.TabIndex = 3;
-            // 
-            // TemplateEquipmentLBL
-            // 
-            this.TemplateEquipmentLBL.AutoSize = true;
-            this.TemplateEquipmentLBL.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TemplateEquipmentLBL.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.TemplateEquipmentLBL.Location = new System.Drawing.Point(613, 0);
-            this.TemplateEquipmentLBL.Name = "TemplateEquipmentLBL";
-            this.TemplateEquipmentLBL.Size = new System.Drawing.Size(205, 76);
-            this.TemplateEquipmentLBL.TabIndex = 4;
-            this.TemplateEquipmentLBL.Text = "TEMPLATE EQUIPMENT NUMBER:";
-            this.TemplateEquipmentLBL.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // TemplateEquipmentTB
-            // 
-            this.TemplateEquipmentTB.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.TemplateEquipmentTB.Location = new System.Drawing.Point(824, 24);
-            this.TemplateEquipmentTB.Name = "TemplateEquipmentTB";
-            this.TemplateEquipmentTB.Size = new System.Drawing.Size(189, 27);
-            this.TemplateEquipmentTB.TabIndex = 5;
+            this.HMaintStratergyCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.HMaintStratergyCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // BodyTab
             // 
             this.BodyTab.Controls.Add(this.DGVBody);
-            this.BodyTab.Location = new System.Drawing.Point(4, 29);
+            this.BodyTab.Location = new System.Drawing.Point(4, 27);
             this.BodyTab.Name = "BodyTab";
             this.BodyTab.Padding = new System.Windows.Forms.Padding(3);
-            this.BodyTab.Size = new System.Drawing.Size(1138, 948);
+            this.BodyTab.Size = new System.Drawing.Size(1138, 950);
             this.BodyTab.TabIndex = 1;
-            this.BodyTab.Text = "TASKLIST BODY";
+            this.BodyTab.Text = "BODY";
             this.BodyTab.UseVisualStyleBackColor = true;
             // 
             // DGVBody
             // 
+            this.DGVBody.AllowDrop = true;
             this.DGVBody.AllowUserToAddRows = false;
             this.DGVBody.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVBody.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVBody.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.DGVBody.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVBody.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.BOperationNumberCol,
@@ -773,13 +819,25 @@
             this.BUnitCol,
             this.BTechniciansCol,
             this.BMeasurementsCol});
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(210)))), ((int)(((byte)(226)))), ((int)(((byte)(216)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVBody.DefaultCellStyle = dataGridViewCellStyle4;
             this.DGVBody.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DGVBody.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.DGVBody.Location = new System.Drawing.Point(3, 3);
             this.DGVBody.Name = "DGVBody";
             this.DGVBody.RowHeadersWidth = 51;
             this.DGVBody.RowTemplate.Height = 29;
-            this.DGVBody.Size = new System.Drawing.Size(1132, 942);
+            this.DGVBody.Size = new System.Drawing.Size(1132, 944);
             this.DGVBody.TabIndex = 0;
+            this.DGVBody.DragDrop += new System.Windows.Forms.DragEventHandler(this.DGVBody_DragDrop);
+            this.DGVBody.DragEnter += new System.Windows.Forms.DragEventHandler(this.DGVBody_DragEnter);
+            this.DGVBody.DragOver += new System.Windows.Forms.DragEventHandler(this.DGVBody_DragOver);
             // 
             // BOperationNumberCol
             // 
@@ -787,6 +845,8 @@
             this.BOperationNumberCol.HeaderText = "OPERATION";
             this.BOperationNumberCol.MinimumWidth = 6;
             this.BOperationNumberCol.Name = "BOperationNumberCol";
+            this.BOperationNumberCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.BOperationNumberCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // BSubOperationNumber
             // 
@@ -794,6 +854,8 @@
             this.BSubOperationNumber.HeaderText = "SUB-OPERATION";
             this.BSubOperationNumber.MinimumWidth = 6;
             this.BSubOperationNumber.Name = "BSubOperationNumber";
+            this.BSubOperationNumber.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.BSubOperationNumber.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // BOperationDescriptionCol
             // 
@@ -801,6 +863,8 @@
             this.BOperationDescriptionCol.HeaderText = "OPERATION DESCRIPTION";
             this.BOperationDescriptionCol.MinimumWidth = 6;
             this.BOperationDescriptionCol.Name = "BOperationDescriptionCol";
+            this.BOperationDescriptionCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.BOperationDescriptionCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // BLongTextCol
             // 
@@ -816,7 +880,6 @@
             this.BTotalWorkCol.MinimumWidth = 6;
             this.BTotalWorkCol.Name = "BTotalWorkCol";
             this.BTotalWorkCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.BTotalWorkCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // BUnitCol
             // 
@@ -825,7 +888,6 @@
             this.BUnitCol.MinimumWidth = 6;
             this.BUnitCol.Name = "BUnitCol";
             this.BUnitCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.BUnitCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // BTechniciansCol
             // 
@@ -833,6 +895,8 @@
             this.BTechniciansCol.HeaderText = "PEOPLE";
             this.BTechniciansCol.MinimumWidth = 6;
             this.BTechniciansCol.Name = "BTechniciansCol";
+            this.BTechniciansCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.BTechniciansCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // BMeasurementsCol
             // 
@@ -840,26 +904,238 @@
             this.BMeasurementsCol.HeaderText = "MEASUREMENT POINTS";
             this.BMeasurementsCol.MinimumWidth = 6;
             this.BMeasurementsCol.Name = "BMeasurementsCol";
+            this.BMeasurementsCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.BMeasurementsCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // ComponentsTab
             // 
-            this.ComponentsTab.Location = new System.Drawing.Point(4, 29);
+            this.ComponentsTab.Controls.Add(this.DGVComponents);
+            this.ComponentsTab.Location = new System.Drawing.Point(4, 27);
             this.ComponentsTab.Name = "ComponentsTab";
             this.ComponentsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.ComponentsTab.Size = new System.Drawing.Size(1138, 948);
+            this.ComponentsTab.Size = new System.Drawing.Size(1138, 950);
             this.ComponentsTab.TabIndex = 2;
-            this.ComponentsTab.Text = "TASKLIST COMPONENTS";
+            this.ComponentsTab.Text = "COMPONENTS";
             this.ComponentsTab.UseVisualStyleBackColor = true;
+            // 
+            // DGVComponents
+            // 
+            this.DGVComponents.AllowDrop = true;
+            this.DGVComponents.AllowUserToAddRows = false;
+            this.DGVComponents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.DGVComponents.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.DGVComponents.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVComponents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.DGVComponents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVComponents.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CMatNumberCol,
+            this.CMatDescCol,
+            this.CMatQuantityCol,
+            this.CUnitCol});
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(210)))), ((int)(((byte)(226)))), ((int)(((byte)(216)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVComponents.DefaultCellStyle = dataGridViewCellStyle6;
+            this.DGVComponents.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DGVComponents.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.DGVComponents.Location = new System.Drawing.Point(3, 3);
+            this.DGVComponents.Name = "DGVComponents";
+            this.DGVComponents.RowHeadersWidth = 51;
+            this.DGVComponents.RowTemplate.Height = 29;
+            this.DGVComponents.Size = new System.Drawing.Size(1132, 944);
+            this.DGVComponents.TabIndex = 1;
+            // 
+            // CMatNumberCol
+            // 
+            this.CMatNumberCol.FillWeight = 40F;
+            this.CMatNumberCol.HeaderText = "MATERIAL NUMBER";
+            this.CMatNumberCol.MinimumWidth = 6;
+            this.CMatNumberCol.Name = "CMatNumberCol";
+            this.CMatNumberCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CMatNumberCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // CMatDescCol
+            // 
+            this.CMatDescCol.FillWeight = 40F;
+            this.CMatDescCol.HeaderText = "MATERIAL DESCRIPTION";
+            this.CMatDescCol.MinimumWidth = 6;
+            this.CMatDescCol.Name = "CMatDescCol";
+            this.CMatDescCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CMatDescCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // CMatQuantityCol
+            // 
+            this.CMatQuantityCol.FillWeight = 10F;
+            this.CMatQuantityCol.HeaderText = "MATERIAL QUANTITY";
+            this.CMatQuantityCol.MinimumWidth = 6;
+            this.CMatQuantityCol.Name = "CMatQuantityCol";
+            this.CMatQuantityCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CMatQuantityCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // CUnitCol
+            // 
+            this.CUnitCol.FillWeight = 10F;
+            this.CUnitCol.HeaderText = "UNIT";
+            this.CUnitCol.MinimumWidth = 6;
+            this.CUnitCol.Name = "CUnitCol";
             // 
             // PRTTab
             // 
-            this.PRTTab.Location = new System.Drawing.Point(4, 29);
+            this.PRTTab.Controls.Add(this.DGVPRT);
+            this.PRTTab.Location = new System.Drawing.Point(4, 27);
             this.PRTTab.Name = "PRTTab";
             this.PRTTab.Padding = new System.Windows.Forms.Padding(3);
-            this.PRTTab.Size = new System.Drawing.Size(1138, 948);
+            this.PRTTab.Size = new System.Drawing.Size(1138, 950);
             this.PRTTab.TabIndex = 3;
             this.PRTTab.Text = "DOCUMENT ATTACHMENTS (PRTs)";
             this.PRTTab.UseVisualStyleBackColor = true;
+            // 
+            // DGVPRT
+            // 
+            this.DGVPRT.AllowDrop = true;
+            this.DGVPRT.AllowUserToAddRows = false;
+            this.DGVPRT.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.DGVPRT.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.DGVPRT.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVPRT.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            this.DGVPRT.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVPRT.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.DocOperationCol,
+            this.DocNumberCol,
+            this.DocDescriptionCol});
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(210)))), ((int)(((byte)(226)))), ((int)(((byte)(216)))));
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVPRT.DefaultCellStyle = dataGridViewCellStyle8;
+            this.DGVPRT.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DGVPRT.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.DGVPRT.Location = new System.Drawing.Point(3, 3);
+            this.DGVPRT.Name = "DGVPRT";
+            this.DGVPRT.RowHeadersWidth = 51;
+            this.DGVPRT.RowTemplate.Height = 29;
+            this.DGVPRT.Size = new System.Drawing.Size(1132, 944);
+            this.DGVPRT.TabIndex = 2;
+            // 
+            // DocOperationCol
+            // 
+            this.DocOperationCol.FillWeight = 20F;
+            this.DocOperationCol.HeaderText = "DOCUMENT OPERATION";
+            this.DocOperationCol.MinimumWidth = 6;
+            this.DocOperationCol.Name = "DocOperationCol";
+            this.DocOperationCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.DocOperationCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // DocNumberCol
+            // 
+            this.DocNumberCol.FillWeight = 40F;
+            this.DocNumberCol.HeaderText = "DOCUMENT NUMBER";
+            this.DocNumberCol.MinimumWidth = 6;
+            this.DocNumberCol.Name = "DocNumberCol";
+            this.DocNumberCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.DocNumberCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // DocDescriptionCol
+            // 
+            this.DocDescriptionCol.FillWeight = 40F;
+            this.DocDescriptionCol.HeaderText = "DOCUMENT DESCRIPTION";
+            this.DocDescriptionCol.MinimumWidth = 6;
+            this.DocDescriptionCol.Name = "DocDescriptionCol";
+            this.DocDescriptionCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.DocDescriptionCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // CELTab
+            // 
+            this.CELTab.Controls.Add(this.DGVCEL);
+            this.CELTab.Location = new System.Drawing.Point(4, 27);
+            this.CELTab.Name = "CELTab";
+            this.CELTab.Padding = new System.Windows.Forms.Padding(3);
+            this.CELTab.Size = new System.Drawing.Size(1138, 950);
+            this.CELTab.TabIndex = 4;
+            this.CELTab.Text = "CEL";
+            this.CELTab.UseVisualStyleBackColor = true;
+            // 
+            // DGVCEL
+            // 
+            this.DGVCEL.AllowDrop = true;
+            this.DGVCEL.AllowUserToAddRows = false;
+            this.DGVCEL.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.DGVCEL.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.DGVCEL.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVCEL.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            this.DGVCEL.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVCEL.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CMeasPositionCol,
+            this.CMeasDescCol,
+            this.CSortOrderCol});
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(210)))), ((int)(((byte)(226)))), ((int)(((byte)(216)))));
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVCEL.DefaultCellStyle = dataGridViewCellStyle10;
+            this.DGVCEL.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DGVCEL.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.DGVCEL.Location = new System.Drawing.Point(3, 3);
+            this.DGVCEL.Name = "DGVCEL";
+            this.DGVCEL.RowHeadersWidth = 51;
+            this.DGVCEL.RowTemplate.Height = 29;
+            this.DGVCEL.Size = new System.Drawing.Size(1132, 944);
+            this.DGVCEL.TabIndex = 0;
+            // 
+            // CMeasPositionCol
+            // 
+            this.CMeasPositionCol.FillWeight = 40F;
+            this.CMeasPositionCol.HeaderText = "MEASUREMENT POSITION";
+            this.CMeasPositionCol.MinimumWidth = 6;
+            this.CMeasPositionCol.Name = "CMeasPositionCol";
+            this.CMeasPositionCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CMeasPositionCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // CMeasDescCol
+            // 
+            this.CMeasDescCol.FillWeight = 40F;
+            this.CMeasDescCol.HeaderText = "MEASUREMENT DESCRIPTION";
+            this.CMeasDescCol.MinimumWidth = 6;
+            this.CMeasDescCol.Name = "CMeasDescCol";
+            this.CMeasDescCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CMeasDescCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // CSortOrderCol
+            // 
+            this.CSortOrderCol.FillWeight = 20F;
+            this.CSortOrderCol.HeaderText = "SORT ORDER";
+            this.CSortOrderCol.MinimumWidth = 6;
+            this.CSortOrderCol.Name = "CSortOrderCol";
+            this.CSortOrderCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CSortOrderCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // MainWindow
             // 
@@ -874,6 +1150,7 @@
             this.MainMenuStrip = this.MainMenu;
             this.Name = "MainWindow";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.MainWindow_Load);
             this.MainMenu.ResumeLayout(false);
             this.MainMenu.PerformLayout();
             this.MainStatus.ResumeLayout(false);
@@ -883,18 +1160,21 @@
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitLayout)).EndInit();
             this.MainSplitLayout.ResumeLayout(false);
             this.MeasurementsLayout.ResumeLayout(false);
+            this.MeasurementsLayout.PerformLayout();
             this.MeasPointDetailGroupBox.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.DataTabs.ResumeLayout(false);
             this.HeaderTab.ResumeLayout(false);
-            this.HeaderTabLayout.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGVHeader)).EndInit();
-            this.HeaderInputsGB.ResumeLayout(false);
-            this.HeaderInputsLayout.ResumeLayout(false);
-            this.HeaderInputsLayout.PerformLayout();
             this.BodyTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGVBody)).EndInit();
+            this.ComponentsTab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DGVComponents)).EndInit();
+            this.PRTTab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DGVPRT)).EndInit();
+            this.CELTab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DGVCEL)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -913,7 +1193,6 @@
         private System.Windows.Forms.ToolStripProgressBar StatusProgressBar;
         private System.Windows.Forms.ToolStripStatusLabel StatusTextLabel;
         private System.Windows.Forms.ToolStripMenuItem importFromSapToolStripMenuItem;
-        private System.Windows.Forms.TableLayoutPanel HeaderTabLayout;
         private System.Windows.Forms.TabPage ComponentsTab;
         private System.Windows.Forms.TabPage PRTTab;
         private System.Windows.Forms.ToolStripMenuItem importMEasToolStripMenuItem;
@@ -929,29 +1208,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ToolStripMenuItem exportToToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem excelEditableToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem excelSAPToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem excelEditableToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem excelSAPDataFileToolStripMenuItem;
         public SAP_Task_List_Maker.MyTree MeasPointsTree;
-        public Tasklist DGVHeader;
-        private System.Windows.Forms.DataGridViewTextBoxColumn HGroupCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn HCounterCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn HDescriptionCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn HPlanningPlantCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn HWorkCenterCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn HPlannerGroupCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn HMaintStratergyCol;
-        private System.Windows.Forms.GroupBox HeaderInputsGB;
-        private System.Windows.Forms.TableLayoutPanel HeaderInputsLayout;
-        private System.Windows.Forms.Label TasklistGroupLBL;
-        private System.Windows.Forms.TextBox TasklistGroupTB;
-        private System.Windows.Forms.Label TasklistCounterLBL;
-        private System.Windows.Forms.TextBox TasklistCounterTB;
-        private System.Windows.Forms.Label TemplateEquipmentLBL;
-        private System.Windows.Forms.TextBox TemplateEquipmentTB;
         public System.Windows.Forms.TextBox MPPositionTextBox;
         public System.Windows.Forms.TextBox MPDescriptionTextBox;
         public System.Windows.Forms.ComboBox MPCharNameComboBox;
@@ -965,13 +1222,52 @@
         public System.Windows.Forms.CheckBox checkBox2;
         public System.Windows.Forms.Button MeasUpdateButton;
         public Tasklist DGVBody;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BOperationNumberCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BSubOperationNumber;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BOperationDescriptionCol;
-        private LongTextColumn BLongTextCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BTotalWorkCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BUnitCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BTechniciansCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BMeasurementsCol;
+        private System.Windows.Forms.TabPage CELTab;
+        private System.Windows.Forms.Label TemplateEquipmentLBL;
+        public Tasklist DGVHeader;
+        private System.Windows.Forms.ToolStripMenuItem ImportMenu;
+        private System.Windows.Forms.ToolStripMenuItem ImportCELMenuBtn;
+        private System.Windows.Forms.ToolStripMenuItem ExportMenu;
+        public Tasklist DGVCEL;
+        private TasklistColumn HGroupCol;
+        private TasklistColumn HCounterCol;
+        private TasklistColumn HDescriptionCol;
+        private TasklistColumn HPlanningPlantCol;
+        private TasklistColumn HWorkCenterCol;
+        private TasklistColumn HPlannerGroupCol;
+        private TasklistColumn HMaintStratergyCol;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem UndoMenuBtn;
+        private System.Windows.Forms.ToolStripMenuItem RedoMenuBtn;
+        private System.Windows.Forms.ToolStripMenuItem FindMenuBtn;
+        private System.Windows.Forms.ToolStripMenuItem ReplaceMenuBtn;
+        private System.Windows.Forms.ToolStripMenuItem tasklistToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fromFilesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fromSAPToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tasklistToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem tasklistToFilesxlsxToolStripMenuItem;
+        public Tasklist DGVComponents;
+        private TasklistColumn CMatNumberCol;
+        private TasklistColumn CMatDescCol;
+        private TasklistColumn CMatQuantityCol;
+        private TasklistLongTextColumn CUnitCol;
+        public Tasklist DGVPRT;
+        private TasklistColumn DocOperationCol;
+        private TasklistColumn DocNumberCol;
+        private TasklistColumn DocDescriptionCol;
+        private MeaspointCol BOperationNumberCol;
+        private TasklistColumn BSubOperationNumber;
+        private TasklistColumn BOperationDescriptionCol;
+        private TasklistLongTextColumn BLongTextCol;
+        private TasklistColumn BTotalWorkCol;
+        private TasklistColumn BUnitCol;
+        private TasklistColumn BTechniciansCol;
+        private MeaspointCol BMeasurementsCol;
+        private TasklistColumn CMeasPositionCol;
+        private TasklistColumn CMeasDescCol;
+        private TasklistColumn CSortOrderCol;
     }
 }

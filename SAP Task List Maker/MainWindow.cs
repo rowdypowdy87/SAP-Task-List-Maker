@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -7,9 +8,10 @@ namespace SAP_Task_List_Maker
     public partial class MainWindow : Form
     {
         // Global variables
-        public ImportExport   ImportExportManager;
-        public MeasController MeasurementManager;
-        public int            SelectedMeasure;
+        public ImportExport         ImportExportManager;
+        public MeasController       MeasurementManager;
+        public int                  SelectedMeasure;
+        public DataGridViewCell     CurrentCell;
 
         /// <summary>
         /// Contructor method
@@ -97,6 +99,85 @@ namespace SAP_Task_List_Maker
                 
                 MeasPointsTree.Refresh();
             }
+        }
+
+        /// <summary>
+        /// Import CEL
+        /// </summary>
+        private void ImportCELMenuBtn_Click(object sender, EventArgs e)
+        {
+            InputCEL GetCEL = new InputCEL(this);
+
+            GetCEL.Show();
+        }
+
+        /// <summary>
+        /// Loading form event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainWindow_Load(object sender, EventArgs e)
+        {
+            // Create the CEL table style
+            DataGridViewCellStyle CELStyle = new()
+            {
+                Font                = new("Calibri", 9.0f, FontStyle.Regular),
+                SelectionForeColor  = Color.FromArgb(55,86,35),
+                SelectionBackColor  = Color.FromArgb(198, 224, 180),
+                ForeColor           = Color.FromArgb(55, 86, 35),
+                BackColor           = Color.FromArgb(198,224,180),
+                WrapMode            = DataGridViewTriState.True,
+                Alignment           = DataGridViewContentAlignment.MiddleCenter
+            };
+
+            // Set to CEL table
+            DGVCEL.Columns[2].DefaultCellStyle = CELStyle;
+        }
+
+        private void DGVBody_DragDrop(object sender, DragEventArgs e)
+        {
+            if (CurrentCell.GetType() == typeof(MeaspointCol))
+            {
+                Debug.Print("Dropped event trigger");
+
+                if (e.Data.GetDataPresent(typeof(int)))
+                {
+                    MeaspointCell cell = (MeaspointCell)CurrentCell;
+
+                    // Get data
+                    int ToAdd = (int)e.Data.GetData(typeof(int));
+
+                    if (ToAdd > -1)
+                    { 
+                        // Drop data
+                        cell.Attached.Add(ToAdd);
+                        Debug.Print("Dropped in cell");
+
+                        // Clear data
+                        e.Data.SetData(-1);
+                    }
+                }
+            }
+        }
+
+        private void DGVBody_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
+        }
+
+        private void DGVBody_DragOver(object sender, DragEventArgs e)
+        {
+            // Find where mouse is pointing
+            Point grvScreenLocation = DGVBody.PointToScreen(DGVBody.Location);
+
+            // Check for cell hit
+            DataGridView.HitTestInfo hit = DGVBody.HitTest(MousePosition.X - grvScreenLocation.X + DGVBody.Left,
+                                                           MousePosition.Y - grvScreenLocation.Y + DGVBody.Top);
+
+            Debug.Print($"{hit.ColumnIndex} - {hit.RowIndex}");
+
+            if (hit.ColumnIndex > 6 & hit.RowIndex >= 0)
+                CurrentCell = DGVBody.Rows[hit.RowIndex].Cells[hit.ColumnIndex];
         }
     }
 }

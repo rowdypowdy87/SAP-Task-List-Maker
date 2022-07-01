@@ -80,6 +80,7 @@ namespace SAP_Task_List_Maker
         public string UpperLimit        { get; set; }
         public string TargetText        { get; set; }
         public MEAS_UPDATE UpdateMethod { get; set; }
+        public int  Order { get; set; }
     };
 
     public struct MobilityEquipment

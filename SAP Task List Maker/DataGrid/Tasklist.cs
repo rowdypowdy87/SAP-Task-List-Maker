@@ -3,74 +3,203 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Forms;
 
 namespace SAP_Task_List_Maker
 {
+    public enum UNDO_ITEM_TYPE
+    {
+        Cell = 0,
+        Row = 1,
+        Col = 2
+    };
+
+    public enum UNDO_ITEM_ACTION
+    {
+        Delete = 0,
+        Insert = 1
+    };
+
+    public struct UNDO_ACTION
+    {
+        public UNDO_ITEM_ACTION     Action;
+        public UNDO_ITEM_TYPE       Type;
+        public DataGridViewRow      Row;
+        public DataGridViewCell     Cell;
+        public string               Value;
+        public string               PreviousValue;
+        public int                  Index;
+    }
+
     /// <summary>
     /// Template DGV for the tool
     /// </summary>
     public class Tasklist : DataGridView
-    {
-        private ContextMenuStrip MyContextMenuStrip;
-        public  Color            CellSelectedColor_Border;
-        public  bool             AllowRowMods = true;
-        
+    { 
+        private ContextMenuStrip                MyContextMenuStrip;
+        public  bool                            AllowRowMods = true;
+        public  Pen                             BackgroundPen, GridLinePen, BorderOuter, BorderInner, BorderFrame;
+        public  Brush                           InsideBrush;
+        public  DataGridViewCellStyle           CellStyle, ColCellStyle;
+        public  Undo                            UndoController;
+
         /// <summary>
         /// Contructor
         /// </summary>
         public Tasklist()
         {
-            CellBorderStyle = DataGridViewCellBorderStyle.Single;
-            
-            DataGridViewCellStyle CellStyle = new DataGridViewCellStyle()
+            // Set undo controller
+            UndoController = new(this);
+
+            // Set colors of lines
+            BackgroundPen   = new(BackColor, 1); 
+            BorderFrame     = new(Color.White, 1);
+            GridLinePen     = new(Color.FromArgb(212, 212, 212), 1);
+            BorderOuter     = new(Color.FromArgb(31, 78, 120), 1);
+            BorderInner     = new(Color.FromArgb(48, 120, 186), 1);
+            InsideBrush     = new SolidBrush(Color.FromArgb(221, 235, 247));
+            AllowDrop       = true;
+
+            CellStyle = new()
             {
-                Font = new Font("Calibri", 9.0f, FontStyle.Regular),
-                SelectionForeColor = Color.Black,
-                SelectionBackColor = Color.PowderBlue,
-                ForeColor = Color.Black,
-                BackColor = Color.White,
-                WrapMode = DataGridViewTriState.True
+                Font                = new("Calibri", 9.0f, FontStyle.Regular),
+                ForeColor           = Color.Black,
+                BackColor           = Color.White,
+                WrapMode            = DataGridViewTriState.True,
+                Padding             = new Padding(10,10,10,10),
+                SelectionBackColor  = Color.White
+                
             };
 
-            DataGridViewCellStyle ColCellStyle = new DataGridViewCellStyle()
+            ColCellStyle = new()
             {
-                Font = new Font("Calibri", 9.0f, FontStyle.Bold),
+                Font = new("Calibri", 9.0f, FontStyle.Bold),
                 SelectionForeColor = Color.Black,
                 SelectionBackColor = Color.Gray,
                 ForeColor = Color.Black,
                 BackColor = Color.Gray,
                 WrapMode = DataGridViewTriState.True
+              
             };
 
             ColumnHeadersDefaultCellStyle = ColCellStyle;
             DefaultCellStyle              = CellStyle;
+            
+            AutoSizeRowsMode              = DataGridViewAutoSizeRowsMode.AllCells;
+            EditMode                      = DataGridViewEditMode.EditProgrammatically;
+
+            ColumnHeadersHeight = 50;
 
             // Build context menu
-            ToolStripMenuItem Insert    = new ToolStripMenuItem("Insert");
-            ToolStripMenuItem Above     = new ToolStripMenuItem("Above");
-            ToolStripMenuItem Below     = new ToolStripMenuItem("Below");
-            ToolStripMenuItem Cut       = new ToolStripMenuItem("Cut");
-            ToolStripMenuItem Copy      = new ToolStripMenuItem("Copy");
-            ToolStripMenuItem Paste     = new ToolStripMenuItem("Paste");
-            ToolStripMenuItem Delete    = new ToolStripMenuItem("Delete");
-            MyContextMenuStrip          = new ContextMenuStrip();
+            ToolStripMenuItem Insert    = new("Insert");
+            ToolStripMenuItem Above     = new("Above");
+            ToolStripMenuItem Below     = new("Below");
+            ToolStripMenuItem Cut       = new("Cut");
+            ToolStripMenuItem Copy      = new("Copy");
+            ToolStripMenuItem Paste     = new("Paste");
+            ToolStripMenuItem Delete    = new("Delete");
+            MyContextMenuStrip          = new();
 
             MyContextMenuStrip.Items.AddRange(new ToolStripItem[] { Insert, Cut, Copy, Paste, Delete });
             Insert.DropDownItems.AddRange(new ToolStripItem[] { Above, Below });
 
             // Add events - context
-            Above.MouseDown     += new MouseEventHandler(InsertAboveMenu_Click);
-            Below.MouseDown     += new MouseEventHandler(InsertBelowMenu_Click);
-            Delete.MouseDown    += new MouseEventHandler(DeleteRowMenu_Click);
+            Above.MouseDown     += new(InsertAboveMenu_Click);
+            Below.MouseDown     += new(InsertBelowMenu_Click);
+            Delete.MouseDown    += new(DeleteRowMenu_Click);
             // Add events
-            CellBeginEdit       += new DataGridViewCellCancelEventHandler(TL_CellBeginEdit);
-            CellEndEdit         += new DataGridViewCellEventHandler(TL_CellEndEdit);
-            MouseEnter          += new EventHandler(TL_MouseEnter);
-            RowHeaderMouseClick += new DataGridViewCellMouseEventHandler(TL_RowHeaderClick);
+            CellBeginEdit       += new(TL_CellBeginEdit);
+            CellEndEdit         += new(TL_CellEndEdit);
+            MouseEnter          += new(TL_MouseEnter);
+            RowHeaderMouseClick += new(TL_RowHeaderClick);
 
-            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);    
+            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint, true);    
+        }
+
+        /// <summary>
+        /// Make double click edit the cell
+        /// </summary>
+        protected override void OnCellDoubleClick(DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex > -1 & e.RowIndex > -1)
+                 BeginEdit(false);
+        }
+
+        /// <summary>
+        /// Make F2 make current cell go into edit mode
+        /// </summary>
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            // F2 makes cell go into edit mode
+            switch (e.KeyCode)
+            {
+                // Start edit mode
+                case Keys.F2:
+                    
+                    if (!IsCurrentCellInEditMode)
+                        BeginEdit(false);
+                    else
+                        EndEdit();
+
+                    e.Handled = true;
+                    break;
+
+                // Delete key
+                case Keys.Delete:
+
+                    if (SelectedCells.Count > 0)
+                    { 
+                        // Scan through each cellk
+                        foreach (DataGridViewCell c in SelectedCells)
+                        { 
+                            if (c.Value != null)
+                            {
+                                UNDO_ACTION Action = new()
+                                {
+                                    Action      = UNDO_ITEM_ACTION.Delete,
+                                    Cell        = c,
+                                    Type        = UNDO_ITEM_TYPE.Cell,
+                                    Value       = c.Value.ToString()
+                                };
+
+                                //Multiple cells selected
+                                UndoController.CreateUndoAction(Action);
+
+                                c.Value = "";
+                            }
+                        }
+   
+                    }
+
+                    // Add to undo/redo stack
+                    UndoController.AddUndoActions();
+
+                    break;
+
+                // Undo action
+                case Keys.Z:
+                    if (ModifierKeys == Keys.Control) UndoController.DoUndo();
+                    break;
+
+                // Redo action
+                case Keys.Y:
+                    if (ModifierKeys == Keys.Control) UndoController.DoRedo();
+                    break;
+
+                default:
+                    base.OnKeyDown(e);
+                    break;
+            }  
+        }
+
+        /// <summary>
+        /// Make edit stop on leaving of cell
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnCellLeave(DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex > -1 & e.RowIndex > -1) 
+                EndEdit();
         }
 
         /// <summary>
@@ -149,10 +278,23 @@ namespace SAP_Task_List_Maker
             }
 
             // Remove the rows
-            foreach (DataGridViewRow r in SelectedRows)
+            foreach (DataGridViewRow Row in SelectedRows)
             {
-                r.Dispose();
+                // Create undo action
+                UndoController.CreateUndoAction(new UNDO_ACTION()
+                {
+                    Action  = UNDO_ITEM_ACTION.Delete,
+                    Row     = Row,
+                    Type    = UNDO_ITEM_TYPE.Row,
+                    Index   = Row.Index
+                });
+
+                // Remove actual row
+                Rows.Remove(Row);
             }
+
+            // Add to undo stack
+            UndoController.AddUndoActions();
 
         }
 
@@ -161,7 +303,26 @@ namespace SAP_Task_List_Maker
         /// </summary>
         private void TL_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
+            // Redraw the cell
+            Invalidate(true);
+
             SelectionMode = DataGridViewSelectionMode.CellSelect;
+
+            // Create a new undo action
+            if (CurrentCell.Value != null)
+            {
+                //Multiple cells selected
+                UndoController.CreateUndoAction(new UNDO_ACTION()
+                {
+                    Action      = UNDO_ITEM_ACTION.Delete,
+                    Cell        = CurrentCell,
+                    Type        = UNDO_ITEM_TYPE.Cell,
+                    Value       = CurrentCell.Value.ToString()
+                });
+
+                // Add to undo stack
+                UndoController.AddUndoActions();
+            }
         }
 
         /// <summary>
@@ -172,7 +333,361 @@ namespace SAP_Task_List_Maker
             SelectionMode = DataGridViewSelectionMode.RowHeaderSelect;
         }
 
-       
-       
+        /// <summary>
+        /// Paint nice borders and stuff
+        /// </summary>
+        protected override void OnCellPainting(DataGridViewCellPaintingEventArgs e)
+        {
+            //Draw only grid content cells not ColumnHeader cells nor RowHeader cells
+            if (e.ColumnIndex > -1 & e.RowIndex > -1)
+            {
+                var topLeftPoint        = new Point(e.CellBounds.Left, e.CellBounds.Top);
+                var topRightPoint       = new Point(e.CellBounds.Right - 1, e.CellBounds.Top);
+                var bottomRightPoint    = new Point(e.CellBounds.Right - 1, e.CellBounds.Bottom - 1);
+                var bottomleftPoint     = new Point(e.CellBounds.Left, e.CellBounds.Bottom - 1);
+
+                //Draw selected cells here
+                if (this[e.ColumnIndex, e.RowIndex].Selected)
+                {
+                    e.Graphics.FillRectangle(InsideBrush,
+                                                e.CellBounds.Left,
+                                                e.CellBounds.Top,
+                                                e.CellBounds.Width,
+                                                e.CellBounds.Height);
+
+                    // Darker outer
+                    e.Graphics.DrawRectangle(BorderOuter,
+                                                e.CellBounds.Left,
+                                                e.CellBounds.Top,
+                                                e.CellBounds.Width - 1,
+                                                e.CellBounds.Height - 1);
+                    // Mid inner
+                    e.Graphics.DrawRectangle(BorderInner,
+                                                e.CellBounds.Left + 1,
+                                                e.CellBounds.Top + 1,
+                                                e.CellBounds.Width - 3,
+                                                e.CellBounds.Height - 3);
+
+                    // Highlight
+                    e.Graphics.DrawRectangle(BorderFrame,
+                                                e.CellBounds.Left + 2,
+                                                e.CellBounds.Top + 2,
+                                                e.CellBounds.Width - 5,
+                                                e.CellBounds.Height - 5);
+
+                    // Paint contents of cell
+                    e.PaintContent(e.CellBounds);
+
+                    //Handled painting for this cell, Stop default rendering.
+                    e.Handled = true;
+                }
+                else if (this[e.ColumnIndex, e.RowIndex].IsInEditMode)
+                {
+                    // Draw background
+                    e.Graphics.FillRectangle(new SolidBrush(Color.White), e.CellBounds);
+
+                    // Darker outer
+                    e.Graphics.DrawRectangle(BorderOuter,
+                                                e.CellBounds.Left,
+                                                e.CellBounds.Top,
+                                                e.CellBounds.Width - 1,
+                                                e.CellBounds.Height - 1);
+                    // Mid inner
+                    e.Graphics.DrawRectangle(BorderInner,
+                                                e.CellBounds.Left + 1,
+                                                e.CellBounds.Top + 1,
+                                                e.CellBounds.Width - 3,
+                                                e.CellBounds.Height - 3);
+
+                    // Highlight
+                    e.Graphics.DrawRectangle(BorderFrame,
+                                                e.CellBounds.Left + 2,
+                                                e.CellBounds.Top + 2,
+                                                e.CellBounds.Width - 5,
+                                                e.CellBounds.Height - 5);
+
+                    //Handled painting for this cell, Stop default rendering.
+                    e.Handled = true;
+                }
+                //Draw non-selected cells here
+                else if (!this[e.ColumnIndex, e.RowIndex].Selected)
+                {
+                    e.Paint(e.ClipBounds, DataGridViewPaintParts.All);
+
+                    //Top border of first row cells should be in background color
+                    if (e.RowIndex == 0)
+                        e.Graphics.DrawLine(BackgroundPen, topLeftPoint, topRightPoint);
+
+                    //Left border of first column cells should be in background color
+                    if (e.ColumnIndex == 0)
+                        e.Graphics.DrawLine(BackgroundPen, topLeftPoint, bottomleftPoint);
+
+                    //Bottom border of last row cells should be in gridLine color
+                    if (e.RowIndex == RowCount - 1)
+                        e.Graphics.DrawLine(GridLinePen, bottomRightPoint, bottomleftPoint);
+                    else  //Bottom border of non-last row cells should be in background color
+                        e.Graphics.DrawLine(BackgroundPen, bottomRightPoint, bottomleftPoint);
+
+                    //Right border of last column cells should be in gridLine color
+                    if (e.ColumnIndex == ColumnCount - 1)
+                        e.Graphics.DrawLine(GridLinePen, bottomRightPoint, topRightPoint);
+                    else //Right border of non-last column cells should be in background color
+                        e.Graphics.DrawLine(BackgroundPen, bottomRightPoint, topRightPoint);
+
+                    //Top border of non-first row cells should be in gridLine color, and they should be drawn here after right border
+                    if (e.RowIndex > 0)
+                        e.Graphics.DrawLine(GridLinePen, topLeftPoint, topRightPoint);
+
+                    //Left border of non-first column cells should be in gridLine color, and they should be drawn here after bottom border
+                    if (e.ColumnIndex > 0)
+                        e.Graphics.DrawLine(GridLinePen, topLeftPoint, bottomleftPoint);
+
+                    //We handled painting for this cell, Stop default rendering.
+                    e.Handled = true;
+                }
+            }
+        }
+    }
+
+    // Undo helper
+    public class Undo
+    {
+        // Amount to hold in memory
+        private const int UndoRedoLimit = 20;
+
+        // Undo / Redo stacks
+        private Stack<List<UNDO_ACTION>> UndoStack = new();
+        private Stack<List<UNDO_ACTION>> RedoStack = new();
+
+        // List to hold actions until push event
+        public List<UNDO_ACTION> Actions = new();
+
+        // Parent
+        public Tasklist Parent;
+
+        /// <summary>
+        /// Constructpr method
+        /// </summary>
+        /// <param name="Par">Parent tasklist</param>
+        public Undo(Tasklist Par)
+        {
+            Parent = Par; 
+        }
+
+        /// <summary>
+        /// Creates a new undo action and adds to internal list
+        /// </summary>
+        /// <param name="details"></param>
+        public void CreateUndoAction(UNDO_ACTION details)
+        {
+            Actions.Add(details);
+        }
+
+        /// <summary>
+        /// Adds all actions in the list currently to the stack 
+        /// then clears the list
+        /// </summary>
+        public void AddUndoActions()
+        {
+            if (UndoStack.Count < UndoRedoLimit)
+            { 
+                List<UNDO_ACTION> list = new List<UNDO_ACTION>();
+
+                for(int i = 0; i < Actions.Count; i++)
+                { 
+                    list.Add(Actions[i]);
+                }
+
+                UndoStack.Push(list);
+            }
+
+            Actions.Clear();
+        }
+
+        /// <summary>
+        /// Do undo from stack
+        /// </summary>
+        public void DoUndo()
+        {
+            if (UndoStack.Count > 0)
+            {
+
+                // Get action list
+                List<UNDO_ACTION> ToDo = UndoStack.Pop();
+                List<UNDO_ACTION> ReDo = new();
+
+                // One action
+                if (ToDo.Count == 1)
+                {
+                    // Type of components
+                    switch (ToDo[0].Type)
+                    {
+                        case UNDO_ITEM_TYPE.Cell:
+
+                            // ToDo to perform
+                            switch (ToDo[0].Action)
+                            {
+                                case UNDO_ITEM_ACTION.Delete: 
+                                    // Build redo struct
+                                    UNDO_ACTION New = new()
+                                    {
+                                        Action          = UNDO_ITEM_ACTION.Delete,
+                                        Type            = UNDO_ITEM_TYPE.Cell,
+                                        Cell            = ToDo[0].Cell,
+                                        PreviousValue   = Parent[ToDo[0].Cell.ColumnIndex, ToDo[0].Cell.RowIndex].Value.ToString()
+                                    };
+
+                                    // Undo
+                                    Parent[ToDo[0].Cell.ColumnIndex, ToDo[0].Cell.RowIndex].Value = ToDo[0].Value; 
+                                    // Add to redo queue
+                                    ReDo.Add(New);
+                                    break;
+
+                            }
+
+                            break;
+
+                        case UNDO_ITEM_TYPE.Row:
+
+                            // ToDo to perform
+                            switch (ToDo[0].Action)
+                            {
+                                case UNDO_ITEM_ACTION.Delete:
+                                    Parent.Rows.Insert(ToDo[0].Index, ToDo[0].Row); 
+                                    break;
+                            }
+
+                            break;
+                    }
+
+                }
+                // Multiple ToDo
+                else if (ToDo.Count > 1)
+                {
+                    for (int i = 0; i < ToDo.Count; i++)
+                    {
+                        // Type of components
+                        switch (ToDo[i].Type)
+                        {
+                            case UNDO_ITEM_TYPE.Cell:
+
+                                // ToDo to perform
+                                switch (ToDo[i].Action)
+                                {
+                                    case UNDO_ITEM_ACTION.Delete:
+                                        // Build redo struct
+                                        UNDO_ACTION New = new()
+                                        {
+                                            Action          = UNDO_ITEM_ACTION.Delete,
+                                            Type            = UNDO_ITEM_TYPE.Cell,
+                                            Cell            = ToDo[i].Cell,
+                                            PreviousValue   = Parent[ToDo[i].Cell.ColumnIndex, ToDo[i].Cell.RowIndex].Value.ToString()
+                                        };
+
+                                        // Undo action
+                                        Parent[ToDo[i].Cell.ColumnIndex, ToDo[i].Cell.RowIndex].Value = ToDo[i].Value;
+                                        // Add to redo queue
+                                        ReDo.Add(New);  
+                                        break;
+                                }
+
+                                break;
+
+                            case UNDO_ITEM_TYPE.Row:
+
+                                // ToDo to perform
+                                switch (ToDo[i].Action)
+                                {
+                                    case UNDO_ITEM_ACTION.Delete: 
+                                        Parent.Rows.Insert(ToDo[i].Index, ToDo[i].Row); 
+                                        break;
+                                }
+
+                                break;
+                        }
+                    }
+                }
+
+                // Add to re-do
+                RedoStack.Push(ReDo);
+            }
+        }
+
+        public void DoRedo()
+        {
+            if (RedoStack.Count > 0)
+            {
+                // Get action list
+                List<UNDO_ACTION> ToDo = RedoStack.Pop();
+
+                // One action
+                if (ToDo.Count == 1)
+                {
+                    // Type of components
+                    switch (ToDo[0].Type)
+                    {
+                        case UNDO_ITEM_TYPE.Cell:
+
+                            // ToDo to perform
+                            switch (ToDo[0].Action)
+                            {
+                                case UNDO_ITEM_ACTION.Delete:
+                                    Parent[ToDo[0].Cell.ColumnIndex, ToDo[0].Cell.RowIndex].Value = ToDo[0].PreviousValue;
+                                    break;
+
+                            }
+
+                            break;
+
+                        case UNDO_ITEM_TYPE.Row:
+
+                            // ToDo to perform
+                            switch (ToDo[0].Action)
+                            {
+                                case UNDO_ITEM_ACTION.Delete:
+                                    Parent.Rows.Insert(ToDo[0].Index, ToDo[0].Row);
+                                    break;
+                            }
+
+                            break;
+                    }
+
+                }
+                // Multiple ToDo
+                else if (ToDo.Count > 1)
+                {
+                    for (int i = 0; i < ToDo.Count; i++)
+                    {
+                        // Type of components
+                        switch (ToDo[i].Type)
+                        {
+                            case UNDO_ITEM_TYPE.Cell:
+
+                                // ToDo to perform
+                                switch (ToDo[i].Action)
+                                {
+                                    case UNDO_ITEM_ACTION.Delete:
+                                        Parent[ToDo[i].Cell.ColumnIndex, ToDo[i].Cell.RowIndex].Value = ToDo[i].PreviousValue;
+                                        break;
+                                }
+
+                                break;
+
+                            case UNDO_ITEM_TYPE.Row:
+
+                                // ToDo to perform
+                                switch (ToDo[i].Action)
+                                {
+                                    case UNDO_ITEM_ACTION.Delete:
+                                        Parent.Rows.Insert(ToDo[i].Index, ToDo[i].Row);
+                                        break;
+                                }
+
+                                break;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

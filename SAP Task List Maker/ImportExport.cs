@@ -293,7 +293,7 @@ namespace SAP_Task_List_Maker
         public void ImportFromExcelFile(string FolderPath, TASKLISTNAMES TNames)
         {
             // Variables
-            string    LongText, Op = "", SubOp = "";
+            string    LongText;
             DataTable Import;
 
             // Tell method we are taking it from user
@@ -350,14 +350,14 @@ namespace SAP_Task_List_Maker
 
             // Import data into memory and application
             Import = TableManager.ConvertExcelToDataTable($"{FolderPath}\\{TNames.Header}", 0);
+
             // Set data
-            WinParent.DGVHeader.Rows.Add();
-            WinParent.DGVHeader[0, 0].Value = Import.Rows[0][0].ToString();
-            WinParent.DGVHeader[1, 0].Value = Import.Rows[0][1].ToString();
-            WinParent.DGVHeader[2, 0].Value = Import.Rows[0][2].ToString();
-            WinParent.DGVHeader[3, 0].Value = Import.Rows[0][5].ToString();
-            WinParent.DGVHeader[4, 0].Value = Import.Rows[0][4].ToString();
-            WinParent.DGVHeader[5, 0].Value = Import.Rows[0][10].ToString();
+            WinParent.DGVHeader.Rows.Add( new string[] { Import.Rows[0][0].ToString(),
+                                                         Import.Rows[0][1].ToString(),
+                                                         Import.Rows[0][2].ToString(),
+                                                         Import.Rows[0][5].ToString(),
+                                                         Import.Rows[0][4].ToString(),
+                                                         Import.Rows[0][10].ToString() });
             // Clear table for next load
             Import.Clear();
 
@@ -367,26 +367,39 @@ namespace SAP_Task_List_Maker
             for (int i = 0; i < Import.Rows.Count; i++)
             {
                 // Add a new row to body DGV
-                WinParent.DGVBody.Rows.Add();
-
-                // Get operation and sub operation
-                Op      = Import.Rows[i][2].ToString().Trim();
-                SubOp   = Import.Rows[i][3].ToString().Trim();
-
-                WinParent.DGVBody[0, i].Value = Op;                                      // Operation
-                WinParent.DGVBody[1, i].Value = SubOp;                                   // Sub Operation
-                WinParent.DGVBody[2, i].Value = Import.Rows[i][5].ToString().Trim();     // Description
-                WinParent.DGVBody[4, i].Value = Import.Rows[i][12].ToString().Trim();    // Work
+                WinParent.DGVBody.Rows.Add( new string[] { Import.Rows[i][2].ToString().Trim(),         // Operation    
+                                                           Import.Rows[i][3].ToString().Trim(),         // Sub operation
+                                                           Import.Rows[i][5].ToString().Trim(),         // Description
+                                                           "",
+                                                           Import.Rows[i][12].ToString().Trim(),        // Work
+                                                           Import.Rows[i][13].ToString().Trim(),        // Unit
+                                                           Import.Rows[i][15].ToString().Trim(), ""});  // People
+ 
             }
 
             // Clear table for next load
-            //Import.Clear();
+            Import.Clear();
 
-            //Import = TableManager.ConvertExcelToDataTable($"{FolderPath}\\{TNames.Components}", 0);
+            Import = TableManager.ConvertExcelToDataTable($"{FolderPath}\\{TNames.Components}", 0);
 
-            //Import.Clear();
+            for (int i = 0; i < Import.Rows.Count; i++)
+            {
+                WinParent.DGVComponents.Rows.Add(new string[] { Import.Rows[i][4].ToString(),
+                                                                "",
+                                                                Import.Rows[i][5].ToString(),
+                                                                Import.Rows[i][6].ToString() });
+            }
 
-            //Import = TableManager.ConvertExcelToDataTable($"{FolderPath}\\{TNames.PRT}", 0);
+            Import.Clear();
+
+            Import = TableManager.ConvertExcelToDataTable($"{FolderPath}\\{TNames.PRT}", 0);
+
+            for (int i = 0; i < Import.Rows.Count; i++)
+            {
+                WinParent.DGVPRT.Rows.Add(new string[] { Import.Rows[i][2].ToString(),
+                                                         Import.Rows[i][7].ToString(),
+                                                         "" });
+            }
 
             Import.Clear();
 

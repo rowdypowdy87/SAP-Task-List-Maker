@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows10.0.22000.0</TargetFramework>
     <RootNamespace></RootNamespace>
     <UseWindowsForms>true</UseWindowsForms>
     <StartupObject>SAP_Task_List_Maker.Program</StartupObject>
@@ -39,6 +39,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="DataGrid\MeaspointColumn.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="DataGrid\TasklistColumn.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

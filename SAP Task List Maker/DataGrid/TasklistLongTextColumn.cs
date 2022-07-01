@@ -1,14 +1,20 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace SAP_Task_List_Maker 
 {
     // Create a editing contorl that overrides enter
-    public class LongTextEditingControl : DataGridViewTextBoxEditingControl
+    public class TasklistLongTextEditingControl : TasklistEditingControl
     {
-        public LongTextEditingControl()
+        public TasklistLongTextEditingControl()
         {
             WordWrap = true;
+        }
+
+        public override void PrepareEditingControlForEdit(bool selectAll)
+        {
+            base.PrepareEditingControlForEdit(selectAll);
         }
 
         public override bool EditingControlWantsInputKey(Keys keyData, bool dataGridViewWantsInputKey)
@@ -31,16 +37,17 @@ namespace SAP_Task_List_Maker
             switch (e.KeyCode & Keys.KeyCode)
             {
                 case Keys.Enter:
-                    int oldSelectionStart = SelectionStart;
-                    string currentText = Text;
+                    int     oldSelectionStart   = SelectionStart;
+                    string  currentText         = Text;
 
                     Text = String.Format("{0}{1}{2}",
-                        currentText[0..SelectionStart],
-                        Environment.NewLine,
-                        currentText[(SelectionStart + SelectionLength)..]);
+                                         currentText[0..SelectionStart],
+                                         Environment.NewLine,
+                                         currentText[(SelectionStart + SelectionLength)..]);
 
                     SelectionStart = oldSelectionStart + Environment.NewLine.Length;
                     break;
+
                 default:
                     break;
             }
@@ -49,13 +56,14 @@ namespace SAP_Task_List_Maker
         }
     }
 
-    public class LongTextBoxCell : DataGridViewTextBoxCell
+    public class TasklistLongTextBoxCell : TasklistCell
     {
+        
         public override Type EditType
         {
             get
             {
-                return typeof(LongTextEditingControl);
+                return typeof(TasklistLongTextEditingControl);
             }
         }
     }
@@ -63,12 +71,11 @@ namespace SAP_Task_List_Maker
     /// <summary>
     /// Template class for LongText column
     /// </summary>
-    public class LongTextColumn : DataGridViewColumn
+    public class TasklistLongTextColumn : TasklistColumn
     {
-        public LongTextColumn()
+        public TasklistLongTextColumn()
         {
-            CellTemplate = new LongTextBoxCell();
-            
+            CellTemplate = new TasklistLongTextBoxCell();
         }
     }
 }
