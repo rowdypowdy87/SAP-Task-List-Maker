@@ -7,20 +7,20 @@ using System.Windows.Forms;
 
 namespace SAP_Task_List_Maker
 {
-    public class MyTree : TreeView
+    public class MeasureTree : TreeView
     {
         // Global variables
         public MainWindow       WinParent;
         public MeasController   MeasurementManager;
-        public bool TrapData;
 
-        public MyTree()
+        public MeasureTree()
         {
             // Add node mouse click event
             NodeMouseClick  += new TreeNodeMouseClickEventHandler(MeasTree_NodeMouseClick);
             ItemDrag        += new ItemDragEventHandler(MeasTree_ItemDrag);
-            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint, true);
-
+            SetStyle(ControlStyles.UserPaint, true);
+            
+            
         }
         
 
@@ -53,7 +53,6 @@ namespace SAP_Task_List_Maker
         /// </summary>
         public void MeasTree_ItemDrag(object sender, ItemDragEventArgs e)
         {
-
             if(SelectedNode != null)
             { 
                 if(SelectedNode.Level > 0)
@@ -72,7 +71,6 @@ namespace SAP_Task_List_Maker
             // Nodes below root
             if (e.Node.Level > 0)
             {
-
                 MobilityMeasurement MeasureToDisplay    = MeasurementManager.GetExistingMeasurement(e.Node.Index);
 
                 WinParent.MPDescriptionTextBox.Text     = MeasureToDisplay.Description;
@@ -93,8 +91,9 @@ namespace SAP_Task_List_Maker
         protected override void OnPaint(PaintEventArgs e)
         {
             Graphics Gfx = e.Graphics;
-            Pen Lines    = new Pen(Color.LightSlateGray) { DashPattern = new float[] { 1, 4, 8, 12 } };
+            Pen Lines    = new Pen(Color.LightSlateGray);
 
+     
             foreach (TreeNode n in Nodes)
             {
                 DrawNodes(e, n);
@@ -110,43 +109,12 @@ namespace SAP_Task_List_Maker
                         W = n2.Bounds.Width;
                         H = n2.Bounds.Height;    
 
-                        // Draw lines
-                        if (n2.Index == 0)
-                        {
-                            Gfx.DrawLine(Lines, new Point(X + AutoScrollOffset.X - 5, Y + AutoScrollOffset.Y + (H / 2)),
-                                                new Point(X + AutoScrollOffset.X - 5, Y + AutoScrollOffset.Y + H - 2));
-                            Gfx.DrawLine(Lines, new Point(X + AutoScrollOffset.X - 4, Y + AutoScrollOffset.Y + (H / 2)),
-                                                new Point(X + AutoScrollOffset.X - 1, Y + AutoScrollOffset.Y + (H / 2)));
+                        Gfx.DrawLine(Lines, new Point(X + AutoScrollOffset.X - 10, Y + AutoScrollOffset.Y + 2),
+                                            new Point(X + AutoScrollOffset.X - 10, Y + AutoScrollOffset.Y + H - 2));
 
-                            // Draw line to root node
-                            Gfx.DrawLine(Lines, new Point(X + AutoScrollOffset.X - 4, Y + AutoScrollOffset.Y + (H / 2)),
-                                                new Point(X + AutoScrollOffset.X - 20, Y + AutoScrollOffset.Y));
-                        }
-
-                        // End child node
-                        if (n2.Index == SelectedNode.Nodes.Count - 1)
-                        {
-                            Gfx.DrawLine(Lines, 
-                                         X + AutoScrollOffset.X - 5, 
-                                         Y + AutoScrollOffset.Y + 2,
-                                         X + AutoScrollOffset.X - 5, 
-                                         Y + AutoScrollOffset.Y + (H / 2));
-
-                            Gfx.DrawLine(Lines,
-                                         X + AutoScrollOffset.X - 4, 
-                                         Y + AutoScrollOffset.Y + (H / 2),
-                                         X + AutoScrollOffset.X - 1, 
-                                         Y + AutoScrollOffset.Y + (H / 2));
-                        }
-
-                        // Middle child nodes
-                        if (n2.Index > 0 && n2.Index < SelectedNode.Nodes.Count - 1)
-                        {
-                            Gfx.DrawLine(Lines, new Point(X + AutoScrollOffset.X - 5, Y + AutoScrollOffset.Y + 2),
-                                                new Point(X + AutoScrollOffset.X - 5, Y + AutoScrollOffset.Y + H - 2));
-                            Gfx.DrawLine(Lines, new Point(X + AutoScrollOffset.X - 4, Y + AutoScrollOffset.Y + (H / 2)),
-                                                new Point(X + AutoScrollOffset.X - 1, Y + AutoScrollOffset.Y + (H / 2)));
-                        }
+                        Gfx.DrawLine(Lines, new Point(X + AutoScrollOffset.X - 9, Y + AutoScrollOffset.Y + (H / 2)),
+                                            new Point(X + AutoScrollOffset.X - 1, Y + AutoScrollOffset.Y + (H / 2)));
+                        
 
                         // Draw the nodes
                         DrawNodes(e, n2);
@@ -183,7 +151,7 @@ namespace SAP_Task_List_Maker
             if (CurNode.Level == 0)
             {
                 // Selection bounds
-                SBounds.Width = (int)Gfx.MeasureString(CurNode.Text, RootFont).Width - 15;
+                SBounds.Width = (int)Gfx.MeasureString(CurNode.Text, RootFont).Width;
                 SBounds.Height = (int)Gfx.MeasureString(CurNode.Text, RootFont).Height - 2;
                 SBounds.X += 15;
                 SBounds.Y += 2;

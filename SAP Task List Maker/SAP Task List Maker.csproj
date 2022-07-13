@@ -6,6 +6,8 @@
     <RootNamespace></RootNamespace>
     <UseWindowsForms>true</UseWindowsForms>
     <StartupObject>SAP_Task_List_Maker.Program</StartupObject>
+    <ApplicationIcon>MainIcon.ico</ApplicationIcon>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -34,14 +36,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="MainIcon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DevExpress.CrossPlatform.Printing.DrawingEngine" Version="1.0.12" />
     <PackageReference Include="EPPlus" Version="6.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="DataGrid\MeaspointColumn.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="DataGrid\MeaspointColumn.cs" />
     <Compile Update="DataGrid\TasklistColumn.cs">
       <SubType>Component</SubType>
     </Compile>

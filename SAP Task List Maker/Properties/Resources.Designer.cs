@@ -63,9 +63,29 @@ namespace SAP_Task_List_Maker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Clear {
+            get {
+                object obj = ResourceManager.GetObject("Clear", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap DeExpand {
             get {
                 object obj = ResourceManager.GetObject("DeExpand", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EXCELICON {
+            get {
+                object obj = ResourceManager.GetObject("EXCELICON", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,6 +113,26 @@ namespace SAP_Task_List_Maker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap MeasurePoint {
+            get {
+                object obj = ResourceManager.GetObject("MeasurePoint", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MeasurePointSmall {
+            get {
+                object obj = ResourceManager.GetObject("MeasurePointSmall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap NewMeas {
             get {
                 object obj = ResourceManager.GetObject("NewMeas", resourceCulture);
@@ -103,9 +143,59 @@ namespace SAP_Task_List_Maker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap OPENICON {
+            get {
+                object obj = ResourceManager.GetObject("OPENICON", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Pencil {
             get {
                 object obj = ResourceManager.GetObject("Pencil", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SAPICON {
+            get {
+                object obj = ResourceManager.GetObject("SAPICON", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SAVEICON {
+            get {
+                object obj = ResourceManager.GetObject("SAVEICON", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap UGLLOGO_LARGE {
+            get {
+                object obj = ResourceManager.GetObject("UGLLOGO_LARGE", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap UGLLOGO_SMALL {
+            get {
+                object obj = ResourceManager.GetObject("UGLLOGO_SMALL", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -4,7 +4,9 @@ using System.Windows.Forms;
 
 namespace SAP_Task_List_Maker 
 {
-    // Create a editing contorl that overrides enter
+    /// <summary>
+    /// Main parent template for cells in data grid - TaskList
+    /// </summary>
     public class TasklistEditingControl : DataGridViewTextBoxEditingControl
     {
         public TasklistEditingControl()
@@ -17,6 +19,7 @@ namespace SAP_Task_List_Maker
         /// </summary>
         public override void PrepareEditingControlForEdit(bool selectAll)
         {
+            Invalidate(true);
             base.PrepareEditingControlForEdit(selectAll);
         }
 
@@ -26,7 +29,6 @@ namespace SAP_Task_List_Maker
         protected override void InitLayout()
         {
             base.InitLayout();
-
             Invalidate(true);
         }
     }

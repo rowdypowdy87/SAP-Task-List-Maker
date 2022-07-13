@@ -42,6 +42,7 @@ namespace SAP_Task_List_Maker
         public  Brush                           InsideBrush;
         public  DataGridViewCellStyle           CellStyle, ColCellStyle;
         public  Undo                            UndoController;
+        public  MainWindow ParentWindow;
 
         /// <summary>
         /// Contructor
@@ -114,6 +115,15 @@ namespace SAP_Task_List_Maker
             RowHeaderMouseClick += new(TL_RowHeaderClick);
 
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint, true);    
+        }
+
+        /// <summary>
+        /// Sets main window handle
+        /// </summary>
+        /// <param name="P"></param>
+        public void SetParent(MainWindow P)
+        {
+            ParentWindow = P;
         }
 
         /// <summary>
@@ -216,7 +226,23 @@ namespace SAP_Task_List_Maker
         private void TL_RowHeaderClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right && AllowRowMods)
+            { 
+                if(SelectedRows.Count <= 0)
+                { 
+                    MyContextMenuStrip.Items[1].Enabled = false;
+                    MyContextMenuStrip.Items[2].Enabled = false;
+                    MyContextMenuStrip.Items[3].Enabled = false;
+                    MyContextMenuStrip.Items[4].Enabled = false;
+                }
+                else
+                {
+                    MyContextMenuStrip.Items[1].Enabled = true;
+                    MyContextMenuStrip.Items[2].Enabled = true;
+                    MyContextMenuStrip.Items[3].Enabled = true;
+                    MyContextMenuStrip.Items[4].Enabled = true;
+                }
                 MyContextMenuStrip.Show(MousePosition);
+            }
         }
 
         /* Context menu events */
@@ -337,14 +363,18 @@ namespace SAP_Task_List_Maker
         /// Paint nice borders and stuff
         /// </summary>
         protected override void OnCellPainting(DataGridViewCellPaintingEventArgs e)
-        {
+        { 
             //Draw only grid content cells not ColumnHeader cells nor RowHeader cells
             if (e.ColumnIndex > -1 & e.RowIndex > -1)
             {
+                // Draw measurement point cell
                 var topLeftPoint        = new Point(e.CellBounds.Left, e.CellBounds.Top);
                 var topRightPoint       = new Point(e.CellBounds.Right - 1, e.CellBounds.Top);
                 var bottomRightPoint    = new Point(e.CellBounds.Right - 1, e.CellBounds.Bottom - 1);
                 var bottomleftPoint     = new Point(e.CellBounds.Left, e.CellBounds.Bottom - 1);
+
+                // Paint bg
+                e.PaintBackground(e.ClipBounds, true);
 
                 //Draw selected cells here
                 if (this[e.ColumnIndex, e.RowIndex].Selected)
@@ -375,8 +405,9 @@ namespace SAP_Task_List_Maker
                                                 e.CellBounds.Width - 5,
                                                 e.CellBounds.Height - 5);
 
-                    // Paint contents of cell
-                    e.PaintContent(e.CellBounds);
+                    // Paint content
+                    if (this[e.ColumnIndex, e.RowIndex].GetType() != typeof(MeaspointCell)) 
+                        e.PaintContent(e.CellBounds);
 
                     //Handled painting for this cell, Stop default rendering.
                     e.Handled = true;
@@ -412,7 +443,8 @@ namespace SAP_Task_List_Maker
                 //Draw non-selected cells here
                 else if (!this[e.ColumnIndex, e.RowIndex].Selected)
                 {
-                    e.Paint(e.ClipBounds, DataGridViewPaintParts.All);
+                    if (this[e.ColumnIndex, e.RowIndex].GetType() != typeof(MeaspointCell))
+                            e.Paint(e.ClipBounds, DataGridViewPaintParts.All);
 
                     //Top border of first row cells should be in background color
                     if (e.RowIndex == 0)
@@ -445,6 +477,109 @@ namespace SAP_Task_List_Maker
                     //We handled painting for this cell, Stop default rendering.
                     e.Handled = true;
                 }
+
+                // Paint contents of cell for measurement column
+                if (this[e.ColumnIndex, e.RowIndex].GetType() == typeof(MeaspointCell))
+                {
+                    // Variables
+                    Font          MeasFont = new("Segeo UI", 8.0f, FontStyle.Regular);
+                    MeaspointCell cell     = (MeaspointCell)this[e.ColumnIndex, e.RowIndex];
+
+                    if (cell.Attached.Count > 0)
+                    {
+                        for (int i = 0; i < cell.Attached.Count; i++)
+                        {
+
+                            // Info variables
+                            MobilityMeasurement Cur                 = ParentWindow.MeasurementManager.GetExistingMeasurement(cell.Attached[i]);
+                            int                 StrHeight           = (int)e.Graphics.MeasureString(Cur.Description, MeasFont).Height;
+                            int                 IconX, IconY, 
+                                                SpX, SpY;
+                            Image               Icon                = Properties.Resources.MeasurePointSmall;
+
+                            // Set base positions
+                            SpX     = 5;
+                            SpY     = StrHeight + SpX;
+                            IconX   = e.CellBounds.X + 3;
+                            IconY   = e.CellBounds.Y + 13;
+
+
+                            e.Graphics.DrawImage(Icon, new Point(IconX, IconY - (StrHeight/2) + (i * SpY) - 2));
+
+                            if (Cur.Position != "")
+                                TextRenderer.DrawText(e.Graphics, 
+                                                      $"{Cur.Position} - {Cur.Description}", 
+                                                      MeasFont, 
+                                                      new Point(IconX + 20, IconY - (StrHeight/2) + (i * SpY)), Color.Black);
+                            else
+                                TextRenderer.DrawText(e.Graphics,
+                                                      $"{Cur.Description}",
+                                                      MeasFont,
+                                                      new Point(IconX + 20, IconY - (StrHeight/2) + (i * SpY)), Color.Black);
+                        }
+                    }
+                }
+            }
+        }
+
+        public MeaspointCell CurrentDragCell = null;
+
+        /// <summary>
+        /// Handle data being dragged
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnDragDrop(DragEventArgs e)
+        {
+            if (CurrentDragCell != null)
+            { 
+                Debug.Print("Dropped event trigger");
+
+                if (e.Data.GetDataPresent(typeof(int)))
+                {
+                    // Get data
+                    int ToAdd = (int)e.Data.GetData(typeof(int));
+
+                    if (ToAdd > -1)
+                    {
+                        // Drop data
+                        CurrentDragCell.Attached.Add(ToAdd);
+                        Debug.Print("Dropped in cell");
+
+                        // Clear data
+                        e.Data.SetData(-1);
+
+                        Refresh();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Override drag over event
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnDragOver(DragEventArgs e)
+        {
+            // Find where mouse is pointing
+            Point grvScreenLocation = PointToScreen(Location);
+
+            // Check for cell hit
+            HitTestInfo hit = HitTest(MousePosition.X - grvScreenLocation.X + Left,
+                                      MousePosition.Y - grvScreenLocation.Y + Top);
+
+            // Check for measurement poitn cells
+            if(hit.ColumnIndex > -1 & hit.RowIndex > -1)
+            { 
+                if(this[hit.ColumnIndex, hit.RowIndex].GetType() == typeof(MeaspointCell))
+                {
+                    e.Effect        = DragDropEffects.Copy;
+                    CurrentDragCell = (MeaspointCell)this[hit.ColumnIndex, hit.RowIndex];
+                }
+                else
+                {
+                    e.Effect        = DragDropEffects.None;
+                    CurrentDragCell = null;
+                } 
             }
         }
     }

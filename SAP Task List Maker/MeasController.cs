@@ -60,7 +60,7 @@ namespace SAP_Task_List_Maker
                         UpdateMethod    = MEAS_UPDATE.NONE
                     };
 
-                    Debug.Print(MeasToAdd.Description);
+                    //Debug.Print(MeasToAdd.Description);
 
                     ExistingMeasures.Add(MeasToAdd);
                 }

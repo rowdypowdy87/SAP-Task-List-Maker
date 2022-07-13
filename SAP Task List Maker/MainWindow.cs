@@ -47,19 +47,6 @@ namespace SAP_Task_List_Maker
             StatusTextLabel.Text    = StatusText;
         }
 
-        private void importFromSapToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ImportExportManager.ImportFromSAP();
-        }
-
-        private void importMEasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            switch (MeasurementManager.LoadMeasurements("11338714"))
-            {
-                case SAPERROR.SAP_NOT_CONNECTED: MsgBoxs.MsgBox_Error("Please ensure SAP is running to continue"); break;
-            }
-        }
-
         private static void DrawStringOutlined(Graphics g, string Text, Font TextFont, Color TextColor, Color OutlineColor, int X, int Y, int OutlineDepth)
         {
             // Draw outline
@@ -114,8 +101,6 @@ namespace SAP_Task_List_Maker
         /// <summary>
         /// Loading form event
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void MainWindow_Load(object sender, EventArgs e)
         {
             // Create the CEL table style
@@ -132,8 +117,11 @@ namespace SAP_Task_List_Maker
 
             // Set to CEL table
             DGVCEL.Columns[2].DefaultCellStyle = CELStyle;
+
+            DGVBody.SetParent(this);
         }
 
+        /// Drag drop event
         private void DGVBody_DragDrop(object sender, DragEventArgs e)
         {
             if (CurrentCell.GetType() == typeof(MeaspointCol))
@@ -178,6 +166,24 @@ namespace SAP_Task_List_Maker
 
             if (hit.ColumnIndex > 6 & hit.RowIndex >= 0)
                 CurrentCell = DGVBody.Rows[hit.RowIndex].Cells[hit.ColumnIndex];
+        }
+
+        /// <summary>
+        /// Exit application
+        /// </summary>
+        private void ExitMenuBtn_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void ImportMeasBtn_Click(object sender, EventArgs e)
+        {
+            switch (MeasurementManager.LoadMeasurements("11338714"))
+            {
+                case SAPERROR.SAP_NOT_CONNECTED: MsgBoxs.MsgBox_Error("Please ensure SAP is running to continue"); break;
+            }
+
+            ImportExportManager.ImportFromSAP();
         }
     }
 }
