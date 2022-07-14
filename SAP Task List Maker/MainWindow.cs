@@ -194,5 +194,19 @@ namespace SAP_Task_List_Maker
 
             HasImports = true;
         }
+
+        private void NewProjectTSBTN_Click(object sender, EventArgs e)
+        {
+            if(MsgBoxs.MsgBox_Question("Are you sure you want to start a new project?") == DialogResult.Yes)
+            {
+                DGVBody.Rows.Clear();
+                DGVHeader.Rows.Clear();
+                DGVCEL.Rows.Clear();
+                DGVPRT.Rows.Clear();
+                DGVComponents.Rows.Clear();
+                MeasPointsTree.Nodes[0].Nodes.Clear();
+                MeasPointsTree.Nodes[1].Nodes.Clear();
+            }
+        }
     }
 }

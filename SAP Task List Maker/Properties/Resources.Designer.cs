@@ -133,6 +133,26 @@ namespace SAP_Task_List_Maker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap NEWICON {
+            get {
+                object obj = ResourceManager.GetObject("NEWICON", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap NEWICON1 {
+            get {
+                object obj = ResourceManager.GetObject("NEWICON1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap NewMeas {
             get {
                 object obj = ResourceManager.GetObject("NewMeas", resourceCulture);

@@ -60,8 +60,8 @@
             this.tasklistToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tasklistToFilesxlsxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainToolStrip = new System.Windows.Forms.ToolStrip();
-            this.OpenToolstripBTN = new System.Windows.Forms.ToolStripButton();
-            this.SaveToolstripButton = new System.Windows.Forms.ToolStripButton();
+            this.OpenTSBTN = new System.Windows.Forms.ToolStripButton();
+            this.SaveTSBTN = new System.Windows.Forms.ToolStripButton();
             this.UGLLogoLBL = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.MainStatus = new System.Windows.Forms.StatusStrip();
@@ -130,6 +130,9 @@
             this.CMeasPositionCol = new SAP_Task_List_Maker.TasklistColumn();
             this.CMeasDescCol = new SAP_Task_List_Maker.TasklistColumn();
             this.CSortOrderCol = new SAP_Task_List_Maker.TasklistColumn();
+            this.ImportExcelTSBTN = new System.Windows.Forms.ToolStripButton();
+            this.ExportExcelTSBTN = new System.Windows.Forms.ToolStripButton();
+            this.NewProjectTSBTN = new System.Windows.Forms.ToolStripButton();
             this.MainMenu.SuspendLayout();
             this.MainToolStrip.SuspendLayout();
             this.MainStatus.SuspendLayout();
@@ -293,10 +296,13 @@
             // 
             this.MainToolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.MainToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.OpenToolstripBTN,
-            this.SaveToolstripButton,
+            this.NewProjectTSBTN,
+            this.OpenTSBTN,
+            this.SaveTSBTN,
             this.UGLLogoLBL,
-            this.toolStripSeparator1});
+            this.toolStripSeparator1,
+            this.ImportExcelTSBTN,
+            this.ExportExcelTSBTN});
             this.MainToolStrip.Location = new System.Drawing.Point(0, 26);
             this.MainToolStrip.MinimumSize = new System.Drawing.Size(0, 80);
             this.MainToolStrip.Name = "MainToolStrip";
@@ -304,27 +310,27 @@
             this.MainToolStrip.TabIndex = 2;
             this.MainToolStrip.Text = "Tool Strip";
             // 
-            // OpenToolstripBTN
+            // OpenTSBTN
             // 
-            this.OpenToolstripBTN.Image = global::Properties.Resources.OPENICON;
-            this.OpenToolstripBTN.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.OpenToolstripBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.OpenToolstripBTN.Name = "OpenToolstripBTN";
-            this.OpenToolstripBTN.Size = new System.Drawing.Size(49, 77);
-            this.OpenToolstripBTN.Text = "Open";
-            this.OpenToolstripBTN.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.OpenToolstripBTN.ToolTipText = "Open Tasklist Maker File (*.tmf)";
+            this.OpenTSBTN.Image = Properties.Resources.OPENICON;
+            this.OpenTSBTN.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.OpenTSBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.OpenTSBTN.Name = "OpenTSBTN";
+            this.OpenTSBTN.Size = new System.Drawing.Size(49, 77);
+            this.OpenTSBTN.Text = "Open";
+            this.OpenTSBTN.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.OpenTSBTN.ToolTipText = "Open Tasklist Maker File (*.tmf)";
             // 
-            // SaveToolstripButton
+            // SaveTSBTN
             // 
-            this.SaveToolstripButton.Image = ((System.Drawing.Image)(resources.GetObject("SaveToolstripButton.Image")));
-            this.SaveToolstripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.SaveToolstripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.SaveToolstripButton.Name = "SaveToolstripButton";
-            this.SaveToolstripButton.Size = new System.Drawing.Size(49, 77);
-            this.SaveToolstripButton.Text = "Save";
-            this.SaveToolstripButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.SaveToolstripButton.ToolTipText = "Save Tasklist Maker File (*.tmf)";
+            this.SaveTSBTN.Image = ((System.Drawing.Image)(resources.GetObject("SaveTSBTN.Image")));
+            this.SaveTSBTN.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.SaveTSBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.SaveTSBTN.Name = "SaveTSBTN";
+            this.SaveTSBTN.Size = new System.Drawing.Size(49, 77);
+            this.SaveTSBTN.Text = "Save";
+            this.SaveTSBTN.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.SaveTSBTN.ToolTipText = "Save Tasklist Maker File (*.tmf)";
             // 
             // UGLLogoLBL
             // 
@@ -1168,6 +1174,40 @@
             this.CSortOrderCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.CSortOrderCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
+            // ImportExcelTSBTN
+            // 
+            this.ImportExcelTSBTN.Image = Properties.Resources.EXCELICON;
+            this.ImportExcelTSBTN.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.ImportExcelTSBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ImportExcelTSBTN.Name = "ImportExcelTSBTN";
+            this.ImportExcelTSBTN.Size = new System.Drawing.Size(58, 77);
+            this.ImportExcelTSBTN.Text = "Import";
+            this.ImportExcelTSBTN.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.ImportExcelTSBTN.ToolTipText = "Import from Excel Files (*.xlsx)";
+            // 
+            // ExportExcelTSBTN
+            // 
+            this.ExportExcelTSBTN.Image = Properties.Resources.EXCELICON;
+            this.ExportExcelTSBTN.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.ExportExcelTSBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ExportExcelTSBTN.Name = "ExportExcelTSBTN";
+            this.ExportExcelTSBTN.Size = new System.Drawing.Size(57, 77);
+            this.ExportExcelTSBTN.Text = "Export";
+            this.ExportExcelTSBTN.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.ExportExcelTSBTN.ToolTipText = "Export to Excel Files (*.xlsx)";
+            // 
+            // NewProjectTSBTN
+            // 
+            this.NewProjectTSBTN.Image = Properties.Resources.NEWICON1;
+            this.NewProjectTSBTN.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.NewProjectTSBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.NewProjectTSBTN.Name = "NewProjectTSBTN";
+            this.NewProjectTSBTN.Size = new System.Drawing.Size(49, 77);
+            this.NewProjectTSBTN.Text = "New";
+            this.NewProjectTSBTN.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.NewProjectTSBTN.ToolTipText = "Start New Project";
+            this.NewProjectTSBTN.Click += new System.EventHandler(this.NewProjectTSBTN_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -1301,9 +1341,12 @@
         private TasklistColumn CMeasPositionCol;
         private TasklistColumn CMeasDescCol;
         private TasklistColumn CSortOrderCol;
-        private System.Windows.Forms.ToolStripButton SaveToolstripButton;
+        private System.Windows.Forms.ToolStripButton SaveTSBTN;
         private System.Windows.Forms.ToolStripLabel UGLLogoLBL;
-        private System.Windows.Forms.ToolStripButton OpenToolstripBTN;
+        private System.Windows.Forms.ToolStripButton OpenTSBTN;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton ImportExcelTSBTN;
+        private System.Windows.Forms.ToolStripButton NewProjectTSBTN;
+        private System.Windows.Forms.ToolStripButton ExportExcelTSBTN;
     }
 }
