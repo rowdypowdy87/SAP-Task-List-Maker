@@ -60,8 +60,10 @@
             this.tasklistToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tasklistToFilesxlsxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainToolStrip = new System.Windows.Forms.ToolStrip();
+            this.OpenToolstripBTN = new System.Windows.Forms.ToolStripButton();
             this.SaveToolstripButton = new System.Windows.Forms.ToolStripButton();
             this.UGLLogoLBL = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.MainStatus = new System.Windows.Forms.StatusStrip();
             this.StatusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.StatusTextLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -291,14 +293,27 @@
             // 
             this.MainToolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.MainToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.OpenToolstripBTN,
             this.SaveToolstripButton,
-            this.UGLLogoLBL});
+            this.UGLLogoLBL,
+            this.toolStripSeparator1});
             this.MainToolStrip.Location = new System.Drawing.Point(0, 26);
             this.MainToolStrip.MinimumSize = new System.Drawing.Size(0, 80);
             this.MainToolStrip.Name = "MainToolStrip";
             this.MainToolStrip.Size = new System.Drawing.Size(1583, 80);
             this.MainToolStrip.TabIndex = 2;
             this.MainToolStrip.Text = "Tool Strip";
+            // 
+            // OpenToolstripBTN
+            // 
+            this.OpenToolstripBTN.Image = global::Properties.Resources.OPENICON;
+            this.OpenToolstripBTN.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.OpenToolstripBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.OpenToolstripBTN.Name = "OpenToolstripBTN";
+            this.OpenToolstripBTN.Size = new System.Drawing.Size(49, 77);
+            this.OpenToolstripBTN.Text = "Open";
+            this.OpenToolstripBTN.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.OpenToolstripBTN.ToolTipText = "Open Tasklist Maker File (*.tmf)";
             // 
             // SaveToolstripButton
             // 
@@ -309,6 +324,7 @@
             this.SaveToolstripButton.Size = new System.Drawing.Size(49, 77);
             this.SaveToolstripButton.Text = "Save";
             this.SaveToolstripButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.SaveToolstripButton.ToolTipText = "Save Tasklist Maker File (*.tmf)";
             // 
             // UGLLogoLBL
             // 
@@ -321,6 +337,11 @@
             this.UGLLogoLBL.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.UGLLogoLBL.Size = new System.Drawing.Size(234, 80);
             this.UGLLogoLBL.Text = "toolStripLabel1";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 80);
             // 
             // MainStatus
             // 
@@ -380,8 +401,8 @@
             this.MeasurementsLayout.Name = "MeasurementsLayout";
             this.MeasurementsLayout.RowCount = 3;
             this.MeasurementsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            this.MeasurementsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 58F));
-            this.MeasurementsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 42F));
+            this.MeasurementsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 53.51648F));
+            this.MeasurementsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 46.48352F));
             this.MeasurementsLayout.Size = new System.Drawing.Size(433, 951);
             this.MeasurementsLayout.TabIndex = 1;
             // 
@@ -389,10 +410,10 @@
             // 
             this.MeasPointDetailGroupBox.Controls.Add(this.tableLayoutPanel1);
             this.MeasPointDetailGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MeasPointDetailGroupBox.Location = new System.Drawing.Point(1, 569);
+            this.MeasPointDetailGroupBox.Location = new System.Drawing.Point(1, 528);
             this.MeasPointDetailGroupBox.Margin = new System.Windows.Forms.Padding(1);
             this.MeasPointDetailGroupBox.Name = "MeasPointDetailGroupBox";
-            this.MeasPointDetailGroupBox.Size = new System.Drawing.Size(431, 381);
+            this.MeasPointDetailGroupBox.Size = new System.Drawing.Size(431, 422);
             this.MeasPointDetailGroupBox.TabIndex = 1;
             this.MeasPointDetailGroupBox.TabStop = false;
             this.MeasPointDetailGroupBox.Text = "Details";
@@ -439,7 +460,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(425, 355);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(425, 396);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // MPPositionTextBox
@@ -629,12 +650,11 @@
             // 
             // MeasUpdateButton
             // 
-            this.MeasUpdateButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this.MeasUpdateButton, 2);
+            this.MeasUpdateButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MeasUpdateButton.Location = new System.Drawing.Point(3, 332);
             this.MeasUpdateButton.Name = "MeasUpdateButton";
-            this.MeasUpdateButton.Size = new System.Drawing.Size(419, 20);
+            this.MeasUpdateButton.Size = new System.Drawing.Size(419, 61);
             this.MeasUpdateButton.TabIndex = 13;
             this.MeasUpdateButton.Text = "Update Selected";
             this.MeasUpdateButton.UseVisualStyleBackColor = true;
@@ -658,7 +678,7 @@
             this.MeasPointsTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2});
-            this.MeasPointsTree.Size = new System.Drawing.Size(427, 521);
+            this.MeasPointsTree.Size = new System.Drawing.Size(427, 480);
             this.MeasPointsTree.TabIndex = 2;
             // 
             // TemplateEquipmentLBL
@@ -1283,5 +1303,7 @@
         private TasklistColumn CSortOrderCol;
         private System.Windows.Forms.ToolStripButton SaveToolstripButton;
         private System.Windows.Forms.ToolStripLabel UGLLogoLBL;
+        private System.Windows.Forms.ToolStripButton OpenToolstripBTN;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }

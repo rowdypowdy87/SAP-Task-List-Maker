@@ -12,6 +12,7 @@ namespace SAP_Task_List_Maker
         public MeasController       MeasurementManager;
         public int                  SelectedMeasure;
         public DataGridViewCell     CurrentCell;
+        public bool                 HasImports = false;
 
         /// <summary>
         /// Contructor method
@@ -178,12 +179,20 @@ namespace SAP_Task_List_Maker
 
         private void ImportMeasBtn_Click(object sender, EventArgs e)
         {
+            if (HasImports)
+            {
+                MsgBoxs.MsgBox_Error("Tasklist already imported, please clear tasklist to continue");
+                return;
+            }
+
             switch (MeasurementManager.LoadMeasurements("11338714"))
             {
                 case SAPERROR.SAP_NOT_CONNECTED: MsgBoxs.MsgBox_Error("Please ensure SAP is running to continue"); break;
             }
 
             ImportExportManager.ImportFromSAP();
+
+            HasImports = true;
         }
     }
 }
