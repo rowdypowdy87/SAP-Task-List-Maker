@@ -66,7 +66,7 @@ namespace SAP_Task_List_Maker
         {
             if (SelectedMeasure > 0)
             { 
-                MobilityMeasurement MeasureToChange = MeasurementManager.GetExistingMeasurement(SelectedMeasure);
+                MobilityMeasurement MeasureToChange = MeasurementManager.GetMeasurement(SelectedMeasure);
 
                 MeasureToChange.Description     = MPDescriptionTextBox.Text;
                 MeasureToChange.Position        = MPPositionTextBox.Text;
@@ -79,11 +79,7 @@ namespace SAP_Task_List_Maker
                 MeasureToChange.TargetValue     = MPTargetValueTextBox.Text;
                 MeasureToChange.UpdateMethod    = MEAS_UPDATE.UPDATE;
 
-                try {
-                    MeasPointsTree.Nodes[1].Nodes[SelectedMeasure].Text = $"[{MeasureToChange.Number}] - {MeasureToChange.Description}";
-                } catch { };
-
-                MeasurementManager.SetExistingMeasurement(MeasureToChange, SelectedMeasure);
+                MeasurementManager.SetMeasurement(MeasureToChange, SelectedMeasure);
                 
                 MeasPointsTree.Refresh();
             }
@@ -205,8 +201,55 @@ namespace SAP_Task_List_Maker
                 DGVPRT.Rows.Clear();
                 DGVComponents.Rows.Clear();
                 MeasPointsTree.Nodes[0].Nodes.Clear();
-                MeasPointsTree.Nodes[1].Nodes.Clear();
+                MPDescriptionTextBox.Text = "";
+                MPPositionTextBox.Text = "";
+                MPCharNameComboBox.Text = "";
+                MPCodeGroupComboBox.Text = "";
+                MPDecimalTextBox.Text = "";
+                MPUpperLimitTextBox.Text = "";
+                MPLowerLimitTextBox.Text = "";
+                MPTargetTextTextBox.Text = "";
+                MPTargetValueTextBox.Text = "";
             }
+        }
+
+        private void SaveTSBTN_Click(object sender, EventArgs e)
+        {
+            if (HasImports)
+            {
+                MsgBoxs.MsgBox_Error("Tasklist already imported, please clear tasklist to continue");
+                return;
+            }
+
+            switch (MeasurementManager.LoadMeasurements("11338714"))
+            {
+                case SAPERROR.SAP_NOT_CONNECTED: MsgBoxs.MsgBox_Error("Please ensure SAP is running to continue"); break;
+            }
+
+            ImportExportManager.ImportFromSAP();
+
+            HasImports = true;
+        }
+
+        private void MeasureTree_Leave(object sender, EventArgs e)
+        {
+            if(MeasPointsTree.SelectedNode == null)
+            {
+                MPDescriptionTextBox.Text = "";
+                MPPositionTextBox.Text = "";
+                MPCharNameComboBox.Text = "";
+                MPCodeGroupComboBox.Text = "";
+                MPDecimalTextBox.Text = "";
+                MPUpperLimitTextBox.Text = "";
+                MPLowerLimitTextBox.Text = "";
+                MPTargetTextTextBox.Text = "";
+                MPTargetValueTextBox.Text = "";
+            }
+        }
+
+        private void ImportExcelTSBTN_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

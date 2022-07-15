@@ -209,13 +209,37 @@ namespace SAP_Task_List_Maker.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap UGLLOGO_SMALL {
-            get {
+        internal static System.Drawing.Bitmap UGLLOGO_SMALL
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("UGLLOGO_SMALL", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DOWNARROW
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("UPARROW", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap UPARROW {
+            get {
+                object obj = ResourceManager.GetObject("DOWNARROW", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

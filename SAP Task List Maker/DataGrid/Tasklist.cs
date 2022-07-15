@@ -491,7 +491,7 @@ namespace SAP_Task_List_Maker
                         {
 
                             // Info variables
-                            MobilityMeasurement Cur                 = ParentWindow.MeasurementManager.GetExistingMeasurement(cell.Attached[i]);
+                            MobilityMeasurement Cur                 = ParentWindow.MeasurementManager.GetMeasurement(cell.Attached[i]);
                             int                 StrHeight           = (int)e.Graphics.MeasureString(Cur.Description, MeasFont).Height;
                             int                 IconX, IconY, 
                                                 SpX, SpY;

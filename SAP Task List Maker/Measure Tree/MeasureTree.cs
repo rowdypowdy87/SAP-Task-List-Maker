@@ -71,7 +71,7 @@ namespace SAP_Task_List_Maker
             // Nodes below root
             if (e.Node.Level > 0)
             {
-                MobilityMeasurement MeasureToDisplay    = MeasurementManager.GetExistingMeasurement(e.Node.Index);
+                MobilityMeasurement MeasureToDisplay    = MeasurementManager.GetMeasurement(e.Node.Index);
 
                 WinParent.MPDescriptionTextBox.Text     = MeasureToDisplay.Description;
                 WinParent.MPPositionTextBox.Text        = MeasureToDisplay.Position;
@@ -186,7 +186,7 @@ namespace SAP_Task_List_Maker
             if (CurNode.Level > 0)
             {
                 // Get measurement data
-                MobilityMeasurement MeasureToDisplay = MeasurementManager.GetExistingMeasurement(CurNode.Index);
+                MobilityMeasurement MeasureToDisplay = MeasurementManager.GetMeasurement(CurNode.Index);
 
                 // Draw text
                 TextRenderer.DrawText(Gfx, CurNode.Text, TextFont, new Point(X, Y), Color.Black);

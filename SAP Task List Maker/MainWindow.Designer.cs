@@ -29,8 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("EXISTING MEASUREMENTS");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("MEASUREMENT TO CREATE");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("EQUIPMENT NOT LOADED");
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -60,10 +59,14 @@
             this.tasklistToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tasklistToFilesxlsxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainToolStrip = new System.Windows.Forms.ToolStrip();
+            this.NewProjectTSBTN = new System.Windows.Forms.ToolStripButton();
             this.OpenTSBTN = new System.Windows.Forms.ToolStripButton();
             this.SaveTSBTN = new System.Windows.Forms.ToolStripButton();
             this.UGLLogoLBL = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.ImportExcelTSBTN = new System.Windows.Forms.ToolStripButton();
+            this.ExportExcelTSBTN = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.MainStatus = new System.Windows.Forms.StatusStrip();
             this.StatusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.StatusTextLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -93,7 +96,6 @@
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.MeasUpdateButton = new System.Windows.Forms.Button();
             this.MeasPointsTree = new SAP_Task_List_Maker.MeasureTree();
-            this.TemplateEquipmentLBL = new System.Windows.Forms.Label();
             this.DataTabs = new System.Windows.Forms.TabControl();
             this.HeaderTab = new System.Windows.Forms.TabPage();
             this.DGVHeader = new SAP_Task_List_Maker.Tasklist();
@@ -130,9 +132,7 @@
             this.CMeasPositionCol = new SAP_Task_List_Maker.TasklistColumn();
             this.CMeasDescCol = new SAP_Task_List_Maker.TasklistColumn();
             this.CSortOrderCol = new SAP_Task_List_Maker.TasklistColumn();
-            this.ImportExcelTSBTN = new System.Windows.Forms.ToolStripButton();
-            this.ExportExcelTSBTN = new System.Windows.Forms.ToolStripButton();
-            this.NewProjectTSBTN = new System.Windows.Forms.ToolStripButton();
+            this.ControlMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             this.MainToolStrip.SuspendLayout();
             this.MainStatus.SuspendLayout();
@@ -163,7 +163,8 @@
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
             this.ImportMenu,
-            this.ExportMenu});
+            this.ExportMenu,
+            this.ControlMenu});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
             this.MainMenu.Padding = new System.Windows.Forms.Padding(7, 1, 0, 1);
@@ -184,19 +185,19 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.openToolStripMenuItem.Text = "Open";
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.newToolStripMenuItem.Text = "New";
             // 
             // editToolStripMenuItem
@@ -213,25 +214,25 @@
             // UndoMenuBtn
             // 
             this.UndoMenuBtn.Name = "UndoMenuBtn";
-            this.UndoMenuBtn.Size = new System.Drawing.Size(184, 26);
+            this.UndoMenuBtn.Size = new System.Drawing.Size(224, 26);
             this.UndoMenuBtn.Text = "Undo (Ctrl+Z)";
             // 
             // RedoMenuBtn
             // 
             this.RedoMenuBtn.Name = "RedoMenuBtn";
-            this.RedoMenuBtn.Size = new System.Drawing.Size(184, 26);
+            this.RedoMenuBtn.Size = new System.Drawing.Size(224, 26);
             this.RedoMenuBtn.Text = "Redo (Ctrl+Y)";
             // 
             // FindMenuBtn
             // 
             this.FindMenuBtn.Name = "FindMenuBtn";
-            this.FindMenuBtn.Size = new System.Drawing.Size(184, 26);
+            this.FindMenuBtn.Size = new System.Drawing.Size(224, 26);
             this.FindMenuBtn.Text = "Find";
             // 
             // ReplaceMenuBtn
             // 
             this.ReplaceMenuBtn.Name = "ReplaceMenuBtn";
-            this.ReplaceMenuBtn.Size = new System.Drawing.Size(184, 26);
+            this.ReplaceMenuBtn.Size = new System.Drawing.Size(224, 26);
             this.ReplaceMenuBtn.Text = "Replace";
             // 
             // ImportMenu
@@ -302,7 +303,8 @@
             this.UGLLogoLBL,
             this.toolStripSeparator1,
             this.ImportExcelTSBTN,
-            this.ExportExcelTSBTN});
+            this.ExportExcelTSBTN,
+            this.toolStripSeparator2});
             this.MainToolStrip.Location = new System.Drawing.Point(0, 26);
             this.MainToolStrip.MinimumSize = new System.Drawing.Size(0, 80);
             this.MainToolStrip.Name = "MainToolStrip";
@@ -310,9 +312,21 @@
             this.MainToolStrip.TabIndex = 2;
             this.MainToolStrip.Text = "Tool Strip";
             // 
+            // NewProjectTSBTN
+            // 
+            this.NewProjectTSBTN.Image = ((System.Drawing.Image)(resources.GetObject("NewProjectTSBTN.Image")));
+            this.NewProjectTSBTN.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.NewProjectTSBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.NewProjectTSBTN.Name = "NewProjectTSBTN";
+            this.NewProjectTSBTN.Size = new System.Drawing.Size(49, 77);
+            this.NewProjectTSBTN.Text = "New";
+            this.NewProjectTSBTN.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.NewProjectTSBTN.ToolTipText = "Start New Project";
+            this.NewProjectTSBTN.Click += new System.EventHandler(this.NewProjectTSBTN_Click);
+            // 
             // OpenTSBTN
             // 
-            this.OpenTSBTN.Image = Properties.Resources.OPENICON;
+            this.OpenTSBTN.Image = ((System.Drawing.Image)(resources.GetObject("OpenTSBTN.Image")));
             this.OpenTSBTN.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.OpenTSBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.OpenTSBTN.Name = "OpenTSBTN";
@@ -331,6 +345,7 @@
             this.SaveTSBTN.Text = "Save";
             this.SaveTSBTN.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.SaveTSBTN.ToolTipText = "Save Tasklist Maker File (*.tmf)";
+            this.SaveTSBTN.Click += new System.EventHandler(this.SaveTSBTN_Click);
             // 
             // UGLLogoLBL
             // 
@@ -348,6 +363,34 @@
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 80);
+            // 
+            // ImportExcelTSBTN
+            // 
+            this.ImportExcelTSBTN.Image = ((System.Drawing.Image)(resources.GetObject("ImportExcelTSBTN.Image")));
+            this.ImportExcelTSBTN.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.ImportExcelTSBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ImportExcelTSBTN.Name = "ImportExcelTSBTN";
+            this.ImportExcelTSBTN.Size = new System.Drawing.Size(58, 77);
+            this.ImportExcelTSBTN.Text = "Import";
+            this.ImportExcelTSBTN.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.ImportExcelTSBTN.ToolTipText = "Import from Excel Files (*.xlsx)";
+            this.ImportExcelTSBTN.Click += new System.EventHandler(this.ImportExcelTSBTN_Click);
+            // 
+            // ExportExcelTSBTN
+            // 
+            this.ExportExcelTSBTN.Image = ((System.Drawing.Image)(resources.GetObject("ExportExcelTSBTN.Image")));
+            this.ExportExcelTSBTN.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.ExportExcelTSBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ExportExcelTSBTN.Name = "ExportExcelTSBTN";
+            this.ExportExcelTSBTN.Size = new System.Drawing.Size(57, 77);
+            this.ExportExcelTSBTN.Text = "Export";
+            this.ExportExcelTSBTN.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.ExportExcelTSBTN.ToolTipText = "Export to Excel Files (*.xlsx)";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 80);
             // 
             // MainStatus
             // 
@@ -398,17 +441,16 @@
             this.MeasurementsLayout.AutoScrollMinSize = new System.Drawing.Size(200, 200);
             this.MeasurementsLayout.ColumnCount = 1;
             this.MeasurementsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.MeasurementsLayout.Controls.Add(this.MeasPointDetailGroupBox, 0, 2);
-            this.MeasurementsLayout.Controls.Add(this.MeasPointsTree, 0, 1);
-            this.MeasurementsLayout.Controls.Add(this.TemplateEquipmentLBL, 0, 0);
+            this.MeasurementsLayout.Controls.Add(this.MeasPointDetailGroupBox, 0, 1);
+            this.MeasurementsLayout.Controls.Add(this.MeasPointsTree, 0, 0);
             this.MeasurementsLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MeasurementsLayout.Location = new System.Drawing.Point(0, 0);
             this.MeasurementsLayout.Margin = new System.Windows.Forms.Padding(0);
             this.MeasurementsLayout.Name = "MeasurementsLayout";
-            this.MeasurementsLayout.RowCount = 3;
-            this.MeasurementsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            this.MeasurementsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 53.51648F));
-            this.MeasurementsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 46.48352F));
+            this.MeasurementsLayout.RowCount = 2;
+            this.MeasurementsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 57.09779F));
+            this.MeasurementsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 42.90221F));
+            this.MeasurementsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.MeasurementsLayout.Size = new System.Drawing.Size(433, 951);
             this.MeasurementsLayout.TabIndex = 1;
             // 
@@ -416,10 +458,10 @@
             // 
             this.MeasPointDetailGroupBox.Controls.Add(this.tableLayoutPanel1);
             this.MeasPointDetailGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MeasPointDetailGroupBox.Location = new System.Drawing.Point(1, 528);
+            this.MeasPointDetailGroupBox.Location = new System.Drawing.Point(1, 544);
             this.MeasPointDetailGroupBox.Margin = new System.Windows.Forms.Padding(1);
             this.MeasPointDetailGroupBox.Name = "MeasPointDetailGroupBox";
-            this.MeasPointDetailGroupBox.Size = new System.Drawing.Size(431, 422);
+            this.MeasPointDetailGroupBox.Size = new System.Drawing.Size(431, 406);
             this.MeasPointDetailGroupBox.TabIndex = 1;
             this.MeasPointDetailGroupBox.TabStop = false;
             this.MeasPointDetailGroupBox.Text = "Details";
@@ -466,7 +508,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(425, 396);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(425, 380);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // MPPositionTextBox
@@ -660,7 +702,7 @@
             this.MeasUpdateButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MeasUpdateButton.Location = new System.Drawing.Point(3, 332);
             this.MeasUpdateButton.Name = "MeasUpdateButton";
-            this.MeasUpdateButton.Size = new System.Drawing.Size(419, 61);
+            this.MeasUpdateButton.Size = new System.Drawing.Size(419, 45);
             this.MeasUpdateButton.TabIndex = 13;
             this.MeasUpdateButton.Text = "Update Selected";
             this.MeasUpdateButton.UseVisualStyleBackColor = true;
@@ -673,30 +715,16 @@
             this.MeasPointsTree.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MeasPointsTree.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawAll;
             this.MeasPointsTree.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.MeasPointsTree.Location = new System.Drawing.Point(3, 44);
+            this.MeasPointsTree.Location = new System.Drawing.Point(3, 3);
             this.MeasPointsTree.Name = "MeasPointsTree";
             treeNode1.Name = "ExistingMeasRoot";
             treeNode1.NodeFont = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            treeNode1.Text = "EXISTING MEASUREMENTS";
-            treeNode2.Name = "NewMeasRoot";
-            treeNode2.NodeFont = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            treeNode2.Text = "MEASUREMENT TO CREATE";
+            treeNode1.Text = "EQUIPMENT NOT LOADED";
             this.MeasPointsTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
-            this.MeasPointsTree.Size = new System.Drawing.Size(427, 480);
+            treeNode1});
+            this.MeasPointsTree.Size = new System.Drawing.Size(427, 537);
             this.MeasPointsTree.TabIndex = 2;
-            // 
-            // TemplateEquipmentLBL
-            // 
-            this.TemplateEquipmentLBL.AutoSize = true;
-            this.TemplateEquipmentLBL.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TemplateEquipmentLBL.Location = new System.Drawing.Point(3, 0);
-            this.TemplateEquipmentLBL.Name = "TemplateEquipmentLBL";
-            this.TemplateEquipmentLBL.Size = new System.Drawing.Size(427, 41);
-            this.TemplateEquipmentLBL.TabIndex = 3;
-            this.TemplateEquipmentLBL.Text = "TEMPLATE EQUIPMENT: NOT LOADED";
-            this.TemplateEquipmentLBL.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.MeasPointsTree.Leave += new System.EventHandler(this.MeasureTree_Leave);
             // 
             // DataTabs
             // 
@@ -1174,39 +1202,11 @@
             this.CSortOrderCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.CSortOrderCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
-            // ImportExcelTSBTN
+            // ControlMenu
             // 
-            this.ImportExcelTSBTN.Image = Properties.Resources.EXCELICON;
-            this.ImportExcelTSBTN.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.ImportExcelTSBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ImportExcelTSBTN.Name = "ImportExcelTSBTN";
-            this.ImportExcelTSBTN.Size = new System.Drawing.Size(58, 77);
-            this.ImportExcelTSBTN.Text = "Import";
-            this.ImportExcelTSBTN.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.ImportExcelTSBTN.ToolTipText = "Import from Excel Files (*.xlsx)";
-            // 
-            // ExportExcelTSBTN
-            // 
-            this.ExportExcelTSBTN.Image = Properties.Resources.EXCELICON;
-            this.ExportExcelTSBTN.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.ExportExcelTSBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ExportExcelTSBTN.Name = "ExportExcelTSBTN";
-            this.ExportExcelTSBTN.Size = new System.Drawing.Size(57, 77);
-            this.ExportExcelTSBTN.Text = "Export";
-            this.ExportExcelTSBTN.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.ExportExcelTSBTN.ToolTipText = "Export to Excel Files (*.xlsx)";
-            // 
-            // NewProjectTSBTN
-            // 
-            this.NewProjectTSBTN.Image = Properties.Resources.NEWICON1;
-            this.NewProjectTSBTN.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.NewProjectTSBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.NewProjectTSBTN.Name = "NewProjectTSBTN";
-            this.NewProjectTSBTN.Size = new System.Drawing.Size(49, 77);
-            this.NewProjectTSBTN.Text = "New";
-            this.NewProjectTSBTN.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.NewProjectTSBTN.ToolTipText = "Start New Project";
-            this.NewProjectTSBTN.Click += new System.EventHandler(this.NewProjectTSBTN_Click);
+            this.ControlMenu.Name = "ControlMenu";
+            this.ControlMenu.Size = new System.Drawing.Size(72, 24);
+            this.ControlMenu.Text = "Control";
             // 
             // MainWindow
             // 
@@ -1234,7 +1234,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitLayout)).EndInit();
             this.MainSplitLayout.ResumeLayout(false);
             this.MeasurementsLayout.ResumeLayout(false);
-            this.MeasurementsLayout.PerformLayout();
             this.MeasPointDetailGroupBox.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -1269,33 +1268,9 @@
         private System.Windows.Forms.TabPage ComponentsTab;
         private System.Windows.Forms.TabPage PRTTab;
         private System.Windows.Forms.TableLayoutPanel MeasurementsLayout;
-        private System.Windows.Forms.GroupBox MeasPointDetailGroupBox;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label MPDescLabel;
-        private System.Windows.Forms.Label MPPositionLabel;
-        private System.Windows.Forms.Label MPCharNameLabel;
-        private System.Windows.Forms.Label MPDecimalPlaceLabel;
-        private System.Windows.Forms.Label MPCodeGroupLabel;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
         public SAP_Task_List_Maker.MeasureTree MeasPointsTree;
-        public System.Windows.Forms.TextBox MPPositionTextBox;
-        public System.Windows.Forms.TextBox MPDescriptionTextBox;
-        public System.Windows.Forms.ComboBox MPCharNameComboBox;
-        public System.Windows.Forms.TextBox MPDecimalTextBox;
-        public System.Windows.Forms.ComboBox MPCodeGroupComboBox;
-        public System.Windows.Forms.TextBox MPLowerLimitTextBox;
-        public System.Windows.Forms.TextBox MPUpperLimitTextBox;
-        public System.Windows.Forms.TextBox MPTargetValueTextBox;
-        public System.Windows.Forms.TextBox MPTargetTextTextBox;
-        public System.Windows.Forms.CheckBox checkBox1;
-        public System.Windows.Forms.CheckBox checkBox2;
-        public System.Windows.Forms.Button MeasUpdateButton;
         public Tasklist DGVBody;
         private System.Windows.Forms.TabPage CELTab;
-        private System.Windows.Forms.Label TemplateEquipmentLBL;
         public Tasklist DGVHeader;
         private System.Windows.Forms.ToolStripMenuItem ImportMenu;
         private System.Windows.Forms.ToolStripMenuItem ImportCELMenuBtn;
@@ -1348,5 +1323,30 @@
         private System.Windows.Forms.ToolStripButton ImportExcelTSBTN;
         private System.Windows.Forms.ToolStripButton NewProjectTSBTN;
         private System.Windows.Forms.ToolStripButton ExportExcelTSBTN;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.GroupBox MeasPointDetailGroupBox;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        public System.Windows.Forms.TextBox MPPositionTextBox;
+        private System.Windows.Forms.Label MPDescLabel;
+        private System.Windows.Forms.Label MPPositionLabel;
+        public System.Windows.Forms.TextBox MPDescriptionTextBox;
+        private System.Windows.Forms.Label MPCharNameLabel;
+        public System.Windows.Forms.ComboBox MPCharNameComboBox;
+        private System.Windows.Forms.Label MPDecimalPlaceLabel;
+        public System.Windows.Forms.TextBox MPDecimalTextBox;
+        private System.Windows.Forms.Label MPCodeGroupLabel;
+        public System.Windows.Forms.ComboBox MPCodeGroupComboBox;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        public System.Windows.Forms.TextBox MPLowerLimitTextBox;
+        public System.Windows.Forms.TextBox MPUpperLimitTextBox;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        public System.Windows.Forms.TextBox MPTargetValueTextBox;
+        public System.Windows.Forms.TextBox MPTargetTextTextBox;
+        public System.Windows.Forms.CheckBox checkBox1;
+        public System.Windows.Forms.CheckBox checkBox2;
+        public System.Windows.Forms.Button MeasUpdateButton;
+        private System.Windows.Forms.ToolStripMenuItem ControlMenu;
     }
 }

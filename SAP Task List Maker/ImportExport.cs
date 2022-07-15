@@ -415,7 +415,134 @@ namespace SAP_Task_List_Maker
 
             // Dispose of the table in memory
             Import.Dispose();
+
+            // Get names of components and docs
+            GetDocCompNames();
         }
+
+        /// <summary>
+        /// Gets names of components and PRTS
+        /// </summary>
+        public void GetDocCompNames()
+        {
+            // Get document descriptions
+            if (Session.GetSession())
+            {
+                // Create string for clip board
+                string ClipText = "";
+
+                // Clear clipbioard
+                Clipboard.Clear();
+
+                // Add all doc numbers to memory
+                for (int i = 0; i < WinParent.DGVPRT.Rows.Count; i++)
+                    ClipText += $"{WinParent.DGVPRT[1, i].Value}{Environment.NewLine}";
+
+                // Add to clipboard
+                Clipboard.SetText(ClipText);
+
+                Session.StartTransaction("CV04N");
+                Session.GetButton("%_STDOKNR_%_APP_%-VALU_PUSH").Press();
+
+                Session.GetFormById("wnd[1]").FindByName("btn[24]", "GuiButton").Press();
+                Session.GetFormById("wnd[1]").SendVKey(8);
+
+                Thread.Sleep(1000);
+
+                Session.SendVKey(8);
+
+                GuiGridView DocGrid = (GuiGridView)Session.GetFormById("wnd[0]/usr/cntlGRID1/shellcont/shell");
+
+                // Cycle through GridView to find document names
+                for(int i = 0; i < DocGrid.RowCount; i++)
+                {
+                    for(int ii = 0; ii < WinParent.DGVPRT.Rows.Count; ii++)
+                    {
+                        if(DocGrid.GetCellValue(i, DocGrid.ColumnOrder.ElementAt(1).ToString()) == WinParent.DGVPRT[1, ii].Value.ToString())
+                        {
+                            WinParent.DGVPRT[2, ii].Value = $"{DocGrid.GetCellValue(i, DocGrid.ColumnOrder.ElementAt(4))} - {DocGrid.GetCellValue(i, DocGrid.ColumnOrder.ElementAt(6))}";
+                        }
+                    }
+                }
+
+                // Clear clipbioard
+                Clipboard.Clear();
+
+                // Add all component numbers to memory
+                for (int i = 0; i < WinParent.DGVComponents.Rows.Count; i++)
+                    ClipText += $"{WinParent.DGVComponents[0, i].Value}{Environment.NewLine}";
+
+                // Add to clipboard
+                Clipboard.SetText(ClipText);
+
+                Session.StartTransaction("IH09");
+                Session.GetButton("%_MS_MATNR_%_APP_%-VALU_PUSH").Press();
+
+                Session.GetFormById("wnd[1]").FindByName("btn[14]", "GuiButton").Press();
+                Session.GetFormById("wnd[1]").FindByName("btn[24]", "GuiButton").Press();
+                Session.GetFormById("wnd[1]").SendVKey(8);
+
+                Thread.Sleep(1000);
+
+                Session.GetCTextField("VARIANT").Text = "/FS_DEFAULT";
+
+                Session.SendVKey(8);
+
+                if (Session.GetSessionObj().Info.ScreenNumber == 1000)
+                    return;
+
+                if (Session.GetSessionObj().Info.ScreenNumber == 4004)
+                {
+                    WinParent.DGVComponents[1, 0].Value = Session.GetTextField("MAKT-MAKTX").Text;
+                    WinParent.DGVComponents[3, 0].Value = Session.GetCTextField("MARA-MEINS").Text;
+                }
+                else
+                { 
+                    GuiGridView CompGrid = (GuiGridView)Session.GetFormById("wnd[0]/usr/cntlGRID1/shellcont/shell");
+
+                    // Open layout boc
+                    Session.GetButton("btn[32]").Press();
+
+                    GuiGridView LayoutGrid = Session.GetFormById("wnd[1]").FindByName("CONTAINER1_LAYO", "GuiCustomControl").FindByName("shell", "GuiGridView");
+
+                    // Find unit
+                    bool Found = false;
+                    for (int i = 0; i < LayoutGrid.RowCount -1; i++)
+                    {
+                        if(LayoutGrid.GetCellValue(i, LayoutGrid.ColumnOrder.ElementAt(0)).ToString() == "Base Unit of Measure")
+                        {
+                            LayoutGrid.SetCurrentCell(i, LayoutGrid.ColumnOrder.ElementAt(0));
+                            Found = true;
+                        }
+                    }
+
+                    // Set unit column to layout
+                    if (Found)
+                    {
+                        Session.GetFormById("wnd[1]").FindByName("APP_WL_SING", "GuiButton").Press();
+                        Thread.Sleep(1000);
+                        Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
+                        Thread.Sleep(1000);
+                    }
+                    else
+                        MsgBoxs.MsgBox_Warning("Could not find unit column");
+
+                    // Cycle through GridView to find component names
+                    for (int i = 0; i < CompGrid.RowCount; i++)
+                    {
+                        for (int ii = 0; ii < WinParent.DGVComponents.Rows.Count; ii++)
+                        {
+                            if (CompGrid.GetCellValue(i, CompGrid.ColumnOrder.ElementAt(0)) == WinParent.DGVComponents[0, ii].Value.ToString())
+                            {
+                                WinParent.DGVComponents[1, ii].Value = $"{CompGrid.GetCellValue(i, CompGrid.ColumnOrder.ElementAt(1))}";
+                                WinParent.DGVComponents[3, ii].Value = $"{CompGrid.GetCellValue(i, "MEINS")}";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
 
         /// <summary>
         /// Saves all data in memory to tasklist maker file

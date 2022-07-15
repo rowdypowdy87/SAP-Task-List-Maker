@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SAP_Task_List_Maker
@@ -12,8 +7,7 @@ namespace SAP_Task_List_Maker
     public class MeasController
     {
         // Global variables
-        public List<MobilityMeasurement> ExistingMeasures;
-        public List<MobilityMeasurement> NewMeasures;
+        public List<MobilityMeasurement> Measures;
         public MainWindow                WinParent;
         public AUTOSAP                   Session;
 
@@ -23,10 +17,9 @@ namespace SAP_Task_List_Maker
         /// <param name="wParent"></param>
         public MeasController(MainWindow wParent)
         {
-            WinParent   = wParent;
-            Session     = new AUTOSAP(WinParent);
-            ExistingMeasures = new List<MobilityMeasurement>();
-            NewMeasures = new List<MobilityMeasurement>();  
+            WinParent           = wParent;
+            Session             = new AUTOSAP(WinParent);
+            Measures            = new List<MobilityMeasurement>();
         }
 
         /// <summary>
@@ -37,6 +30,20 @@ namespace SAP_Task_List_Maker
         {
             if (Session.GetSession())
             {
+                // Get equipnment description
+                Session.StartTransaction("IE02");
+                Session.GetCTextField("RM63E-EQUNR").Text = EqNumber;
+                Session.SendVKey(0);
+
+                if(Session.GetSessionObj().Info.ScreenNumber == 100)
+                {
+                    MsgBoxs.MsgBox_Warning($"{EqNumber} doesnt exist or is locked by another user!");
+                    return SAPERROR.NONE;
+                }
+
+                // Set meastree node text
+                WinParent.MeasPointsTree.Nodes[0].Text = Session.GetTextField("ITOB-SHTXT").Text;
+
                 // Get measurement data
                 DataTable ImportMeas = Session.GetMeasurementPoints(EqNumber);
 
@@ -62,7 +69,7 @@ namespace SAP_Task_List_Maker
 
                     //Debug.Print(MeasToAdd.Description);
 
-                    ExistingMeasures.Add(MeasToAdd);
+                    Measures.Add(MeasToAdd);
                 }
 
                 ImportMeas.Dispose();
@@ -76,28 +83,18 @@ namespace SAP_Task_List_Maker
         }
 
         /// <summary>
-        /// Add a new measurement to the list
-        /// </summary>
-        /// <param name="NewMeasurement"></param>
-        public void AddNewMeasurment(MobilityMeasurement NewMeasurement)
-        {
-            NewMeasures.Add(NewMeasurement);
-            RefreshMeasurementTree();
-        }
-
-        /// <summary>
         /// Get measurement from existing list
         /// </summary>
         /// <param name="index">Index of list</param>
         /// <returns></returns>
-        public MobilityMeasurement GetExistingMeasurement(int index)
+        public MobilityMeasurement GetMeasurement(int index)
         {
-            return ExistingMeasures[index];
+            return Measures[index];
         }
 
-        public void SetExistingMeasurement(MobilityMeasurement NewMeas, int index)
+        public void SetMeasurement(MobilityMeasurement NewMeas, int index)
         {
-            ExistingMeasures[index] = NewMeas;
+            Measures[index] = NewMeas;
         }
 
         /// <summary>
@@ -107,21 +104,18 @@ namespace SAP_Task_List_Maker
         {
             // Clear the children from the two root nodes
             WinParent.MeasPointsTree.Nodes[0].Nodes.Clear();
-            WinParent.MeasPointsTree.Nodes[1].Nodes.Clear();
 
-            for (int i = 0; i < ExistingMeasures.Count; i++)
+            for (int i = 0; i < Measures.Count; i++)
             {
                 TreeNode NodeToAdd;
 
-                if (ExistingMeasures[i].Position != null && ExistingMeasures[i].Position != "")
-                    NodeToAdd = new TreeNode($"{ExistingMeasures[i].Position} - {ExistingMeasures[i].Description}");
+                if (Measures[i].Position != null && Measures[i].Position != "")
+                    NodeToAdd = new TreeNode($"{Measures[i].Position} - {Measures[i].Description}");
                 else
-                    NodeToAdd = new TreeNode($"{ExistingMeasures[i].Description}");
+                    NodeToAdd = new TreeNode($"{Measures[i].Description}");
 
                 WinParent.MeasPointsTree.Nodes[0].Nodes.Add(NodeToAdd);
             }
-        }
-
-        
+        } 
     }
 }
