@@ -58,6 +58,7 @@
             this.ExportMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.tasklistToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tasklistToFilesxlsxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ControlMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.MainToolStrip = new System.Windows.Forms.ToolStrip();
             this.NewProjectTSBTN = new System.Windows.Forms.ToolStripButton();
             this.OpenTSBTN = new System.Windows.Forms.ToolStripButton();
@@ -67,6 +68,8 @@
             this.ImportExcelTSBTN = new System.Windows.Forms.ToolStripButton();
             this.ExportExcelTSBTN = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.ImportEQBTN = new System.Windows.Forms.ToolStripButton();
+            this.ImportCELBTN = new System.Windows.Forms.ToolStripButton();
             this.MainStatus = new System.Windows.Forms.StatusStrip();
             this.StatusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.StatusTextLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -132,7 +135,6 @@
             this.CMeasPositionCol = new SAP_Task_List_Maker.TasklistColumn();
             this.CMeasDescCol = new SAP_Task_List_Maker.TasklistColumn();
             this.CSortOrderCol = new SAP_Task_List_Maker.TasklistColumn();
-            this.ControlMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             this.MainToolStrip.SuspendLayout();
             this.MainStatus.SuspendLayout();
@@ -185,19 +187,19 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
             this.openToolStripMenuItem.Text = "Open";
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
             this.newToolStripMenuItem.Text = "New";
             // 
             // editToolStripMenuItem
@@ -214,25 +216,25 @@
             // UndoMenuBtn
             // 
             this.UndoMenuBtn.Name = "UndoMenuBtn";
-            this.UndoMenuBtn.Size = new System.Drawing.Size(224, 26);
+            this.UndoMenuBtn.Size = new System.Drawing.Size(184, 26);
             this.UndoMenuBtn.Text = "Undo (Ctrl+Z)";
             // 
             // RedoMenuBtn
             // 
             this.RedoMenuBtn.Name = "RedoMenuBtn";
-            this.RedoMenuBtn.Size = new System.Drawing.Size(224, 26);
+            this.RedoMenuBtn.Size = new System.Drawing.Size(184, 26);
             this.RedoMenuBtn.Text = "Redo (Ctrl+Y)";
             // 
             // FindMenuBtn
             // 
             this.FindMenuBtn.Name = "FindMenuBtn";
-            this.FindMenuBtn.Size = new System.Drawing.Size(224, 26);
+            this.FindMenuBtn.Size = new System.Drawing.Size(184, 26);
             this.FindMenuBtn.Text = "Find";
             // 
             // ReplaceMenuBtn
             // 
             this.ReplaceMenuBtn.Name = "ReplaceMenuBtn";
-            this.ReplaceMenuBtn.Size = new System.Drawing.Size(224, 26);
+            this.ReplaceMenuBtn.Size = new System.Drawing.Size(184, 26);
             this.ReplaceMenuBtn.Text = "Replace";
             // 
             // ImportMenu
@@ -293,6 +295,12 @@
             this.tasklistToFilesxlsxToolStripMenuItem.Size = new System.Drawing.Size(232, 26);
             this.tasklistToFilesxlsxToolStripMenuItem.Text = "Tasklist To Files (.xlsx)";
             // 
+            // ControlMenu
+            // 
+            this.ControlMenu.Name = "ControlMenu";
+            this.ControlMenu.Size = new System.Drawing.Size(72, 24);
+            this.ControlMenu.Text = "Control";
+            // 
             // MainToolStrip
             // 
             this.MainToolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -304,7 +312,9 @@
             this.toolStripSeparator1,
             this.ImportExcelTSBTN,
             this.ExportExcelTSBTN,
-            this.toolStripSeparator2});
+            this.toolStripSeparator2,
+            this.ImportEQBTN,
+            this.ImportCELBTN});
             this.MainToolStrip.Location = new System.Drawing.Point(0, 26);
             this.MainToolStrip.MinimumSize = new System.Drawing.Size(0, 80);
             this.MainToolStrip.Name = "MainToolStrip";
@@ -353,7 +363,7 @@
             this.UGLLogoLBL.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.UGLLogoLBL.Image = ((System.Drawing.Image)(resources.GetObject("UGLLogoLBL.Image")));
             this.UGLLogoLBL.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.UGLLogoLBL.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
+            this.UGLLogoLBL.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.UGLLogoLBL.Name = "UGLLogoLBL";
             this.UGLLogoLBL.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.UGLLogoLBL.Size = new System.Drawing.Size(234, 80);
@@ -391,6 +401,30 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 80);
+            // 
+            // ImportEQBTN
+            // 
+            this.ImportEQBTN.Image = ((System.Drawing.Image)(resources.GetObject("ImportEQBTN.Image")));
+            this.ImportEQBTN.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.ImportEQBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ImportEQBTN.Name = "ImportEQBTN";
+            this.ImportEQBTN.Size = new System.Drawing.Size(56, 77);
+            this.ImportEQBTN.Text = "Export";
+            this.ImportEQBTN.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.ImportEQBTN.ToolTipText = "Import Equipment";
+            this.ImportEQBTN.Click += new System.EventHandler(this.ImportEqBTN_Click);
+            // 
+            // ImportCELBTN
+            // 
+            this.ImportCELBTN.Image = ((System.Drawing.Image)(resources.GetObject("ImportCELBTN.Image")));
+            this.ImportCELBTN.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.ImportCELBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ImportCELBTN.Name = "ImportCELBTN";
+            this.ImportCELBTN.Size = new System.Drawing.Size(56, 77);
+            this.ImportCELBTN.Text = "Export";
+            this.ImportCELBTN.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.ImportCELBTN.ToolTipText = "Import CEL";
+            this.ImportCELBTN.Click += new System.EventHandler(this.ImportCELBtn_Click_1);
             // 
             // MainStatus
             // 
@@ -1202,12 +1236,6 @@
             this.CSortOrderCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.CSortOrderCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
-            // ControlMenu
-            // 
-            this.ControlMenu.Name = "ControlMenu";
-            this.ControlMenu.Size = new System.Drawing.Size(72, 24);
-            this.ControlMenu.Text = "Control";
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -1264,7 +1292,6 @@
         private System.Windows.Forms.TabPage HeaderTab;
         private System.Windows.Forms.TabPage BodyTab;
         private System.Windows.Forms.ToolStripProgressBar StatusProgressBar;
-        private System.Windows.Forms.ToolStripStatusLabel StatusTextLabel;
         private System.Windows.Forms.TabPage ComponentsTab;
         private System.Windows.Forms.TabPage PRTTab;
         private System.Windows.Forms.TableLayoutPanel MeasurementsLayout;
@@ -1322,7 +1349,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton ImportExcelTSBTN;
         private System.Windows.Forms.ToolStripButton NewProjectTSBTN;
-        private System.Windows.Forms.ToolStripButton ExportExcelTSBTN;
+        private System.Windows.Forms.ToolStripButton ImportCELBTN;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.GroupBox MeasPointDetailGroupBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
@@ -1348,5 +1375,8 @@
         public System.Windows.Forms.CheckBox checkBox2;
         public System.Windows.Forms.Button MeasUpdateButton;
         private System.Windows.Forms.ToolStripMenuItem ControlMenu;
+        private System.Windows.Forms.ToolStripButton ExportExcelTSBTN;
+        private System.Windows.Forms.ToolStripButton ImportEQBTN;
+        public System.Windows.Forms.ToolStripStatusLabel StatusTextLabel;
     }
 }

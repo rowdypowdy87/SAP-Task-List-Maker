@@ -127,17 +127,23 @@
   <data name="Updated" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\EDIT2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="UPARROW" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UPARROW.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="EQUIPMENT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EQUIPMENT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Clear" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Clear (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="UPARROW" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UPARROW.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DOWNARROW" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DOWNARROW.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="MeasurePointSmall" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MeasurePointSmall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="UGLLOGO_SMALL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UGL Logo AC1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ExistingMeas" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\existingmeas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Pencil" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\EDIT3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -151,8 +157,8 @@
   <data name="EXCELICON" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\EXCELICON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ExistingMeas" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\existingmeas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="UGLLOGO_SMALL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UGL Logo AC1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="DeExpand" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dexpand.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -160,11 +166,14 @@
   <data name="UGLLOGO_LARGE" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\UGL Logo AC.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="NewMeas" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\newmeas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="SAP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SAP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MeasurePoint" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MeasurePoint.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NewMeas" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\newmeas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SAPICON" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SAPICON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -172,7 +181,7 @@
   <data name="NEWICON" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NEWICON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DOWNARROW" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DOWNARROW.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="cel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cel1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

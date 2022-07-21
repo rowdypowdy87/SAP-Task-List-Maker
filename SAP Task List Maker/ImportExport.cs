@@ -57,6 +57,9 @@ namespace SAP_Task_List_Maker
             string TasklistGroup = "MOT0001", TasklistCounter = "1";
             const  int WaitTime  = 3000;
 
+            // Set status
+            WinParent.SetStatusProgress("Initializing files...", 10);
+
             // Build tasklist name structure
             TASKLISTNAMES TasklistNames = new TASKLISTNAMES()
             {
@@ -66,9 +69,6 @@ namespace SAP_Task_List_Maker
                 PRT         = $"{TasklistGroup}{TasklistCounter}PRTS",
                 LongText    = $"{TasklistGroup}{TasklistCounter}LONGTEXTS"
             };
-
-            ImportFromExcelFile(AppDataPath, TasklistNames);
-            return;
 
             // Create tasklist info dialog
             InputTasklistNumber TasklistInfo = new InputTasklistNumber();
@@ -271,11 +271,14 @@ namespace SAP_Task_List_Maker
                 // Sleep to let file memory settle
                 Thread.Sleep(WaitTime);
 
+                // Set status
+                WinParent.SetStatusProgress("Importing tasklist.....", 0);
+
                 // Import
                 ImportFromExcelFile(AppDataPath, TasklistNames);
 
                 // Set status
-                WinParent.SetStatusProgress("", -1);
+                WinParent.SetStatusProgress("", 0);
             }
                 else
             {
@@ -433,6 +436,9 @@ namespace SAP_Task_List_Maker
 
                 // Clear clipbioard
                 Clipboard.Clear();
+
+                // Set status
+                WinParent.SetStatusProgress("Get component names.....", 90);
 
                 // Add all doc numbers to memory
                 for (int i = 0; i < WinParent.DGVPRT.Rows.Count; i++)

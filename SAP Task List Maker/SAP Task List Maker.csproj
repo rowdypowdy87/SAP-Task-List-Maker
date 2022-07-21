@@ -54,6 +54,9 @@
     <Compile Update="DataGrid\TasklistColumn.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="InputEQ.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

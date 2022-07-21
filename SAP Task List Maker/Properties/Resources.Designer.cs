@@ -253,5 +253,26 @@ namespace SAP_Task_List_Maker.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EQUIPMENT
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("EQUIPMENT", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        internal static System.Drawing.Bitmap cel
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("cel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

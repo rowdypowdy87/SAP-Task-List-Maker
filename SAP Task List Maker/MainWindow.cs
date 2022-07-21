@@ -12,7 +12,13 @@ namespace SAP_Task_List_Maker
         public MeasController       MeasurementManager;
         public int                  SelectedMeasure;
         public DataGridViewCell     CurrentCell;
-        public bool                 HasImports = false;
+
+        // Checks
+        public bool                 TasklistData = false;
+        public bool                 CELData      = false;
+        public bool                 EQData       = false;
+
+
 
         /// <summary>
         /// Contructor method
@@ -28,6 +34,8 @@ namespace SAP_Task_List_Maker
             MeasPointsTree.SetControllers(this, MeasurementManager);
 
             SelectedMeasure = -1;
+
+            SetStatusProgress("", 0);
         }
 
         /// <summary>
@@ -44,19 +52,7 @@ namespace SAP_Task_List_Maker
                 StatusProgressBar.Visible   = true;
                 StatusProgressBar.Value     = Prog;
             }
-
-            StatusTextLabel.Text    = StatusText;
-        }
-
-        private static void DrawStringOutlined(Graphics g, string Text, Font TextFont, Color TextColor, Color OutlineColor, int X, int Y, int OutlineDepth)
-        {
-            // Draw outline
-            TextRenderer.DrawText(g, Text, TextFont, new Point(X - OutlineDepth, Y - OutlineDepth), OutlineColor);
-            TextRenderer.DrawText(g, Text, TextFont, new Point(X - OutlineDepth, Y + OutlineDepth), OutlineColor);
-            TextRenderer.DrawText(g, Text, TextFont, new Point(X + OutlineDepth, Y - OutlineDepth), OutlineColor);
-            TextRenderer.DrawText(g, Text, TextFont, new Point(X + OutlineDepth, Y + OutlineDepth), OutlineColor);
-            // Draw text
-            TextRenderer.DrawText(g, Text, TextFont, new Point(X, Y), TextColor);
+            StatusTextLabel.Text = StatusText; 
         }
 
         /// <summary>
@@ -83,16 +79,6 @@ namespace SAP_Task_List_Maker
                 
                 MeasPointsTree.Refresh();
             }
-        }
-
-        /// <summary>
-        /// Import CEL
-        /// </summary>
-        private void ImportCELMenuBtn_Click(object sender, EventArgs e)
-        {
-            InputCEL GetCEL = new InputCEL(this);
-
-            GetCEL.Show();
         }
 
         /// <summary>
@@ -173,24 +159,6 @@ namespace SAP_Task_List_Maker
             Environment.Exit(0);
         }
 
-        private void ImportMeasBtn_Click(object sender, EventArgs e)
-        {
-            if (HasImports)
-            {
-                MsgBoxs.MsgBox_Error("Tasklist already imported, please clear tasklist to continue");
-                return;
-            }
-
-            switch (MeasurementManager.LoadMeasurements("11338714"))
-            {
-                case SAPERROR.SAP_NOT_CONNECTED: MsgBoxs.MsgBox_Error("Please ensure SAP is running to continue"); break;
-            }
-
-            ImportExportManager.ImportFromSAP();
-
-            HasImports = true;
-        }
-
         private void NewProjectTSBTN_Click(object sender, EventArgs e)
         {
             if(MsgBoxs.MsgBox_Question("Are you sure you want to start a new project?") == DialogResult.Yes)
@@ -201,36 +169,34 @@ namespace SAP_Task_List_Maker
                 DGVPRT.Rows.Clear();
                 DGVComponents.Rows.Clear();
                 MeasPointsTree.Nodes[0].Nodes.Clear();
-                MPDescriptionTextBox.Text = "";
-                MPPositionTextBox.Text = "";
-                MPCharNameComboBox.Text = "";
-                MPCodeGroupComboBox.Text = "";
-                MPDecimalTextBox.Text = "";
-                MPUpperLimitTextBox.Text = "";
-                MPLowerLimitTextBox.Text = "";
-                MPTargetTextTextBox.Text = "";
-                MPTargetValueTextBox.Text = "";
+
+                MPDescriptionTextBox.Text   = "";
+                MPPositionTextBox.Text      = "";
+                MPCharNameComboBox.Text     = "";
+                MPCodeGroupComboBox.Text    = "";
+                MPDecimalTextBox.Text       = "";
+                MPUpperLimitTextBox.Text    = "";
+                MPLowerLimitTextBox.Text    = "";
+                MPTargetTextTextBox.Text    = "";
+                MPTargetValueTextBox.Text   = "";
+
+                TasklistData    = false;
+                CELData         = false;
+                EQData          = false;
+
             }
         }
 
         private void SaveTSBTN_Click(object sender, EventArgs e)
         {
-            if (HasImports)
-            {
-                MsgBoxs.MsgBox_Error("Tasklist already imported, please clear tasklist to continue");
-                return;
-            }
 
-            switch (MeasurementManager.LoadMeasurements("11338714"))
-            {
-                case SAPERROR.SAP_NOT_CONNECTED: MsgBoxs.MsgBox_Error("Please ensure SAP is running to continue"); break;
-            }
-
-            ImportExportManager.ImportFromSAP();
-
-            HasImports = true;
         }
 
+        /// <summary>
+        /// Clear measure update TBs on tree leave
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MeasureTree_Leave(object sender, EventArgs e)
         {
             if(MeasPointsTree.SelectedNode == null)
@@ -250,6 +216,84 @@ namespace SAP_Task_List_Maker
         private void ImportExcelTSBTN_Click(object sender, EventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// Imports tasklist from SAP
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ImportTasklistSAPBtn_Click(object sender, EventArgs e)
+        {
+            if (TasklistData)
+            {
+                MsgBoxs.MsgBox_Error("Tasklist already imported, please clear tasklist to continue");
+                return;
+            }
+
+            ImportExportManager.ImportFromSAP();
+
+            // Cannot add more
+            TasklistData = true;
+        }
+
+        private void ImportMeasuresMN_Click(object sender, EventArgs e)
+        {
+            string  EqNumber    = "";
+            InputEQ GetEq       = new InputEQ(this);
+
+            if (EQData)
+            {
+                if (MsgBoxs.MsgBox_Question("There is already measurements loaded do you want to overwrite?") == DialogResult.Yes)
+                {
+                    MeasurementManager.Measures.Clear();
+                }
+            }
+
+            GetEq.ShowDialog();
+
+            EqNumber = GetEq.ReturnNumber;
+
+            if (EqNumber == "")
+                return;
+
+            switch (MeasurementManager.LoadMeasurements(EqNumber))
+            {
+                case SAPERROR.SAP_NOT_CONNECTED: MsgBoxs.MsgBox_Error("Please ensure SAP is running to continue"); break;
+                case SAPERROR.NONE: EQData = true; break;
+            }
+
+            
+        }
+
+        /// <summary>
+        /// Import CEL
+        /// </summary>
+        private void ImportCELMenuBtn_Click(object sender, EventArgs e)
+        {
+            InputCEL GetCEL = new InputCEL(this);
+
+            GetCEL.Show();
+        }
+
+        /// <summary>
+        /// Toolbar button for equipment import
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ImportEqBTN_Click(object sender, EventArgs e)
+        {
+            ImportMeasuresMN_Click(sender, e);
+        }
+
+        /// <summary>
+        /// Toolbar button for CEL import
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ImportCELBtn_Click_1(object sender, EventArgs e)
+        {
+            ImportCELMenuBtn_Click(sender, e);
         }
     }
 }

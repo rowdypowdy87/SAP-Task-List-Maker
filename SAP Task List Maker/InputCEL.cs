@@ -25,7 +25,11 @@ namespace SAP_Task_List_Maker
         {
             InitializeComponent();
 
-            ParentWindow = Par;  
+            ParentWindow = Par;
+            
+            // Position in centre of parent window
+            Left = ParentWindow.Left + (ParentWindow.Width / 2) - (Width / 2);
+            Top = ParentWindow.Top + (ParentWindow.Height / 2) - (Height / 2);
         }
 
         /// <summary>
@@ -34,7 +38,7 @@ namespace SAP_Task_List_Maker
         private void InputCEL_Load(object sender, EventArgs e)
         {
             // Open excel data table
-            DataTable CELs = ImportManager.ConvertExcelToDataTable(@"\\uglteams\sites\fs\AdminLibrary\Mobility Setup Tool Databases\1002_CollectiveEntryLists.xlsm", "REGISTER");
+            DataTable CELs = ImportManager.ConvertExcelToDataTable(@"https://uglltd.sharepoint.com/sites/fs/AdminLibrary/Forms/AllItems.aspx?id=%2Fsites%2Ffs%2FAdminLibrary%2FMobility%20Setup%20Tool%20Databases/1002_CollectiveEntryLists.xlsm", "REGISTER");
 
             // Check for success
             if (CELs != null)
@@ -62,7 +66,7 @@ namespace SAP_Task_List_Maker
         private void ImportButton_Click(object sender, EventArgs e)
         {
             // Open excel data table
-            DataTable CELs = ImportManager.ConvertExcelToDataTable(@"\\uglteams\sites\fs\AdminLibrary\Mobility Setup Tool Databases\1002_CollectiveEntryLists.xlsm", ImportList[CELListCB.SelectedIndex].Tab);
+            DataTable CELs = ImportManager.ConvertExcelToDataTable(@"https://uglltd.sharepoint.com/sites/fs/AdminLibrary/Forms/AllItems.aspx?id=%2Fsites%2Ffs%2FAdminLibrary%2FMobility%20Setup%20Tool%20Databases/1002_CollectiveEntryLists.xlsm", ImportList[CELListCB.SelectedIndex].Tab);
 
             // Check for success
             if (CELs != null)
