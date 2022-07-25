@@ -53,9 +53,9 @@ namespace SAP_Task_List_Maker
         /// </summary>
         public void MeasTree_ItemDrag(object sender, ItemDragEventArgs e)
         {
-            if(SelectedNode != null)
+            if (SelectedNode != null)
             { 
-                if(SelectedNode.Level > 0)
+                if (SelectedNode.Level > 0)
                 { 
                     Debug.Print("Drag data set");
                     DoDragDrop(SelectedNode.Index, DragDropEffects.Copy);

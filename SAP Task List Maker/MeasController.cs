@@ -35,7 +35,7 @@ namespace SAP_Task_List_Maker
                 Session.GetCTextField("RM63E-EQUNR").Text = EqNumber;
                 Session.SendVKey(0);
 
-                if(Session.GetSessionObj().Info.ScreenNumber == 100)
+                if (Session.GetSessionObj().Info.ScreenNumber == 100)
                 {
                     MsgBoxs.MsgBox_Warning($"{EqNumber} doesnt exist or is locked by another user!");
                     return SAPERROR.NONE;
@@ -95,6 +95,23 @@ namespace SAP_Task_List_Maker
         public void SetMeasurement(MobilityMeasurement NewMeas, int index)
         {
             Measures[index] = NewMeas;
+        }
+
+        /// <summary>
+        /// Finds measurement index by description and position
+        /// </summary>
+        /// <param name="Pos">Measurement Position</param>
+        /// <param name="Desc">Measurement Description</param>
+        /// <returns>Index of measurement or -1 if not found</returns>
+        public int GetMeasureByName(string Pos, string Desc)
+        {
+            for(int i = 0; i < Measures.Count; i++)
+            {
+                if (Measures[i].Description == Desc && Measures[i].Position == Pos)
+                    return i;
+            }
+
+            return -1;
         }
 
         /// <summary>

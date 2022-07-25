@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 namespace SAP_Task_List_Maker 
@@ -14,6 +12,11 @@ namespace SAP_Task_List_Maker
         [STAThread]
         static void Main()
         {
+            // Create local data path
+            if (!Directory.Exists(Global.AppDataPath))
+                Directory.CreateDirectory(Global.AppDataPath);
+
+            // Standard startup
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

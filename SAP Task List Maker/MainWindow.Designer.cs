@@ -52,6 +52,7 @@
             this.ReplaceMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.ImportMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.ImportCELMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.equipmentOnlyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tasklistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromSAPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,6 +60,7 @@
             this.tasklistToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tasklistToFilesxlsxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ControlMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.addCELMeasuresToTasklistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainToolStrip = new System.Windows.Forms.ToolStrip();
             this.NewProjectTSBTN = new System.Windows.Forms.ToolStripButton();
             this.OpenTSBTN = new System.Windows.Forms.ToolStripButton();
@@ -68,8 +70,8 @@
             this.ImportExcelTSBTN = new System.Windows.Forms.ToolStripButton();
             this.ExportExcelTSBTN = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.InputEverythingBtn = new System.Windows.Forms.ToolStripButton();
             this.ImportEQBTN = new System.Windows.Forms.ToolStripButton();
-            this.ImportCELBTN = new System.Windows.Forms.ToolStripButton();
             this.MainStatus = new System.Windows.Forms.StatusStrip();
             this.StatusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.StatusTextLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -241,6 +243,7 @@
             // 
             this.ImportMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ImportCELMenuBtn,
+            this.equipmentOnlyToolStripMenuItem,
             this.tasklistToolStripMenuItem});
             this.ImportMenu.Name = "ImportMenu";
             this.ImportMenu.Size = new System.Drawing.Size(68, 24);
@@ -249,9 +252,16 @@
             // ImportCELMenuBtn
             // 
             this.ImportCELMenuBtn.Name = "ImportCELMenuBtn";
-            this.ImportCELMenuBtn.Size = new System.Drawing.Size(138, 26);
-            this.ImportCELMenuBtn.Text = "CEL";
+            this.ImportCELMenuBtn.Size = new System.Drawing.Size(270, 26);
+            this.ImportCELMenuBtn.Text = "Import CEL and Equipment";
             this.ImportCELMenuBtn.Click += new System.EventHandler(this.ImportCELMenuBtn_Click);
+            // 
+            // equipmentOnlyToolStripMenuItem
+            // 
+            this.equipmentOnlyToolStripMenuItem.Name = "equipmentOnlyToolStripMenuItem";
+            this.equipmentOnlyToolStripMenuItem.Size = new System.Drawing.Size(270, 26);
+            this.equipmentOnlyToolStripMenuItem.Text = "Equipment Only";
+            this.equipmentOnlyToolStripMenuItem.Click += new System.EventHandler(this.equipmentOnlyToolStripMenuItem_Click);
             // 
             // tasklistToolStripMenuItem
             // 
@@ -259,7 +269,7 @@
             this.fromFilesToolStripMenuItem,
             this.fromSAPToolStripMenuItem});
             this.tasklistToolStripMenuItem.Name = "tasklistToolStripMenuItem";
-            this.tasklistToolStripMenuItem.Size = new System.Drawing.Size(138, 26);
+            this.tasklistToolStripMenuItem.Size = new System.Drawing.Size(270, 26);
             this.tasklistToolStripMenuItem.Text = "Tasklist";
             // 
             // fromFilesToolStripMenuItem
@@ -273,6 +283,7 @@
             this.fromSAPToolStripMenuItem.Name = "fromSAPToolStripMenuItem";
             this.fromSAPToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
             this.fromSAPToolStripMenuItem.Text = "From SAP";
+            this.fromSAPToolStripMenuItem.Click += new System.EventHandler(this.fromSAPToolStripMenuItem_Click);
             // 
             // ExportMenu
             // 
@@ -297,9 +308,17 @@
             // 
             // ControlMenu
             // 
+            this.ControlMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addCELMeasuresToTasklistToolStripMenuItem});
             this.ControlMenu.Name = "ControlMenu";
             this.ControlMenu.Size = new System.Drawing.Size(72, 24);
             this.ControlMenu.Text = "Control";
+            // 
+            // addCELMeasuresToTasklistToolStripMenuItem
+            // 
+            this.addCELMeasuresToTasklistToolStripMenuItem.Name = "addCELMeasuresToTasklistToolStripMenuItem";
+            this.addCELMeasuresToTasklistToolStripMenuItem.Size = new System.Drawing.Size(282, 26);
+            this.addCELMeasuresToTasklistToolStripMenuItem.Text = "Add CEL Measures to Tasklist";
             // 
             // MainToolStrip
             // 
@@ -313,8 +332,8 @@
             this.ImportExcelTSBTN,
             this.ExportExcelTSBTN,
             this.toolStripSeparator2,
-            this.ImportEQBTN,
-            this.ImportCELBTN});
+            this.InputEverythingBtn,
+            this.ImportEQBTN});
             this.MainToolStrip.Location = new System.Drawing.Point(0, 26);
             this.MainToolStrip.MinimumSize = new System.Drawing.Size(0, 80);
             this.MainToolStrip.Name = "MainToolStrip";
@@ -402,29 +421,29 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 80);
             // 
+            // InputEverythingBtn
+            // 
+            this.InputEverythingBtn.Image = ((System.Drawing.Image)(resources.GetObject("InputEverythingBtn.Image")));
+            this.InputEverythingBtn.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.InputEverythingBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.InputEverythingBtn.Name = "InputEverythingBtn";
+            this.InputEverythingBtn.Size = new System.Drawing.Size(58, 77);
+            this.InputEverythingBtn.Text = "Import";
+            this.InputEverythingBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.InputEverythingBtn.ToolTipText = "Import Tasklist, CEL and Equipment";
+            this.InputEverythingBtn.Click += new System.EventHandler(this.InputEverythingBtn_Click);
+            // 
             // ImportEQBTN
             // 
             this.ImportEQBTN.Image = ((System.Drawing.Image)(resources.GetObject("ImportEQBTN.Image")));
             this.ImportEQBTN.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.ImportEQBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ImportEQBTN.Name = "ImportEQBTN";
-            this.ImportEQBTN.Size = new System.Drawing.Size(56, 77);
-            this.ImportEQBTN.Text = "Export";
+            this.ImportEQBTN.Size = new System.Drawing.Size(58, 77);
+            this.ImportEQBTN.Text = "Import";
             this.ImportEQBTN.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.ImportEQBTN.ToolTipText = "Import Equipment";
+            this.ImportEQBTN.ToolTipText = "Import CEL and Equipment";
             this.ImportEQBTN.Click += new System.EventHandler(this.ImportEqBTN_Click);
-            // 
-            // ImportCELBTN
-            // 
-            this.ImportCELBTN.Image = ((System.Drawing.Image)(resources.GetObject("ImportCELBTN.Image")));
-            this.ImportCELBTN.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.ImportCELBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ImportCELBTN.Name = "ImportCELBTN";
-            this.ImportCELBTN.Size = new System.Drawing.Size(56, 77);
-            this.ImportCELBTN.Text = "Export";
-            this.ImportCELBTN.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.ImportCELBTN.ToolTipText = "Import CEL";
-            this.ImportCELBTN.Click += new System.EventHandler(this.ImportCELBtn_Click_1);
             // 
             // MainStatus
             // 
@@ -1349,7 +1368,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton ImportExcelTSBTN;
         private System.Windows.Forms.ToolStripButton NewProjectTSBTN;
-        private System.Windows.Forms.ToolStripButton ImportCELBTN;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.GroupBox MeasPointDetailGroupBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
@@ -1378,5 +1396,8 @@
         private System.Windows.Forms.ToolStripButton ExportExcelTSBTN;
         private System.Windows.Forms.ToolStripButton ImportEQBTN;
         public System.Windows.Forms.ToolStripStatusLabel StatusTextLabel;
+        private System.Windows.Forms.ToolStripMenuItem equipmentOnlyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addCELMeasuresToTasklistToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton InputEverythingBtn;
     }
 }

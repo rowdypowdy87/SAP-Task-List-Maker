@@ -71,7 +71,7 @@ namespace SAP_Task_List_Maker
                         MeasurementsLB.Items.Add($"{Meas.Description}");
                 }
 
-                if(CurSel > 0)
+                if (CurSel > 0)
                     MeasurementsLB.SetSelected(CurSel-1, true);
             }
         }

@@ -10,6 +10,7 @@ namespace SAP_Task_List_Maker
         // Global variables
         public ImportExport         ImportExportManager;
         public MeasController       MeasurementManager;
+        public ExcelDataTables      DataTableManager;
         public int                  SelectedMeasure;
         public DataGridViewCell     CurrentCell;
 
@@ -27,8 +28,9 @@ namespace SAP_Task_List_Maker
         {
             InitializeComponent();
 
-            ImportExportManager = new ImportExport(this);
-            MeasurementManager  = new MeasController(this);
+            ImportExportManager = new(this);
+            MeasurementManager  = new(this);
+            DataTableManager    = new();
 
             // Pass controller to measurement tree
             MeasPointsTree.SetControllers(this, MeasurementManager);
@@ -45,7 +47,7 @@ namespace SAP_Task_List_Maker
         /// <param name="Prog">Progress amount</param>
         public void SetStatusProgress(string StatusText, int Prog)
         {
-            if(Prog <= 0) 
+            if (Prog <= 0) 
                 StatusProgressBar.Visible = false;
             else
             { 
@@ -161,7 +163,7 @@ namespace SAP_Task_List_Maker
 
         private void NewProjectTSBTN_Click(object sender, EventArgs e)
         {
-            if(MsgBoxs.MsgBox_Question("Are you sure you want to start a new project?") == DialogResult.Yes)
+            if (MsgBoxs.MsgBox_Question("Are you sure you want to start a new project?") == DialogResult.Yes)
             {
                 DGVBody.Rows.Clear();
                 DGVHeader.Rows.Clear();
@@ -199,7 +201,7 @@ namespace SAP_Task_List_Maker
         /// <param name="e"></param>
         private void MeasureTree_Leave(object sender, EventArgs e)
         {
-            if(MeasPointsTree.SelectedNode == null)
+            if (MeasPointsTree.SelectedNode == null)
             {
                 MPDescriptionTextBox.Text = "";
                 MPPositionTextBox.Text = "";
@@ -237,40 +239,14 @@ namespace SAP_Task_List_Maker
             TasklistData = true;
         }
 
-        private void ImportMeasuresMN_Click(object sender, EventArgs e)
-        {
-            string  EqNumber    = "";
-            InputEQ GetEq       = new InputEQ(this);
-
-            if (EQData)
-            {
-                if (MsgBoxs.MsgBox_Question("There is already measurements loaded do you want to overwrite?") == DialogResult.Yes)
-                {
-                    MeasurementManager.Measures.Clear();
-                }
-            }
-
-            GetEq.ShowDialog();
-
-            EqNumber = GetEq.ReturnNumber;
-
-            if (EqNumber == "")
-                return;
-
-            switch (MeasurementManager.LoadMeasurements(EqNumber))
-            {
-                case SAPERROR.SAP_NOT_CONNECTED: MsgBoxs.MsgBox_Error("Please ensure SAP is running to continue"); break;
-                case SAPERROR.NONE: EQData = true; break;
-            }
-
-            
-        }
-
         /// <summary>
         /// Import CEL
         /// </summary>
         private void ImportCELMenuBtn_Click(object sender, EventArgs e)
         {
+            if (CELData)
+                DGVCEL.Rows.Clear();
+
             InputCEL GetCEL = new InputCEL(this);
 
             GetCEL.Show();
@@ -283,17 +259,44 @@ namespace SAP_Task_List_Maker
         /// <param name="e"></param>
         private void ImportEqBTN_Click(object sender, EventArgs e)
         {
-            ImportMeasuresMN_Click(sender, e);
+            ImportCELMenuBtn_Click(sender, e);
+        }
+
+        private void equipmentOnlyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+             string EqNumber = Microsoft.VisualBasic.Interaction.InputBox("Please enter the template equipment number");
+
+             if (EqNumber == "")
+                return;
+
+            // Load measurements
+            switch (MeasurementManager.LoadMeasurements(EqNumber))
+            {
+                case SAPERROR.SAP_NOT_CONNECTED: MsgBoxs.MsgBox_Error("Please ensure SAP is running to continue"); break;
+                case SAPERROR.NONE:              EQData = true; break;
+            }
         }
 
         /// <summary>
-        /// Toolbar button for CEL import
+        /// Import tasklsit from SAP - menu item
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ImportCELBtn_Click_1(object sender, EventArgs e)
+        private void fromSAPToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ImportCELMenuBtn_Click(sender, e);
+            ImportTasklistSAPBtn_Click(sender, e);
+        }
+
+        /// <summary>
+        /// Imports tasklist, CEL & Equipment in one go
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InputEverythingBtn_Click(object sender, EventArgs e)
+        {
+            InputAll BringFullTasklist = new InputAll(this);
+
+            BringFullTasklist.ShowDialog();
         }
     }
 }

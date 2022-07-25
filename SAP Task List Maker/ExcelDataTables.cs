@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.IO;
+using System.Net;
+using System.Net.Http;
 
 using OfficeOpenXml;
 
@@ -325,7 +326,7 @@ namespace SAP_Task_List_Maker
 
                 for(int jj = 0; jj < Updates.Count; jj++)
                 {
-                    if(Updates[jj].ChangeNumber == Other[j].Number){
+                    if (Updates[jj].ChangeNumber == Other[j].Number){
                         FoundMeas = true;
                     }
                 }
@@ -349,18 +350,18 @@ namespace SAP_Task_List_Maker
             // Remove any measurements that are already correct
             for (int i = 0; i < Updates.Count; i++) 
             {
-                if(Updates[i].Action == ACTION.CHANGE || Updates[i].Action == ACTION.DEACTIVATE || Updates[i].Action == ACTION.CREATE)
+                if (Updates[i].Action == ACTION.CHANGE || Updates[i].Action == ACTION.DEACTIVATE || Updates[i].Action == ACTION.CREATE)
                 {
                     for (int j = 0; j < Base.Count; j++) 
                     {
-                        if(Updates[i].Info.Position == Base[j].Position &&
+                        if (Updates[i].Info.Position == Base[j].Position &&
                            Updates[i].Info.Description == Base[j].Description){
 
                             // Search to make sure the measurement is not already in the update list to change
                             FoundMeas = false;
                             for(int ii = 0; ii < Return.Count; ii++)
                             {
-                                if(Return[ii].Info.Number == Updates[i].Info.Number)
+                                if (Return[ii].Info.Number == Updates[i].Info.Number)
                                 {
                                     FoundMeas = true;
                                 }

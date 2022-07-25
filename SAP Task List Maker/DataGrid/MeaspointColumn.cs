@@ -69,7 +69,7 @@ namespace SAP_Task_List_Maker
 
         private void EditMenu_MouseDown(object sender, MouseEventArgs e)
         {
-            if(Attached.Count > 0)
+            if (Attached.Count > 0)
             {
                 TasklistMeasList MeasList = new TasklistMeasList(Attached, (Tasklist)OwningColumn.DataGridView);
 

@@ -36,6 +36,8 @@
             // 
             // CELListCB
             // 
+            this.CELListCB.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.CELListCB.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CELListCB.FormattingEnabled = true;
             this.CELListCB.Location = new System.Drawing.Point(23, 21);
             this.CELListCB.Name = "CELListCB";
@@ -60,7 +62,6 @@
             this.CancelBtn.TabIndex = 1;
             this.CancelBtn.Text = "Cancel";
             this.CancelBtn.UseVisualStyleBackColor = true;
-            this.CancelBtn.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // InputCEL
             // 

@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace SAP_Task_List_Maker
 {
-    public partial class InputCEL : Form
+    public partial class InputAll : Form
     {
         public struct _LIST
         {
@@ -19,13 +19,14 @@ namespace SAP_Task_List_Maker
         private readonly ExcelDataTables        ImportManager   = new ExcelDataTables();
         private readonly List<_LIST>            ImportList      = new List<_LIST>();
         private readonly List<_LIST>            EqList          = new List<_LIST>();
+        private readonly List<_LIST>            TaskLists       = new List<_LIST>();
         private readonly MainWindow             ParentWindow;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="Par">Main window handle</param>
-        public InputCEL(MainWindow Par)
+        public InputAll(MainWindow Par)
         {
             InitializeComponent();
 
@@ -94,6 +95,54 @@ namespace SAP_Task_List_Maker
                 // Free memory
                 EQs.Dispose();
             }
+
+            // Open excel data table
+            DataTable LT = ImportManager.ConvertExcelToDataTable(@"\\prod.local\SharedData\AUWA22\Data\SITE MANAGEMENT SYSTEMS\SAP MANAGEMENT SYSTEMS\TOOL DATABASES\1002_GeneralInputs.xlsx", "LEADTASKS");
+
+            // Check for success
+            if (LT != null)
+            {
+                for (int i = 0; i < LT.Rows.Count; i++)
+                {
+                    // Build structure to add to global list
+                    _LIST ToAdd = new _LIST()
+                    {
+                        Name    = LT.Rows[i][0].ToString(),
+                        Tab     = LT.Rows[i][2].ToString(),
+                        EQ      = LT.Rows[i][3].ToString()
+                    };
+
+                    // Add to global list
+                    TaskLists.Add(ToAdd);
+                }
+
+                // Free memory
+                LT.Dispose();
+            }
+
+            // Open excel data table
+            DataTable VARLT = ImportManager.ConvertExcelToDataTable(@"\\prod.local\SharedData\AUWA22\Data\SITE MANAGEMENT SYSTEMS\SAP MANAGEMENT SYSTEMS\TOOL DATABASES\1002_GeneralInputs.xlsx", "VARIATIONS");
+
+            // Check for success
+            if (VARLT != null)
+            {
+                for (int i = 0; i < VARLT.Rows.Count; i++)
+                {
+                    // Build structure to add to global list
+                    _LIST ToAdd = new _LIST()
+                    {
+                        Name = VARLT.Rows[i][0].ToString(),
+                        Tab = VARLT.Rows[i][2].ToString(),
+                        EQ  = VARLT.Rows[i][3].ToString()
+                    };
+
+                    // Add to global list
+                    TaskLists.Add(ToAdd);
+                }
+
+                // Free memory
+                VARLT.Dispose();
+            }
         }
 
         /// <summary>
@@ -103,6 +152,31 @@ namespace SAP_Task_List_Maker
         /// <param name="e"></param>
         private void ImportButton_Click(object sender, EventArgs e)
         {
+            string Group = "", Counter = "";
+
+            // Find tasklist group and counter
+            for (int i = 0; i < TaskLists.Count; i++)
+            {
+                if (TaskLists[i].Name == ImportList[CELListCB.SelectedIndex].Name)
+                {
+                    Group   = TaskLists[i].Tab;
+                    Counter = TaskLists[i].EQ;
+                }
+            }
+
+            // Verify we found the information
+            if (Group == "" && Counter == "")
+            {
+                MsgBoxs.MsgBox_Error("Failed to find tasklist information");
+                return;
+            }
+
+            // Import tasklist
+            ParentWindow.ImportExportManager.ImportFromSAP(Group, Counter);
+
+            // We have now loaded the tasklist
+            ParentWindow.TasklistData = true;
+
             ParentWindow.SetStatusProgress("Importing selected entry list..", 50);
 
             // Open excel data table

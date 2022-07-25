@@ -6,7 +6,9 @@ using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using SAPFEWSELib;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Microsoft.SharePoint.Client;
+using System.Security;
+using System.Net;
 
 namespace SAP_Task_List_Maker
 {
@@ -48,14 +50,60 @@ namespace SAP_Task_List_Maker
             TableManager = new ExcelDataTables();
         }
 
+
+        public bool DownloadFromSharePoint(string Link, string SavePath)
+        {
+            using (ClientContext ClientCtx = new ClientContext("https://uglltd.sharepoint.com/sites/fs/"))
+            {
+                ExceptionHandlingScope scope = new ExceptionHandlingScope(ClientCtx);
+
+                // Variables
+                Microsoft.SharePoint.Client.File    FileToDownload;
+
+                using (scope.StartScope())
+                { 
+                    using (scope.StartTry())
+                    { 
+                        // Set default credentials
+                        
+
+                
+
+                        Microsoft.SharePoint.Client.List List = ClientCtx.Web.Lists.GetByTitle("Administration Library");
+                        Microsoft.SharePoint.Client.ListItem Items = List.GetItemById("FSDS-25-511");
+
+                        ClientCtx.Load(List);
+                        ClientCtx.Load(Items);
+
+                        ClientCtx.ExecuteQuery();
+                    }
+
+                    using (scope.StartCatch())
+                    {
+                        Debug.Print(scope.ErrorMessage);
+                        Debug.Print(scope.ServerErrorValue);
+                    }
+
+
+                    // Get binary data
+                    //var FileInfo = Microsoft.SharePoint.Client.File.OpenBinaryDirect(ClientCtx, FileToDownload.ServerRelativeUrl);
+
+                    // Save locally
+                    //using var File = System.IO.File.Create(SavePath);
+                    //FileInfo.Stream.CopyTo(File);
+                }
+            };
+
+            return true;
+        }
+
         /// <summary>
-        /// Import data from SAP to memory
+        /// Import data from SAP to memory with use input
         /// </summary>
-        public void ImportFromSAP()
+        public void ImportFromSAP(string TasklistGroup, string TasklistCounter)
         {
             // Vars
-            string TasklistGroup = "MOT0001", TasklistCounter = "1";
-            const  int WaitTime  = 3000;
+            const int WaitTime = 3000;
 
             // Set status
             WinParent.SetStatusProgress("Initializing files...", 10);
@@ -63,12 +111,229 @@ namespace SAP_Task_List_Maker
             // Build tasklist name structure
             TASKLISTNAMES TasklistNames = new TASKLISTNAMES()
             {
-                Header      = $"{TasklistGroup}{TasklistCounter}HEADER",
-                Operations  = $"{TasklistGroup}{TasklistCounter}OPERATIONS",
-                Components  = $"{TasklistGroup}{TasklistCounter}COMPONENTS",
-                PRT         = $"{TasklistGroup}{TasklistCounter}PRTS",
-                LongText    = $"{TasklistGroup}{TasklistCounter}LONGTEXTS"
+                Header          = $"{TasklistGroup}{TasklistCounter}HEADER",
+                Operations      = $"{TasklistGroup}{TasklistCounter}OPERATIONS",
+                Components      = $"{TasklistGroup}{TasklistCounter}COMPONENTS",
+                PRT             = $"{TasklistGroup}{TasklistCounter}PRTS",
+                LongText        = $"{TasklistGroup}{TasklistCounter}LONGTEXTS"
             };
+
+            // Create the files
+            if (!System.IO.File.Exists(AppDataPath + TasklistNames.Header))
+            {
+                using FileStream fs = new FileStream(AppDataPath + TasklistNames.Header, FileMode.Create, FileAccess.Write);
+                fs.Write(new byte[1] { 0x1 });
+                fs.Close();
+            }
+
+            if (!System.IO.File.Exists(AppDataPath + TasklistNames.Operations))
+            {
+                using FileStream fs = new FileStream(AppDataPath + TasklistNames.Operations, FileMode.Create, FileAccess.Write);
+                fs.Write(new byte[1] { 0x1 });
+                fs.Close();
+            }
+
+            if (!System.IO.File.Exists(AppDataPath + TasklistNames.Components))
+            {
+                using FileStream fs = new FileStream(AppDataPath + TasklistNames.Components, FileMode.Create, FileAccess.Write);
+                fs.Write(new byte[1] { 0x1 });
+                fs.Close();
+            }
+
+            if (!System.IO.File.Exists(AppDataPath + TasklistNames.PRT))
+            {
+                using FileStream fs = new FileStream(AppDataPath + TasklistNames.PRT, FileMode.Create, FileAccess.Write);
+                fs.Write(new byte[1] { 0x1 });
+                fs.Close();
+            }
+
+            if (!System.IO.File.Exists(AppDataPath + TasklistNames.LongText))
+            {
+                using FileStream fs = new FileStream(AppDataPath + TasklistNames.LongText, FileMode.Create, FileAccess.Write);
+                fs.Write(new byte[1] { 0x1 });
+                fs.Close();
+            }
+
+            // Enter SAP
+            if (Session.GetSession())
+            {
+                // Set status
+                WinParent.SetStatusProgress("Starting ZCS_TASKLIST", 0);
+                // Start tasklist transaction
+                Session.StartTransaction("ZCS_TASKLIST");
+                // Push select data button
+                Session.GetButton("btn[13]").Press();
+                // Check general tasklist
+                Session.GetCheckBox("PN_IHAN").Selected = true;
+                // Enter tasklist group
+                Session.GetCTextField("PN_PLNNR-LOW").Text = TasklistGroup;
+                // Enter tasklist counter
+                Session.GetTextField("PN_PLNAL-LOW").Text = TasklistCounter;
+                // Press F8
+                Session.SendVKey(8);
+
+                // Set status
+                WinParent.SetStatusProgress("Exporting header file", 20);
+
+                // Export header file
+                Session.GetFormById("wnd[0]/usr/tabsTS_TASKLIST/tabpHEAD/ssubTAB_HEADER_SA:SAPMZPM01_TASKLIST_MASS:0110/cntlCC_TL_HEADER/shellcont/shell").PressToolbarButton("XLS_EXP");
+                Thread.Sleep(WaitTime);
+
+                // Enter file path
+                Session.GetFormById("wnd[1]/usr/ctxtDY_PATH").Text = AppDataPath;
+                Session.GetFormById("wnd[1]/usr/ctxtDY_FILENAME").Text = TasklistNames.Header;
+                Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
+
+                while (Session.GetActiveWindow().Type != "GuiMainWindow")
+                {
+                    if (Session.GetActiveWindow().Text == "Select file to export task list header") Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
+                    if (Session.GetActiveWindow().Text == "File already exists") Session.GetFormById("wnd[1]/usr/btnBUTTON_1").Press();
+                    if (Session.GetActiveWindow().Text == "Information") Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
+
+                    Thread.Sleep(WaitTime);
+                }
+
+                Thread.Sleep(WaitTime);
+
+                // Goto operations tab
+                Session.GetTab("OPER").Select();
+                Thread.Sleep(WaitTime);
+
+                // Set status
+                WinParent.SetStatusProgress("Exporting operation file", 40);
+
+                // Export operations file
+                ((GuiGridView)Session.GetFormById("wnd[0]/usr/tabsTS_TASKLIST/tabpOPER/ssubTAB_OPER_SA:SAPMZPM01_TASKLIST_MASS:0120/cntlCC_TL_OPER/shellcont/shell")).PressToolbarButton("XLS_EXP");
+                Thread.Sleep(WaitTime);
+
+                // Enter file path
+                Session.GetFormById("wnd[1]/usr/ctxtDY_PATH").Text = AppDataPath;
+                Session.GetFormById("wnd[1]/usr/ctxtDY_FILENAME").Text = TasklistNames.Operations;
+                Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
+
+                while (Session.GetActiveWindow().Type != "GuiMainWindow")
+                {
+                    if (Session.GetActiveWindow().Text == "Select file to export task list operation") Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
+                    if (Session.GetActiveWindow().Text == "File already exists") Session.GetFormById("wnd[1]/usr/btnBUTTON_1").Press();
+                    if (Session.GetActiveWindow().Text == "Information") Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
+
+                    Thread.Sleep(WaitTime);
+                }
+
+                Thread.Sleep(WaitTime);
+
+                // Goto components tab
+                Session.GetTab("COMP").Select();
+                Thread.Sleep(WaitTime);
+
+                // Set status
+                WinParent.SetStatusProgress("Exporting components file", 60);
+
+                // Export operations file
+                Session.GetFormById("wnd[0]/usr/tabsTS_TASKLIST/tabpCOMP/ssubTAB_COMP_SA:SAPMZPM01_TASKLIST_MASS:0130/cntlCC_TL_COMP/shellcont/shell").PressToolbarButton("XLS_EXP");
+                Thread.Sleep(WaitTime);
+
+                // Enter file path
+                Session.GetFormById("wnd[1]/usr/ctxtDY_PATH").Text = AppDataPath;
+                Session.GetFormById("wnd[1]/usr/ctxtDY_FILENAME").Text = TasklistNames.Components;
+                Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
+
+                while (Session.GetActiveWindow().Type != "GuiMainWindow")
+                {
+                    if (Session.GetActiveWindow().Text == "Select file to export task list component") Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
+                    if (Session.GetActiveWindow().Text == "File already exists") Session.GetFormById("wnd[1]/usr/btnBUTTON_1").Press();
+                    if (Session.GetActiveWindow().Text == "Information") Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
+
+                    Thread.Sleep(WaitTime);
+                }
+
+                Thread.Sleep(WaitTime);
+
+                // Goto PRTs tab
+                Session.GetTab("PRTS").Select();
+                Thread.Sleep(WaitTime);
+
+                // Set status
+                WinParent.SetStatusProgress("Exporting document attachments file", 80);
+
+                // Export prt file
+                Session.GetFormById("wnd[0]/usr/tabsTS_TASKLIST/tabpPRTS/ssubTAB_PRTS_SA:SAPMZPM01_TASKLIST_MASS:0140/cntlCC_TL_PRTS/shellcont/shell").PressToolbarButton("XLS_EXP");
+                Thread.Sleep(WaitTime);
+
+                // Enter file path
+                Session.GetFormById("wnd[1]/usr/ctxtDY_PATH").Text = AppDataPath;
+                Session.GetFormById("wnd[1]/usr/ctxtDY_FILENAME").Text = TasklistNames.PRT;
+                Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
+
+                while (Session.GetActiveWindow().Type != "GuiMainWindow")
+                {
+                    if (Session.GetActiveWindow().Text == "Select file to export task list document attachment") Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
+                    if (Session.GetActiveWindow().Text == "File already exists") Session.GetFormById("wnd[1]/usr/btnBUTTON_1").Press();
+                    if (Session.GetActiveWindow().Text == "Information") Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
+
+                    Thread.Sleep(WaitTime);
+                }
+
+                Thread.Sleep(WaitTime);
+
+                // Goto long text tab
+                Session.GetTab("LTEXT").Select();
+                Thread.Sleep(WaitTime);
+
+                // Set status
+                WinParent.SetStatusProgress("Exporting long texts file", 95);
+
+                // Export operations file
+                Session.GetFormById("wnd[0]/usr/tabsTS_TASKLIST/tabpLTEXT/ssubTAB_LTEXT_SA:SAPMZPM01_TASKLIST_MASS:0150/cntlCC_TL_LTEXT/shellcont/shell").PressToolbarButton("XLS_EXP");
+                Thread.Sleep(WaitTime);
+
+                // Enter file path
+                Session.GetFormById("wnd[1]/usr/ctxtDY_PATH").Text = AppDataPath;
+                Session.GetFormById("wnd[1]/usr/ctxtDY_FILENAME").Text = TasklistNames.LongText;
+                Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
+
+                while (Session.GetActiveWindow().Type != "GuiMainWindow")
+                {
+                    if (Session.GetActiveWindow().Text == "Select file to export task list long texts") Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
+                    if (Session.GetActiveWindow().Text == "File already exists") Session.GetFormById("wnd[1]/usr/btnBUTTON_1").Press();
+                    if (Session.GetActiveWindow().Text == "Information") Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
+
+                    Thread.Sleep(WaitTime);
+                }
+
+                // End trasaction
+                Session.EndTransaction();
+
+                // Sleep to let file memory settle
+                Thread.Sleep(WaitTime);
+
+                // Set status
+                WinParent.SetStatusProgress("Importing tasklist.....", 0);
+
+                // Import
+                ImportFromExcelFile(AppDataPath, TasklistNames);
+
+                // Set status
+                WinParent.SetStatusProgress("", 0);
+            }
+            else
+            {
+                MsgBoxs.MsgBox_Error("SAP Connection not found, please ensure SAP is running.");
+                return;
+            }
+        }
+
+        /// <summary>
+        /// Import data from SAP to memory
+        /// </summary>
+        public void ImportFromSAP()
+        {
+            // Vars
+            string TasklistCounter, TasklistGroup;
+            const  int WaitTime  = 3000;
+
+            // Set status
+            WinParent.SetStatusProgress("Initializing files...", 10);
 
             // Create tasklist info dialog
             InputTasklistNumber TasklistInfo = new InputTasklistNumber();
@@ -78,40 +343,52 @@ namespace SAP_Task_List_Maker
 
             // Check for cancel
             if (TasklistInfo.Cancel) return;
+
             // Get variables
             TasklistGroup   = TasklistInfo.TasklistGroup.Text;
             TasklistCounter = TasklistInfo.TasklistCounter.Text;
 
+            // Build tasklist name structure
+            TASKLISTNAMES TasklistNames = new TASKLISTNAMES()
+            {
+                Header          = $"{TasklistGroup}{TasklistCounter}HEADER",
+                Operations      = $"{TasklistGroup}{TasklistCounter}OPERATIONS",
+                Components      = $"{TasklistGroup}{TasklistCounter}COMPONENTS",
+                PRT             = $"{TasklistGroup}{TasklistCounter}PRTS",
+                LongText        = $"{TasklistGroup}{TasklistCounter}LONGTEXTS"
+            };
+
+
             // Create the files
-            if (!File.Exists(AppDataPath + TasklistNames.Header))
+            if (!System.IO.File.Exists(AppDataPath + TasklistNames.Header))
             {
                 using FileStream fs = new FileStream(AppDataPath + TasklistNames.Header, FileMode.Create, FileAccess.Write);
                 fs.Write(new byte[1] { 0x1 });
                 fs.Close();
             }
 
-            if (!File.Exists(AppDataPath + TasklistNames.Operations))
+            if (!System.IO.File.Exists(AppDataPath + TasklistNames.Operations))
             {
                 using FileStream fs = new FileStream(AppDataPath + TasklistNames.Operations, FileMode.Create, FileAccess.Write);
                 fs.Write(new byte[1] { 0x1 });
                 fs.Close();
             }
 
-            if (!File.Exists(AppDataPath + TasklistNames.Components))
+            if (!System.IO.File.Exists(AppDataPath + TasklistNames.Components))
             {
                 using FileStream fs = new FileStream(AppDataPath + TasklistNames.Components, FileMode.Create, FileAccess.Write);
                 fs.Write(new byte[1] { 0x1 });
                 fs.Close();
             }
 
-            if (!File.Exists(AppDataPath + TasklistNames.PRT))
+            if (!System.IO.File.Exists(AppDataPath + TasklistNames.PRT))
             {
                 using FileStream fs = new FileStream(AppDataPath + TasklistNames.PRT, FileMode.Create, FileAccess.Write);
                 fs.Write(new byte[1] { 0x1 });
                 fs.Close();
             }
 
-            if (!File.Exists(AppDataPath + TasklistNames.LongText))
+            if (!System.IO.File.Exists(AppDataPath + TasklistNames.LongText))
             {
                 using FileStream fs = new FileStream(AppDataPath + TasklistNames.LongText, FileMode.Create, FileAccess.Write);
                 fs.Write(new byte[1] { 0x1 });
@@ -321,31 +598,31 @@ namespace SAP_Task_List_Maker
                 return;
             }
             // Check the data files exist
-            if (!File.Exists($"{FolderPath}\\{TNames.Header}"))
+            if (!System.IO.File.Exists($"{FolderPath}\\{TNames.Header}"))
             {
                 MsgBoxs.MsgBox_Error($"Cannot find the header file in location {FolderPath}");
                 return;
             }
 
-            if(!File.Exists($"{FolderPath}\\{TNames.Operations}"))
+            if (!System.IO.File.Exists($"{FolderPath}\\{TNames.Operations}"))
             {
                 MsgBoxs.MsgBox_Error($"Cannot find the operations file in location {FolderPath}");
                 return;
             }
 
-            if(!File.Exists($"{FolderPath}\\{TNames.Components}"))
+            if (!System.IO.File.Exists($"{FolderPath}\\{TNames.Components}"))
             {
                 MsgBoxs.MsgBox_Error($"Cannot find the components file in location {FolderPath}");
                 return;
             }
 
-            if(!File.Exists($"{FolderPath}\\{TNames.PRT}"))
+            if (!System.IO.File.Exists($"{FolderPath}\\{TNames.PRT}"))
             {
                 MsgBoxs.MsgBox_Error($"Cannot find the document attachments file in location {FolderPath}");
                 return;
             }
 
-            if(!File.Exists($"{FolderPath}\\{TNames.LongText}"))
+            if (!System.IO.File.Exists($"{FolderPath}\\{TNames.LongText}"))
             {
                 MsgBoxs.MsgBox_Error($"Cannot find the long texts file in location {FolderPath}");
                 return;
@@ -464,7 +741,7 @@ namespace SAP_Task_List_Maker
                 {
                     for(int ii = 0; ii < WinParent.DGVPRT.Rows.Count; ii++)
                     {
-                        if(DocGrid.GetCellValue(i, DocGrid.ColumnOrder.ElementAt(1).ToString()) == WinParent.DGVPRT[1, ii].Value.ToString())
+                        if (DocGrid.GetCellValue(i, DocGrid.ColumnOrder.ElementAt(1).ToString()) == WinParent.DGVPRT[1, ii].Value.ToString())
                         {
                             WinParent.DGVPRT[2, ii].Value = $"{DocGrid.GetCellValue(i, DocGrid.ColumnOrder.ElementAt(4))} - {DocGrid.GetCellValue(i, DocGrid.ColumnOrder.ElementAt(6))}";
                         }
@@ -515,7 +792,7 @@ namespace SAP_Task_List_Maker
                     bool Found = false;
                     for (int i = 0; i < LayoutGrid.RowCount -1; i++)
                     {
-                        if(LayoutGrid.GetCellValue(i, LayoutGrid.ColumnOrder.ElementAt(0)).ToString() == "Base Unit of Measure")
+                        if (LayoutGrid.GetCellValue(i, LayoutGrid.ColumnOrder.ElementAt(0)).ToString() == "Base Unit of Measure")
                         {
                             LayoutGrid.SetCurrentCell(i, LayoutGrid.ColumnOrder.ElementAt(0));
                             Found = true;

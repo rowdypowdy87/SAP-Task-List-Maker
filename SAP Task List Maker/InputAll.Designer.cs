@@ -1,6 +1,6 @@
 ﻿namespace SAP_Task_List_Maker
 {
-    partial class InputEQ
+    partial class InputAll
     {
         /// <summary>
         /// Required designer variable.
@@ -13,7 +13,7 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-
+            
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -29,18 +29,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.EQListCB = new System.Windows.Forms.ComboBox();
+            this.CELListCB = new System.Windows.Forms.ComboBox();
             this.ImportButton = new System.Windows.Forms.Button();
             this.CancelBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // EQListCB
+            // CELListCB
             // 
-            this.EQListCB.FormattingEnabled = true;
-            this.EQListCB.Location = new System.Drawing.Point(23, 21);
-            this.EQListCB.Name = "EQListCB";
-            this.EQListCB.Size = new System.Drawing.Size(275, 28);
-            this.EQListCB.TabIndex = 0;
+            this.CELListCB.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.CELListCB.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CELListCB.FormattingEnabled = true;
+            this.CELListCB.Location = new System.Drawing.Point(23, 21);
+            this.CELListCB.Name = "CELListCB";
+            this.CELListCB.Size = new System.Drawing.Size(275, 28);
+            this.CELListCB.TabIndex = 0;
             // 
             // ImportButton
             // 
@@ -60,27 +62,26 @@
             this.CancelBtn.TabIndex = 1;
             this.CancelBtn.Text = "Cancel";
             this.CancelBtn.UseVisualStyleBackColor = true;
-            this.CancelBtn.Click += new System.EventHandler(this.CancelButton_Click);
             // 
-            // InputEQ
+            // InputAll
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(317, 188);
             this.Controls.Add(this.CancelBtn);
             this.Controls.Add(this.ImportButton);
-            this.Controls.Add(this.EQListCB);
+            this.Controls.Add(this.CELListCB);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "InputEQ";
-            this.Text = "Select Template Equipment";
-            this.Load += new System.EventHandler(this.InputEQ_Load);
+            this.Name = "InputAll";
+            this.Text = "Select TaskList";
+            this.Load += new System.EventHandler(this.InputCEL_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ComboBox EQListCB;
+        private System.Windows.Forms.ComboBox CELListCB;
         private System.Windows.Forms.Button ImportButton;
         private System.Windows.Forms.Button CancelBtn;
     }

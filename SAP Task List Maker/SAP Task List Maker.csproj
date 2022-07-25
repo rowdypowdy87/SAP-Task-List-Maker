@@ -47,6 +47,7 @@
   <ItemGroup>
     <PackageReference Include="DevExpress.CrossPlatform.Printing.DrawingEngine" Version="1.0.12" />
     <PackageReference Include="EPPlus" Version="6.0.3" />
+    <PackageReference Include="Microsoft.SharePoint.Client" Version="14.0.4762.1000" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,7 +55,7 @@
     <Compile Update="DataGrid\TasklistColumn.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="InputEQ.cs">
+    <Compile Update="InputAll.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

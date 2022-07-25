@@ -181,7 +181,7 @@ namespace SAP_Task_List_Maker
             {
                 Con = SapApp.Children.ElementAt(i);
 
-                if(Con.Type == "GuiConnection")
+                if (Con.Type == "GuiConnection")
                 {
                     SapConnection = (GuiConnection)Con;
                 }
@@ -337,7 +337,7 @@ namespace SAP_Task_List_Maker
                             ClearErrors(5, false);
                         }
 
-                        if(Parent.CancellationPending) { return false; }
+                        if (Parent.CancellationPending) { return false; }
 
                         // Re-init table
                         ComponentTable = ((GuiTableControl)SapWindow.FindByName("SAPLCOMKTCTRL_3020", "GuiTableControl"));
@@ -642,7 +642,7 @@ namespace SAP_Task_List_Maker
                     // Check how many times
                     if (Retrys > RetryAmount)
                     {
-                        if(ShowError) MsgBoxs.MsgBox_Error("Could not clear popup error/warning");
+                        if (ShowError) MsgBoxs.MsgBox_Error("Could not clear popup error/warning");
                         break;
                     }
                 }
@@ -773,7 +773,7 @@ namespace SAP_Task_List_Maker
                 SendVKey(0);
 
                 // Update position
-                if(ExistingMeasurement.Position != GetTextField("IMPT-PSORT").Text){
+                if (ExistingMeasurement.Position != GetTextField("IMPT-PSORT").Text){
                     GetTextField("IMPT-PSORT").Text = ExistingMeasurement.Position;
                     SendVKey(0);
                     SendVKey(0);

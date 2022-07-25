@@ -227,7 +227,7 @@ namespace SAP_Task_List_Maker
         {
             if (e.Button == MouseButtons.Right && AllowRowMods)
             { 
-                if(SelectedRows.Count <= 0)
+                if (SelectedRows.Count <= 0)
                 { 
                     MyContextMenuStrip.Items[1].Enabled = false;
                     MyContextMenuStrip.Items[2].Enabled = false;
@@ -568,9 +568,9 @@ namespace SAP_Task_List_Maker
                                       MousePosition.Y - grvScreenLocation.Y + Top);
 
             // Check for measurement poitn cells
-            if(hit.ColumnIndex > -1 & hit.RowIndex > -1)
+            if (hit.ColumnIndex > -1 & hit.RowIndex > -1)
             { 
-                if(this[hit.ColumnIndex, hit.RowIndex].GetType() == typeof(MeaspointCell))
+                if (this[hit.ColumnIndex, hit.RowIndex].GetType() == typeof(MeaspointCell))
                 {
                     e.Effect        = DragDropEffects.Copy;
                     CurrentDragCell = (MeaspointCell)this[hit.ColumnIndex, hit.RowIndex];
