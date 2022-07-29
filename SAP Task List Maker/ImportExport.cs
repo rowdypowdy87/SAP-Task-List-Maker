@@ -36,7 +36,6 @@ namespace SAP_Task_List_Maker
         private readonly MainWindow      WinParent;
         private readonly AUTOSAP         Session;
         private readonly ExcelDataTables TableManager;
-        private readonly string          AppDataPath        = $"{Environment.GetEnvironmentVariable("USERPROFILE")}\\Documents\\SAP";
         public List<CEL_ENTRY> CEL                          = new List<CEL_ENTRY>();
 
         /// <summary>
@@ -65,10 +64,6 @@ namespace SAP_Task_List_Maker
                     using (scope.StartTry())
                     { 
                         // Set default credentials
-                        
-
-                
-
                         Microsoft.SharePoint.Client.List List = ClientCtx.Web.Lists.GetByTitle("Administration Library");
                         Microsoft.SharePoint.Client.ListItem Items = List.GetItemById("FSDS-25-511");
 
@@ -119,40 +114,11 @@ namespace SAP_Task_List_Maker
             };
 
             // Create the files
-            if (!System.IO.File.Exists(AppDataPath + TasklistNames.Header))
-            {
-                using FileStream fs = new FileStream(AppDataPath + TasklistNames.Header, FileMode.Create, FileAccess.Write);
-                fs.Write(new byte[1] { 0x1 });
-                fs.Close();
-            }
-
-            if (!System.IO.File.Exists(AppDataPath + TasklistNames.Operations))
-            {
-                using FileStream fs = new FileStream(AppDataPath + TasklistNames.Operations, FileMode.Create, FileAccess.Write);
-                fs.Write(new byte[1] { 0x1 });
-                fs.Close();
-            }
-
-            if (!System.IO.File.Exists(AppDataPath + TasklistNames.Components))
-            {
-                using FileStream fs = new FileStream(AppDataPath + TasklistNames.Components, FileMode.Create, FileAccess.Write);
-                fs.Write(new byte[1] { 0x1 });
-                fs.Close();
-            }
-
-            if (!System.IO.File.Exists(AppDataPath + TasklistNames.PRT))
-            {
-                using FileStream fs = new FileStream(AppDataPath + TasklistNames.PRT, FileMode.Create, FileAccess.Write);
-                fs.Write(new byte[1] { 0x1 });
-                fs.Close();
-            }
-
-            if (!System.IO.File.Exists(AppDataPath + TasklistNames.LongText))
-            {
-                using FileStream fs = new FileStream(AppDataPath + TasklistNames.LongText, FileMode.Create, FileAccess.Write);
-                fs.Write(new byte[1] { 0x1 });
-                fs.Close();
-            }
+            if (!System.IO.File.Exists($"{Global.DocPath}{TasklistNames.Header}"))       System.IO.File.Create($"{Global.DocPath}{TasklistNames.Header}");
+            if (!System.IO.File.Exists($"{Global.DocPath}{TasklistNames.Operations}"))   System.IO.File.Create($"{Global.DocPath}{TasklistNames.Operations}");
+            if (!System.IO.File.Exists($"{Global.DocPath}{TasklistNames.Components}"))   System.IO.File.Create($"{Global.DocPath}{TasklistNames.Components}");
+            if (!System.IO.File.Exists($"{Global.DocPath}{TasklistNames.PRT}"))          System.IO.File.Create($"{Global.DocPath}{TasklistNames.PRT}");
+            if (!System.IO.File.Exists($"{Global.DocPath}{TasklistNames.LongText}"))     System.IO.File.Create($"{Global.DocPath}{TasklistNames.LongText}");
 
             // Enter SAP
             if (Session.GetSession())
@@ -180,7 +146,7 @@ namespace SAP_Task_List_Maker
                 Thread.Sleep(WaitTime);
 
                 // Enter file path
-                Session.GetFormById("wnd[1]/usr/ctxtDY_PATH").Text = AppDataPath;
+                Session.GetFormById("wnd[1]/usr/ctxtDY_PATH").Text = Global.DocPath;
                 Session.GetFormById("wnd[1]/usr/ctxtDY_FILENAME").Text = TasklistNames.Header;
                 Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
 
@@ -207,7 +173,7 @@ namespace SAP_Task_List_Maker
                 Thread.Sleep(WaitTime);
 
                 // Enter file path
-                Session.GetFormById("wnd[1]/usr/ctxtDY_PATH").Text = AppDataPath;
+                Session.GetFormById("wnd[1]/usr/ctxtDY_PATH").Text = Global.DocPath;
                 Session.GetFormById("wnd[1]/usr/ctxtDY_FILENAME").Text = TasklistNames.Operations;
                 Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
 
@@ -234,7 +200,7 @@ namespace SAP_Task_List_Maker
                 Thread.Sleep(WaitTime);
 
                 // Enter file path
-                Session.GetFormById("wnd[1]/usr/ctxtDY_PATH").Text = AppDataPath;
+                Session.GetFormById("wnd[1]/usr/ctxtDY_PATH").Text = Global.DocPath;
                 Session.GetFormById("wnd[1]/usr/ctxtDY_FILENAME").Text = TasklistNames.Components;
                 Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
 
@@ -261,7 +227,7 @@ namespace SAP_Task_List_Maker
                 Thread.Sleep(WaitTime);
 
                 // Enter file path
-                Session.GetFormById("wnd[1]/usr/ctxtDY_PATH").Text = AppDataPath;
+                Session.GetFormById("wnd[1]/usr/ctxtDY_PATH").Text = Global.DocPath;
                 Session.GetFormById("wnd[1]/usr/ctxtDY_FILENAME").Text = TasklistNames.PRT;
                 Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
 
@@ -288,7 +254,7 @@ namespace SAP_Task_List_Maker
                 Thread.Sleep(WaitTime);
 
                 // Enter file path
-                Session.GetFormById("wnd[1]/usr/ctxtDY_PATH").Text = AppDataPath;
+                Session.GetFormById("wnd[1]/usr/ctxtDY_PATH").Text = Global.DocPath;
                 Session.GetFormById("wnd[1]/usr/ctxtDY_FILENAME").Text = TasklistNames.LongText;
                 Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
 
@@ -311,7 +277,7 @@ namespace SAP_Task_List_Maker
                 WinParent.SetStatusProgress("Importing tasklist.....", 0);
 
                 // Import
-                ImportFromExcelFile(AppDataPath, TasklistNames);
+                ImportFromExcelFile(Global.DocPath, TasklistNames);
 
                 // Set status
                 WinParent.SetStatusProgress("", 0);
@@ -358,42 +324,12 @@ namespace SAP_Task_List_Maker
                 LongText        = $"{TasklistGroup}{TasklistCounter}LONGTEXTS"
             };
 
-
             // Create the files
-            if (!System.IO.File.Exists(AppDataPath + TasklistNames.Header))
-            {
-                using FileStream fs = new FileStream(AppDataPath + TasklistNames.Header, FileMode.Create, FileAccess.Write);
-                fs.Write(new byte[1] { 0x1 });
-                fs.Close();
-            }
-
-            if (!System.IO.File.Exists(AppDataPath + TasklistNames.Operations))
-            {
-                using FileStream fs = new FileStream(AppDataPath + TasklistNames.Operations, FileMode.Create, FileAccess.Write);
-                fs.Write(new byte[1] { 0x1 });
-                fs.Close();
-            }
-
-            if (!System.IO.File.Exists(AppDataPath + TasklistNames.Components))
-            {
-                using FileStream fs = new FileStream(AppDataPath + TasklistNames.Components, FileMode.Create, FileAccess.Write);
-                fs.Write(new byte[1] { 0x1 });
-                fs.Close();
-            }
-
-            if (!System.IO.File.Exists(AppDataPath + TasklistNames.PRT))
-            {
-                using FileStream fs = new FileStream(AppDataPath + TasklistNames.PRT, FileMode.Create, FileAccess.Write);
-                fs.Write(new byte[1] { 0x1 });
-                fs.Close();
-            }
-
-            if (!System.IO.File.Exists(AppDataPath + TasklistNames.LongText))
-            {
-                using FileStream fs = new FileStream(AppDataPath + TasklistNames.LongText, FileMode.Create, FileAccess.Write);
-                fs.Write(new byte[1] { 0x1 });
-                fs.Close();
-            }
+            if (!System.IO.File.Exists($"{Global.DocPath}{TasklistNames.Header}"))           System.IO.File.Create($"{Global.DocPath}{TasklistNames.Header}");
+            if (!System.IO.File.Exists($"{Global.DocPath}{TasklistNames.Operations}"))       System.IO.File.Create($"{Global.DocPath}{TasklistNames.Operations}");
+            if (!System.IO.File.Exists($"{Global.DocPath}{TasklistNames.Components}"))       System.IO.File.Create($"{Global.DocPath}{TasklistNames.Components}");
+            if (!System.IO.File.Exists($"{Global.DocPath}{TasklistNames.PRT}"))              System.IO.File.Create($"{Global.DocPath}{TasklistNames.PRT}");
+            if (!System.IO.File.Exists($"{Global.DocPath}{TasklistNames.LongText}"))         System.IO.File.Create($"{Global.DocPath}{TasklistNames.LongText}");
 
             // Enter SAP
             if (Session.GetSession())
@@ -421,7 +357,7 @@ namespace SAP_Task_List_Maker
                 Thread.Sleep(WaitTime);
 
                 // Enter file path
-                Session.GetFormById("wnd[1]/usr/ctxtDY_PATH").Text      = AppDataPath;
+                Session.GetFormById("wnd[1]/usr/ctxtDY_PATH").Text      = Global.DocPath;
                 Session.GetFormById("wnd[1]/usr/ctxtDY_FILENAME").Text  = TasklistNames.Header;
                 Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
 
@@ -448,7 +384,7 @@ namespace SAP_Task_List_Maker
                 Thread.Sleep(WaitTime);
 
                 // Enter file path
-                Session.GetFormById("wnd[1]/usr/ctxtDY_PATH").Text = AppDataPath;
+                Session.GetFormById("wnd[1]/usr/ctxtDY_PATH").Text = Global.DocPath;
                 Session.GetFormById("wnd[1]/usr/ctxtDY_FILENAME").Text = TasklistNames.Operations;
                 Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
 
@@ -475,7 +411,7 @@ namespace SAP_Task_List_Maker
                 Thread.Sleep(WaitTime);
 
                 // Enter file path
-                Session.GetFormById("wnd[1]/usr/ctxtDY_PATH").Text = AppDataPath;
+                Session.GetFormById("wnd[1]/usr/ctxtDY_PATH").Text = Global.DocPath;
                 Session.GetFormById("wnd[1]/usr/ctxtDY_FILENAME").Text = TasklistNames.Components;
                 Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
 
@@ -502,7 +438,7 @@ namespace SAP_Task_List_Maker
                 Thread.Sleep(WaitTime);
 
                 // Enter file path
-                Session.GetFormById("wnd[1]/usr/ctxtDY_PATH").Text = AppDataPath;
+                Session.GetFormById("wnd[1]/usr/ctxtDY_PATH").Text = Global.DocPath;
                 Session.GetFormById("wnd[1]/usr/ctxtDY_FILENAME").Text = TasklistNames.PRT;
                 Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
 
@@ -529,7 +465,7 @@ namespace SAP_Task_List_Maker
                 Thread.Sleep(WaitTime);
 
                 // Enter file path
-                Session.GetFormById("wnd[1]/usr/ctxtDY_PATH").Text = AppDataPath;
+                Session.GetFormById("wnd[1]/usr/ctxtDY_PATH").Text = Global.DocPath;
                 Session.GetFormById("wnd[1]/usr/ctxtDY_FILENAME").Text = TasklistNames.LongText;
                 Session.GetFormById("wnd[1]/tbar[0]/btn[0]").Press();
 
@@ -552,7 +488,7 @@ namespace SAP_Task_List_Maker
                 WinParent.SetStatusProgress("Importing tasklist.....", 0);
 
                 // Import
-                ImportFromExcelFile(AppDataPath, TasklistNames);
+                ImportFromExcelFile(Global.DocPath, TasklistNames);
 
                 // Set status
                 WinParent.SetStatusProgress("", 0);
@@ -598,38 +534,38 @@ namespace SAP_Task_List_Maker
                 return;
             }
             // Check the data files exist
-            if (!System.IO.File.Exists($"{FolderPath}\\{TNames.Header}"))
+            if (!System.IO.File.Exists($"{FolderPath}{TNames.Header}"))
             {
                 MsgBoxs.MsgBox_Error($"Cannot find the header file in location {FolderPath}");
                 return;
             }
 
-            if (!System.IO.File.Exists($"{FolderPath}\\{TNames.Operations}"))
+            if (!System.IO.File.Exists($"{FolderPath}{TNames.Operations}"))
             {
                 MsgBoxs.MsgBox_Error($"Cannot find the operations file in location {FolderPath}");
                 return;
             }
 
-            if (!System.IO.File.Exists($"{FolderPath}\\{TNames.Components}"))
+            if (!System.IO.File.Exists($"{FolderPath}{TNames.Components}"))
             {
                 MsgBoxs.MsgBox_Error($"Cannot find the components file in location {FolderPath}");
                 return;
             }
 
-            if (!System.IO.File.Exists($"{FolderPath}\\{TNames.PRT}"))
+            if (!System.IO.File.Exists($"{FolderPath}{TNames.PRT}"))
             {
                 MsgBoxs.MsgBox_Error($"Cannot find the document attachments file in location {FolderPath}");
                 return;
             }
 
-            if (!System.IO.File.Exists($"{FolderPath}\\{TNames.LongText}"))
+            if (!System.IO.File.Exists($"{FolderPath}{TNames.LongText}"))
             {
                 MsgBoxs.MsgBox_Error($"Cannot find the long texts file in location {FolderPath}");
                 return;
             }
 
             // Import data into memory and application
-            Import = TableManager.ConvertExcelToDataTable($"{FolderPath}\\{TNames.Header}", 0);
+            Import = TableManager.ConvertExcelToDataTable($"{FolderPath}{TNames.Header}", 0);
 
             // Set data
             WinParent.DGVHeader.Rows.Add( new string[] { Import.Rows[0][0].ToString(),
@@ -642,7 +578,7 @@ namespace SAP_Task_List_Maker
             Import.Clear();
 
             // Import operations data
-            Import = TableManager.ConvertExcelToDataTable($"{FolderPath}\\{TNames.Operations}", 0);
+            Import = TableManager.ConvertExcelToDataTable($"{FolderPath}{TNames.Operations}", 0);
 
             for (int i = 0; i < Import.Rows.Count; i++)
             {
@@ -660,7 +596,7 @@ namespace SAP_Task_List_Maker
             // Clear table for next load
             Import.Clear();
 
-            Import = TableManager.ConvertExcelToDataTable($"{FolderPath}\\{TNames.Components}", 0);
+            Import = TableManager.ConvertExcelToDataTable($"{FolderPath}{TNames.Components}", 0);
 
             for (int i = 0; i < Import.Rows.Count; i++)
             {
@@ -684,7 +620,7 @@ namespace SAP_Task_List_Maker
             Import.Clear();
 
             // Import long text data
-            Import = TableManager.ConvertExcelToDataTable($"{FolderPath}\\{TNames.LongText}", 0);
+            Import = TableManager.ConvertExcelToDataTable($"{FolderPath}{TNames.LongText}", 0);
 
             for (int i = 0; i < Import.Rows.Count; i++)
             {

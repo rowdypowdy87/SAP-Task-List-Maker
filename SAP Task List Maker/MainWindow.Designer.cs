@@ -137,6 +137,8 @@
             this.CMeasPositionCol = new SAP_Task_List_Maker.TasklistColumn();
             this.CMeasDescCol = new SAP_Task_List_Maker.TasklistColumn();
             this.CSortOrderCol = new SAP_Task_List_Maker.TasklistColumn();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.CreationModeCHK = new System.Windows.Forms.CheckBox();
             this.MainMenu.SuspendLayout();
             this.MainToolStrip.SuspendLayout();
             this.MainStatus.SuspendLayout();
@@ -158,6 +160,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.DGVPRT)).BeginInit();
             this.CELTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVCEL)).BeginInit();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainMenu
@@ -797,7 +800,7 @@
             // 
             // HeaderTab
             // 
-            this.HeaderTab.Controls.Add(this.DGVHeader);
+            this.HeaderTab.Controls.Add(this.tableLayoutPanel2);
             this.HeaderTab.Location = new System.Drawing.Point(4, 27);
             this.HeaderTab.Name = "HeaderTab";
             this.HeaderTab.Padding = new System.Windows.Forms.Padding(3);
@@ -813,7 +816,7 @@
             this.DGVHeader.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVHeader.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.Gray;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Gray;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
@@ -839,12 +842,12 @@
             this.DGVHeader.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DGVHeader.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.DGVHeader.GridColor = System.Drawing.Color.LightGray;
-            this.DGVHeader.Location = new System.Drawing.Point(3, 3);
+            this.DGVHeader.Location = new System.Drawing.Point(3, 39);
             this.DGVHeader.Name = "DGVHeader";
             this.DGVHeader.RowHeadersVisible = false;
             this.DGVHeader.RowHeadersWidth = 51;
             this.DGVHeader.RowTemplate.Height = 29;
-            this.DGVHeader.Size = new System.Drawing.Size(1132, 914);
+            this.DGVHeader.Size = new System.Drawing.Size(1126, 872);
             this.DGVHeader.TabIndex = 0;
             // 
             // HGroupCol
@@ -1255,6 +1258,35 @@
             this.CSortOrderCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.CSortOrderCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.DGVHeader, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.CreationModeCHK, 0, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.938731F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 96.06127F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1132, 914);
+            this.tableLayoutPanel2.TabIndex = 1;
+            // 
+            // CreationModeCHK
+            // 
+            this.CreationModeCHK.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.CreationModeCHK.AutoSize = true;
+            this.CreationModeCHK.Image = ((System.Drawing.Image)(resources.GetObject("CreationModeCHK.Image")));
+            this.CreationModeCHK.Location = new System.Drawing.Point(3, 7);
+            this.CreationModeCHK.Name = "CreationModeCHK";
+            this.CreationModeCHK.Size = new System.Drawing.Size(135, 22);
+            this.CreationModeCHK.TabIndex = 1;
+            this.CreationModeCHK.Text = "Creation Mode";
+            this.CreationModeCHK.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.CreationModeCHK.UseVisualStyleBackColor = true;
+            this.CreationModeCHK.CheckedChanged += new System.EventHandler(this.CreationModeCHK_CheckedChanged);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -1295,6 +1327,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.DGVPRT)).EndInit();
             this.CELTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGVCEL)).EndInit();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1399,5 +1433,7 @@
         private System.Windows.Forms.ToolStripMenuItem equipmentOnlyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addCELMeasuresToTasklistToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton InputEverythingBtn;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.CheckBox CreationModeCHK;
     }
 }

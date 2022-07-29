@@ -39,12 +39,26 @@ namespace SAP_Task_List_Maker
 
         private void MeasUpBTN_Click(object sender, EventArgs e)
         {
+            int Index = MeasurementsLB.SelectedIndex;
 
+            if (Index > 1)
+            { 
+                int Meas = UpdatedList[Index];
+                UpdatedList.RemoveAt(Index);
+                UpdatedList.Insert(Index-1, Meas);
+            }
         }
 
         private void MeasDownBTN_Click(object sender, EventArgs e)
         {
+            int Index = MeasurementsLB.SelectedIndex;
 
+            if (Index < MeasurementsLB.Items.Count)
+            {
+                int Meas = UpdatedList[Index];
+                UpdatedList.RemoveAt(Index);
+                UpdatedList.Insert(Index + 1, Meas);
+            }
         }
 
         private void DeleteBTN_Click(object sender, EventArgs e)

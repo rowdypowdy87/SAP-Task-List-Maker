@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 
@@ -13,8 +14,9 @@ namespace SAP_Task_List_Maker
         static void Main()
         {
             // Create local data path
-            if (!Directory.Exists(Global.AppDataPath))
-                Directory.CreateDirectory(Global.AppDataPath);
+            Global.CreateContentFolders();
+
+            Debug.Print(Global.DocPath);
 
             // Standard startup
             Application.SetHighDpiMode(HighDpiMode.SystemAware);

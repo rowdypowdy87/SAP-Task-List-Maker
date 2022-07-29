@@ -197,7 +197,27 @@ namespace SAP_Task_List_Maker
                     break;
 
                 default:
-                    base.OnKeyDown(e);
+                    if (CurrentCell != null)
+                    { 
+                        // If cell value is nothing add the key pressed
+                        if (CurrentCell.Value == null)
+                        { 
+                            CurrentCell.Value = e.KeyCode.ToString();
+                            BeginEdit(false);
+                        }
+                        else
+                        {
+                            // Otherwise append and add the key pressed
+                            if (EditingControl == null)
+                            {
+                                BeginEdit(false);
+                                TextBox editor          = (TextBox)EditingControl;
+                                CurrentCell.Value      += e.KeyCode.ToString(); 
+                                editor.SelectionStart   = CurrentCell.Value.ToString().Length+1;
+                            }
+                        }
+                        
+                    }
                     break;
             }  
         }

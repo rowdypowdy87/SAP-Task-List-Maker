@@ -298,5 +298,30 @@ namespace SAP_Task_List_Maker
 
             BringFullTasklist.ShowDialog();
         }
+
+        /// <summary>
+        /// Set creation mode
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CreationModeCHK_CheckedChanged(object sender, EventArgs e)
+        {
+            if(CreationModeCHK.Checked)
+            {
+                DGVBody.AllowUserToAddRows              = true;
+                DGVPRT.AllowUserToAddRows               = true;
+                DGVComponents.AllowUserToAddRows        = true;
+                DGVCEL.AllowUserToAddRows               = true;
+                DGVHeader.AllowUserToAddRows            = true;
+            }
+            else
+            {
+                DGVBody.AllowUserToAddRows              = false;
+                DGVPRT.AllowUserToAddRows               = false;
+                DGVComponents.AllowUserToAddRows        = false;
+                DGVCEL.AllowUserToAddRows               = false;
+                DGVHeader.AllowUserToAddRows            = false;
+            }
+        }
     }
 }
